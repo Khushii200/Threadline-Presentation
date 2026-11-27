@@ -36,8 +36,27 @@ button{font:inherit}
     radial-gradient(circle at 30% 20%,rgba(255,220,170,.35),transparent 60%);
   box-shadow:inset 0 0 0 28px #8A5E36, inset 0 0 0 34px #5E3E22, 0 40px 120px rgba(0,0,0,.6);border-radius:18px}
 #strings{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:3}
-#strings path{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1.3s ease .35s}
+#strings path{fill:none;stroke-width:5;stroke-linecap:round}
 #strings path.sh{stroke:rgba(40,20,5,.28);stroke-width:7;transform:translate(0,6px)}
+#strings path.done{stroke-dasharray:17 7!important;stroke-dashoffset:0!important}
+#strings.top{z-index:7}#strings.wide path.th{stroke-width:22}#strings.wide path.sh{stroke-width:26}
+#strings.wide path.done{stroke-dasharray:48 18!important}
+#strings path.glowp{stroke:#FFD48A;stroke-width:46;opacity:0}
+#strings path.glowp.run{opacity:1;transition:stroke-dashoffset 2.6s linear,opacity .3s}
+.mob #strings path.glowp{stroke-width:9}
+.sewsvg{position:absolute;z-index:3;pointer-events:none;overflow:visible}
+.sewsvg path{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.45,0,.25,1) .12s}
+.sewsvg path.sh{stroke:rgba(40,20,5,.28);stroke-width:7;transform:translate(0,6px)}
+.mob .sewsvg path{stroke-width:4;transition-duration:.9s;transition-delay:0s}.mob .sewsvg path.sh{stroke-width:5;transform:translate(0,4px)}
+.needle{position:absolute;left:0;top:0;z-index:3;width:60px;height:14px;pointer-events:none;opacity:0;
+  offset-rotate:auto;offset-anchor:80% 50%;offset-distance:0%}
+.needle.go{opacity:1;offset-distance:100%;transition:offset-distance 1.2s cubic-bezier(.45,0,.25,1) .12s,opacity .2s}
+.needle svg{display:block;width:100%;height:100%}
+.mob .needle{width:34px;height:8px}
+.mob .needle.go{transition-duration:.9s,.2s;transition-delay:0s,0s}
+.sw .tag{position:absolute;left:22px;bottom:-34px;font:700 30px/1 var(--hand);color:#3B2A1C;background:#F1E0BE;padding:7px 16px 5px 26px;border-radius:4px;
+  transform:rotate(-3deg);box-shadow:0 8px 12px -6px rgba(30,15,0,.55);white-space:nowrap}
+.sw .tag::before{content:"";position:absolute;left:9px;top:50%;width:9px;height:9px;margin-top:-5px;border-radius:50%;background:#8A5E36;box-shadow:inset 0 1px 2px rgba(0,0,0,.4)}
 
 .tape{position:absolute;z-index:2;font:700 54px/1 var(--hand);color:#fff;padding:14px 34px 10px;
   background:var(--c);transform:rotate(-2deg);box-shadow:0 6px 14px rgba(0,0,0,.25)}
@@ -474,7 +493,7 @@ body.mob{background:radial-gradient(120% 90% at 40% 20%,#6B4A2E 0%,#3B2A1C 75%) 
 .mob #board{position:relative;transform:none!important;transition:none;margin:84px 8px 28px;padding:30px 12px 24px;border-radius:14px;
   box-shadow:inset 0 0 0 10px #8A5E36,inset 0 0 0 13px #5E3E22,0 20px 50px rgba(0,0,0,.5)}
 .mob #strings{z-index:3}
-.mob #strings path{stroke-width:4;transition:stroke-dashoffset .9s ease}
+.mob #strings path{stroke-width:4}.mob #strings path.done{stroke-dasharray:12 6!important}
 .mob #strings path.sh{stroke-width:5;transform:translate(0,4px)}
 .mob .tape{position:relative;display:inline-block;font-size:34px;padding:9px 20px 6px;margin:6px 0 26px 4px}
 .mob .pc{position:relative;width:auto;height:auto!important;margin:0 0 40px;padding:28px 18px 22px;border-radius:6px}
@@ -602,6 +621,16 @@ body.mob{background:radial-gradient(120% 90% at 40% 20%,#6B4A2E 0%,#3B2A1C 75%) 
 {
 const isMob=()=>innerWidth<=760||(innerWidth<1024&&innerHeight>innerWidth*1.1);
 const MOB=isMob(); document.body.classList.toggle('mob',MOB); document.documentElement.classList.toggle('mob',MOB);
+const FAB=[
+ [["Dabu · Bagru","dots"],["Sanganeri butti","dots"]],
+ [["Kalamkari · Pedana","ajrakh"],["Khadi check","check"]],
+ [["Ajrakh · Kutch","ajrakh"],["Leheriya · Jaipur","lehar"]],
+ [["Bandhani · Kutch","bandhani"],["Bagh · Madhya Pradesh","dots"]],
+ [["Ikat · Pochampally","ikat"],["Patola · Patan","ajrakh"]],
+ [["Indigo khadi","check"],["Sanganer block print","dots"]],
+ [["Chanderi","lehar"],["Kota doria","check"]],
+ [["Kantha · Bengal","kantha"],["Ilkal · Karnataka","ikat"]],
+];
 const SEC=[["Opening","",75,"#1A3C7B"],["Research","",180,"#895100"],["Objectives and approach","",90,"#0F5D6C"],["Problem","",150,"#C8432A"],["Development","",90,"#6B4E8A"],["Solution","",330,"#1A3C7B"],["Viability","",135,"#2E7D5B"],["Close","",90,"#0C1D3D"]];
 const CH=[
  [0,"Threadline","Title, Group 36, faculty advisor, SME"],
@@ -934,14 +963,25 @@ SEC.forEach((s,si)=>{
   });
   const fy=y+(slot?rowH+GY:0)+40;
   if(fy+320<zy+(si<4?ZH0:ZH1)){ // decor in the free space
-    html+=`<div class="sw" style="left:${zx+150+rnd()*120}px;top:${fy+rnd()*60}px;width:300px;height:220px;transform:rotate(${(rnd()-.5)*10}deg);${swatch(si)}"></div>`;
-    html+=`<div class="sw" style="left:${zx+820+rnd()*120}px;top:${fy+40+rnd()*60}px;width:240px;height:300px;transform:rotate(${(rnd()-.5)*10}deg);${swatch(si+3)}"></div>`;
+    const [f1,f2]=FAB[si];
+    html+=`<div class="sw" style="left:${zx+150+rnd()*120}px;top:${fy+rnd()*60}px;width:300px;height:220px;transform:rotate(${(rnd()-.5)*10}deg);${swatch(f1[1],s[3],false)}"><span class="tag">${esc(f1[0])}</span></div>`;
+    html+=`<div class="sw" style="left:${zx+820+rnd()*120}px;top:${fy+40+rnd()*60}px;width:240px;height:300px;transform:rotate(${(rnd()-.5)*10}deg);${swatch(f2[1],s[3],true)}"><span class="tag">${esc(f2[0])}</span></div>`;
   }
 });
 CH.forEach((c,i)=>{ const f=FILL[c[1]]; if(f&&f.stack) R[i]=R[CH.findIndex(x=>x[1]===f.stack)]; });
-function swatch(k){
-  const P=[["#24407A","#F3E6CF"],["#B5432F","#F6E3C8"],["#F4E7D0","#B5432F"],["#D99A2B","#5A2E1E"],["#0F5D6C","#F6E3C8"],["#E7B7A6","#7A2F2A"],["#F1E2C8","#0F5D6C"]][k%7];
-  return `background-color:${P[0]};background-image:radial-gradient(circle,${P[1]} 0 7px,transparent 8px),radial-gradient(circle,${P[1]} 0 3px,transparent 4px);background-size:44px 44px,22px 22px;background-position:0 0,11px 11px`;
+/* each section's swatches are real Indian textiles, in that section's colour */
+function swatch(kind,col,inv){
+  const cream='#F3E6CF', b=inv?cream:col, m=inv?col:cream;
+  const P={
+    dots:`background-image:radial-gradient(circle,${m} 0 7px,transparent 8px),radial-gradient(circle,${m} 0 3px,transparent 4px);background-size:44px 44px,22px 22px;background-position:0 0,11px 11px`,
+    bandhani:`background-image:radial-gradient(circle,${m} 0 2.5px,transparent 3.5px),radial-gradient(circle,${m} 0 2.5px,transparent 3.5px);background-size:18px 18px;background-position:0 0,9px 9px`,
+    ikat:`background-image:repeating-linear-gradient(90deg,transparent 0 12px,${m}cc 17px 25px,transparent 31px 46px),repeating-linear-gradient(0deg,transparent 0 28px,rgba(0,0,0,.1) 28px 32px)`,
+    check:`background-image:repeating-linear-gradient(0deg,${m}66 0 7px,transparent 7px 30px),repeating-linear-gradient(90deg,${m}66 0 7px,transparent 7px 30px)`,
+    lehar:`background-image:repeating-linear-gradient(45deg,${m} 0 7px,transparent 7px 20px)`,
+    ajrakh:`background-image:radial-gradient(circle,${b} 0 5px,transparent 6px),conic-gradient(from 45deg,${m} 25%,transparent 0 50%,${m} 0 75%,transparent 0);background-size:40px 40px,40px 40px;background-position:20px 20px,0 0`,
+    kantha:`background-image:linear-gradient(0deg,${b} 0 11px,transparent 11px),linear-gradient(90deg,${m} 0 10px,transparent 10px);background-size:18px 14px`
+  };
+  return `background-color:${b};${P[kind]}`;
 }
 html+=`<div class="note" style="left:${zonePos(3)[0]+1160}px;top:${zonePos(3)[1]+40}px;background:#FFE58A;transform:rotate(5deg)">who do I even ask?</div>`;
 html+=`<div class="note" style="left:${zonePos(5)[0]+1160}px;top:${zonePos(5)[1]+40}px;background:#C2E9F4;transform:rotate(-4deg)">same order, take two</div>`;
@@ -969,17 +1009,69 @@ const RW=CH.findIndex(c=>c[1]==="Let's run that order again");
 let mobAnchors=[];
 
 /* the red thread: one segment between each pair of chapters */
-const segs=[];
+const segs=[], NS='http://www.w3.org/2000/svg';
 for(let i=0;i<CH.length-1;i++){
   const a=R[i], b=R[i+1];
   const ax=a.x+a.w/2, ay=a.y+4, bx=b.x+b.w/2, by=b.y+4;
-  const d=Math.hypot(bx-ax,by-ay), mx=(ax+bx)/2, my=Math.max(ay,by)+Math.min(260,40+d*.18);
-  const p=document.createElementNS('http://www.w3.org/2000/svg','path');
-  p.setAttribute('d',`M${ax} ${ay} Q${mx} ${my} ${bx} ${by}`);
+  const dd=Math.hypot(bx-ax,by-ay), mx=(ax+bx)/2, my=Math.max(ay,by)+Math.min(260,40+dd*.18);
+  const d=`M${ax} ${ay} Q${mx} ${my} ${bx} ${by}`;
+  const p=document.createElementNS(NS,'path');
+  p.setAttribute('d',d); p.setAttribute('class','th');
   p.setAttribute('stroke',i+1<RW?'#C8432A':i+1===RW?'#F99C21':'#0F5D6C');
   const sh=p.cloneNode(); sh.setAttribute('class','sh'); sh.removeAttribute('stroke');
   svg.appendChild(sh); svg.appendChild(p);
-  const L=p.getTotalLength(); [p,sh].forEach(x=>{x.style.strokeDasharray=L; x.style.strokeDashoffset=L;}); segs.push({p,sh,L});
+  const seg={p,sh,d,L:1,on:false}; segs.push(seg); segLen(seg);
+}
+/* one long path along the whole thread, used for the glow at the end */
+const glowp=document.createElementNS(NS,'path'); glowp.setAttribute('class','glowp'); svg.appendChild(glowp);
+function buildGlow(){ glowp.setAttribute('d',segs.map(x=>x.d).join(' ')); glowp.style.transition='none'; const T=glowp.getTotalLength()||1; glowp._T=T; glowp.style.strokeDasharray=`900 ${T+1000}`; glowp.style.strokeDashoffset=900; glowp.classList.remove('run'); }
+buildGlow();
+/* a stretch is either hidden, being sewn, or done (then it shows its stitch pattern) */
+function segLen(s){ s.L=s.p.getTotalLength()||1; setSeg(s,s.on); }
+function setSeg(s,on){
+  s.on=on;
+  [s.p,s.sh].forEach(x=>{ x.classList.toggle('done',on); x.style.strokeDasharray=s.L+' '+(s.L+10); x.style.strokeDashoffset=on?0:s.L; });
+}
+const needle=document.createElement('div'); needle.className='needle'; needle.setAttribute('aria-hidden','true');
+needle.innerHTML='<svg viewBox="0 0 60 14"><line x1="4" y1="7" x2="56" y2="7" stroke="#5E6578" stroke-width="5" stroke-linecap="round"/><line x1="4" y1="7" x2="56" y2="7" stroke="#DDE2EA" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="11" cy="7" rx="4" ry="1.4" fill="#5E6578"/></svg>';
+board.appendChild(needle);
+/* the stretch being sewn is drawn in its own small SVG, so the browser only repaints that little area */
+const sewsvg=document.createElementNS(NS,'svg'); sewsvg.setAttribute('class','sewsvg'); sewsvg.setAttribute('aria-hidden','true'); board.appendChild(sewsvg);
+let sewT=0;
+function endSew(){ clearTimeout(sewT); sewsvg.innerHTML=''; sewsvg.style.display='none'; needle.classList.remove('go'); }
+function sew(s){
+  endSew();
+  if(document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){ setSeg(s,true); return; }
+  setSeg(s,false);
+  const bb=s.p.getBBox(), pad=24, x=bb.x-pad, y=bb.y-pad, w=bb.width+pad*2, h=bb.height+pad*2+8;
+  Object.assign(sewsvg.style,{display:'block',left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
+  sewsvg.setAttribute('viewBox',`${x} ${y} ${w} ${h}`);
+  sewsvg.innerHTML=`<path class="sh" d="${s.d}"/><path d="${s.d}" stroke="${s.p.getAttribute('stroke')}"/>`;
+  const ps=[...sewsvg.children]; ps.forEach(q=>{ q.style.strokeDasharray=s.L+' '+(s.L+10); q.style.strokeDashoffset=s.L; });
+  needle.style.offsetPath=`path('${s.d}')`;
+  sewsvg.getBoundingClientRect(); // start the transitions from the hidden state
+  ps.forEach(q=>q.style.strokeDashoffset=0);
+  needle.classList.add('go');
+  sewT=setTimeout(()=>{ setSeg(s,true); endSew(); },MOB?950:1400);
+}
+/* draw the thread up to chapter i; the newest stretch is sewn in when moving forward */
+/* thick thread for the whole-board views; thinning it back waits until the camera has landed,
+   so the browser repaints the big thread layer while nothing is moving */
+let wideT=0;
+function widen(){ clearTimeout(wideT); svg.classList.add('wide','top'); }
+function unwiden(){ if(!svg.classList.contains('wide')) return; clearTimeout(wideT); wideT=setTimeout(()=>{ if(!overview) svg.classList.remove('wide','top'); },1300); }
+function threadTo(i,from){
+  endSew();
+  const fwd=from>=0&&i>from, s=segs[i-1];
+  segs.forEach((x,k)=>{ const on=k<i&&!(fwd&&x===s); if(x.on!==on) setSeg(x,on); });
+  if(fwd&&s) sew(s);
+}
+/* the ending: a warm light runs along the whole thread, first card to last */
+function glowThread(){
+  glowp.style.transition='none'; glowp.classList.remove('run'); glowp.style.strokeDashoffset=900;
+  glowp.getBoundingClientRect();
+  glowp.style.transition=''; glowp.classList.add('run'); glowp.style.strokeDashoffset=-glowp._T;
+  later(()=>{ glowp.classList.remove('run'); },2700);
 }
 
 /* ---------- phones: reflow the board into one scrolling column ---------- */
@@ -1006,11 +1098,10 @@ if(MOB){
         const sw=(k%2?1:-1)*Math.min(150,bw*.42), dy=by-ay;
         d=`M${ax} ${ay} C${ax+sw} ${ay+dy*.5} ${bx-sw} ${by-dy*.35} ${bx} ${by}`;
       }
-      [s.p,s.sh].forEach(x=>x.setAttribute('d',d));
-      s.L=s.p.getTotalLength()||1;
-      [s.p,s.sh].forEach(x=>{ x.style.transition='none'; x.style.strokeDasharray=s.L; x.style.strokeDashoffset=k<active?0:s.L; });
+      s.d=d; [s.p,s.sh].forEach(x=>x.setAttribute('d',d));
+      s.on=k<active; segLen(s);
     });
-    svg.getBoundingClientRect(); segs.forEach(s=>{ s.p.style.transition=''; s.sh.style.transition=''; });
+    buildGlow();
   };
   let tk=0;
   addEventListener('scroll',()=>{ if(tk) return; tk=requestAnimationFrame(()=>{ tk=0;
@@ -1078,17 +1169,21 @@ function go(i,force,fromScroll){
   if(i===active&&!overview&&!force) return;
   const from=active; active=i; overview=false; document.body.classList.add('focus');
   cards.forEach(c=>{ c.classList.toggle('on',c===cardOf[i]); const set=c.dataset.ch.split(' ').map(Number); const cur=set.includes(i)?i:set[0]; c.querySelectorAll('.pg').forEach(pg=>pg.classList.toggle('on',+pg.dataset.p===cur)); });
-  segs.forEach((s,k)=>{const o=k<i?0:s.L; s.p.style.strokeDashoffset=o; s.sh.style.strokeDashoffset=o;});
+  svg.classList.remove('top'); unwiden();
+  threadTo(i,from);
   const s=CH[i][0], first=CH.findIndex(c=>c[0]===s), n=CH.filter(c=>c[0]===s).length;
   secBtns.forEach((b,k)=>{ b.classList.toggle('on',k===s); b.classList.toggle('done',k<s); b.querySelector('i').style.width=k===s?((i-first+1)/n*100)+'%':''; });
   document.getElementById('count').textContent=String(i+1).padStart(2,'0')+' / '+CH.length;
   const phoneOn=!!PH[i];
   if(MOB){
+    if(i===CH.length-1&&from!==i) later(glowThread,900);
     if(!fromScroll&&mobAnchors[i]){ const firstOfSec=CH.findIndex(c=>c[0]===CH[i][0])===i, tape=firstOfSec&&board.querySelector(`.tape[data-s="${CH[i][0]}"]`);
       const y=i===0?0:(tape||mobAnchors[i]).getBoundingClientRect().top+scrollY-(tape?86:110); scrollTo({top:Math.max(0,y),behavior:from<0?'auto':'smooth'}); }
   } else if(i===CH.length-1&&from!==i){ // the payoff: see the whole thread, then land on Naina
-    phone.classList.remove('on'); camAll();
-    timers.forEach(clearTimeout); timers=[]; later(()=>{ if(active===i&&!overview){ camTo(R[i],true); renderPhone(i); } },2600);
+    phone.classList.remove('on'); camAll(); widen();
+    timers.forEach(clearTimeout); timers=[];
+    later(()=>{ if(active===i&&!overview) glowThread(); },1500);
+    later(()=>{ if(active===i&&!overview){ unwiden(); camTo(R[i],true); renderPhone(i); } },1500+2600+900);
   } else { camTo(R[i],phoneOn); renderPhone(i); }
   if(i>0) document.getElementById('hint').style.opacity=0;
   try{ history.replaceState(null,'','#c'+(i+1)); }catch(e){}
@@ -1096,7 +1191,7 @@ function go(i,force,fromScroll){
 function toggleOverview(){
   if(MOB) return;
   if(overview){ go(active,true); return; }
-  overview=true; document.body.classList.remove('focus'); phone.classList.remove('on'); camAll();
+  overview=true; document.body.classList.remove('focus'); phone.classList.remove('on'); camAll(); widen();
 }
 const shelf=document.getElementById('shelf');
 const toggleShelf=on=>shelf.classList.toggle('on',on??!shelf.classList.contains('on'));
