@@ -449,6 +449,11 @@ svg.fin .yl{font:600 18px DM Sans,sans-serif;fill:#3A4664;text-anchor:middle}
 .tk b{display:block;font:400 32px/1.15 var(--hf);color:var(--ink)}.tk span{display:block;margin-top:10px;font-size:21px;line-height:1.4;color:var(--body)}
 .pc.title .tmasc{position:absolute;right:90px;bottom:30px;height:440px;width:auto;filter:drop-shadow(0 10px 8px rgba(30,15,0,.18));pointer-events:none}
 .pc.title .team{position:relative;z-index:1;margin-right:330px}
+.pc.title .team .mem{margin-top:10px;font-size:20px;line-height:1.5;color:var(--body);text-wrap:balance}
+.pc.title .team .mem span{white-space:nowrap}
+.pc.title .team .men{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:10px;font-size:19px;color:var(--ink);font-weight:600}
+.pc.title .team .men i{font-style:normal;font-weight:700;font-size:14px;letter-spacing:.07em;text-transform:uppercase;color:var(--mari-d);margin-right:10px}
+.mob .pc.title .team .mem{font-size:14px}.mob .pc.title .team .men{font-size:14px;gap:4px 16px}.mob .pc.title .team .men i{font-size:11px}
 .pc.title h1{font:400 128px/.95 var(--hf);color:var(--navy);letter-spacing:-.02em}
 .pc.title h1 span{display:block;font:500 40px var(--bf);color:var(--teal);margin-top:18px;letter-spacing:0}
 .pc.title .team{margin-top:auto;font-size:22px;line-height:1.5;color:var(--body);border-top:2px solid var(--line);padding-top:20px}
@@ -1049,7 +1054,7 @@ CH.forEach(([s,t,todo],i)=>{
     return;
   }
   const inner=f?f.html:i===0
-    ? `<h1>Threadline<span>The whisper, written down.</span></h1><img class="tmasc" src="peacock.png" alt="Threadline peacock mascot"><div class="team"><b>FLAME IMP 2026 · Group 36</b></div>`
+    ? `<h1>Threadline<span>The whisper, written down.</span></h1><img class="tmasc" src="peacock.png" alt="Threadline peacock mascot"><div class="team"><b>FLAME IMP 2026 · Group 36</b><p class="mem"><span>Khushii Mehta&nbsp;·</span> <span>Prisha Kumar&nbsp;·</span> <span>Aditya Suri&nbsp;·</span> <span>Alya Tewari&nbsp;·</span> <span>Yash Khanna&nbsp;·</span> <span>Mugdha Nikalje&nbsp;·</span> <span>Krupal Balkrishna</span></p><p class="men"><span><i>Faculty Mentor</i>Sherline Pimenta</span><span><i>SME</i>Poonam Gandhi</span></p></div>`
     : `<div class="lab"><i style="--c:${c}">${esc(SEC[s][0])}</i>${String(i).padStart(2,'0')}</div><h2${t==="Threadline: Know, Find, Make"?' class="withm"':''}>${esc(t)}</h2>${todo?`<div class="todo"><b>To fill</b>${esc(todo)}</div>`:''}${t==="Threadline: Know, Find, Make"?'<img class="masc" src="peacock.png" alt="Threadline peacock mascot">':''}${t==="Live demo"?'<a class="demo" href="https://4yashkhanna.github.io/threadline-prototype/" target="_blank" rel="noopener">Open the prototype <span>↗</span></a>':''}`;
   const fit=!f&&i!==0&&!todo;
   html+=`<article class="pc${i===0?' title':''}${fit?' fit':''}" data-i="${i}" data-ch="${i}" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${fit?'auto':r.h+'px'};transform:rotate(${r.rot}deg)">${inner}</article>`;
