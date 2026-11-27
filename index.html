@@ -364,6 +364,16 @@ svg.fin .yl{font:600 18px DM Sans,sans-serif;fill:#3A4664;text-anchor:middle}
 .risks div{background:#FBEFEA;border-left:6px solid var(--sindoor);border-radius:14px;padding:18px 20px}
 .risks b{display:block;font:400 27px/1.15 var(--hf);color:var(--ink)}.risks span{display:block;margin-top:8px;font-size:18px;line-height:1.4;color:var(--body)}
 .pc.fit h2{margin-bottom:0}
+.nx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch}
+.nx>div{display:flex;flex-direction:column;background:#F7EFE4;border-radius:18px;padding:26px 28px;border-top:8px solid #0C1D3D}
+.nx>div:last-child{border-top-color:var(--mari)}
+.nx .hd2{display:flex;align-items:center;gap:14px}
+.nx b{flex:none;width:58px;height:58px;border-radius:50%;background:#0C1D3D;color:#fff;font:400 30px/58px var(--hf);text-align:center}
+.nx>div:last-child b{background:var(--mari);color:var(--ink)}
+.nx small{font:700 16px var(--bf);letter-spacing:.07em;text-transform:uppercase;color:var(--mari-d)}
+.nx strong{display:block;margin-top:18px;font:400 30px/1.15 var(--hf);color:var(--ink)}
+.nx em{align-self:flex-start;margin-top:auto;padding-top:0;font-style:normal;font-weight:700;font-size:16px;color:#2E7D5B;background:#fff;border-radius:999px;padding:5px 12px}
+.nx strong+em{margin-top:16px}
 .sdg{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .sdg>div{display:flex;gap:22px;align-items:flex-start;background:#F7EFE4;border-radius:18px;padding:24px 26px;border-top:8px solid var(--s)}
 .sdg>div>b{flex:none;width:92px;height:92px;border-radius:14px;background:var(--s);color:#fff;font:400 58px/92px var(--hf);text-align:center}
@@ -583,6 +593,8 @@ body.mob{background:radial-gradient(120% 90% at 40% 20%,#6B4A2E 0%,#3B2A1C 75%) 
 .mob .gate{padding:2px 0}.mob .gate::before{position:static;font-size:34px;transform:rotate(90deg);margin-right:10px}.mob .gate span{margin:0;font-size:13.5px}
 .mob .cash b{font-size:28px}.mob .cash span{font-size:13.5px}
 .mob .watch{padding:16px;margin-bottom:12px}.mob .watch b{font-size:22px}.mob .watch span{font-size:14px}
+.mob .nx{grid-template-columns:1fr;gap:12px}.mob .nx>div{padding:16px}
+.mob .nx b{width:44px;height:44px;font-size:22px;line-height:44px}.mob .nx small{font-size:12px}.mob .nx strong{font-size:19px;margin-top:10px}.mob .nx em{font-size:12px}
 .mob .sdg{grid-template-columns:1fr;gap:12px}.mob .sdg>div{padding:16px;gap:12px;flex-direction:column}.mob .sdg>div>b{width:54px;height:54px;font-size:32px;line-height:54px;border-radius:10px}
 .mob .sdg small{font-size:11px}.mob .sdg strong{font-size:24px}.mob .sdg span{font-size:15px}.mob .sdg em{font-size:11.5px;white-space:normal}
 .mob .risks{grid-template-columns:1fr;gap:10px}.mob .risks div{padding:14px}.mob .risks b{font-size:19px}.mob .risks span{font-size:14px}
@@ -681,7 +693,7 @@ const CH=[
  [6,"What could break it",""],
  [7,"What we can defend, and what we haven't tested","SDGs you can defend; what changed, what is untested, what you did not measure"],
  [7,"What's next","Karigar research, pilot, success measures"],
- [7,"Naina's order, with Threadline","The same order, finished; then questions"],
+ [7,"Naina's order, with Threadline",""],
 ];
 /* phone script: [kind, text, extra]. Stand-in story copy until the real storyboard text goes in */
 const ASIS=[["me","Hi all! Does anyone know a block printer? Need 100 kurtas, I'll give the fabric"],["them","My senior used someone, I'll ask her","Classmate"],["them","Try my cousin's tailor?","Classmate"],["them","Just go to the market and ask around","Senior"]];
@@ -943,6 +955,14 @@ FILL["What we can defend, and what we haven't tested"]={wide:true,h:480,html:`
     <span>Open guides and a failure log teach students how sourcing really works.</span><em>Target 4.4</em></div></div>
    <div style="--s:#FD6925"><b>9</b><div><small>Industry, Innovation and Infrastructure</small><strong>Small makers, seen</strong>
     <span>Verified pages and safe payments bring karigars into the value chain.</span><em>Target 9.3</em></div></div>
+  </div>`};
+FILL["What's next"]={wide:true,h:480,html:`
+  <div class="lab"><i style="--c:#0C1D3D">Close</i>Next steps</div>
+  <h2 class="big one">What's next</h2>
+  <div class="nx">
+   <div><div class="hd2"><b>1</b><small>Listen</small></div><strong>Validate with karigars, designers and colleges</strong></div>
+   <div><div class="hd2"><b>2</b><small>Test</small></div><strong>Ask makers the hard question: why would they share?</strong></div>
+   <div><div class="hd2"><b>3</b><small>Pilot</small></div><strong>A few real orders in Pune</strong><em>Judged on 3+ quotes in 24 hours</em></div>
   </div>`};
 const PH=CH.map(c=>PHONE[c[1]]);
 
