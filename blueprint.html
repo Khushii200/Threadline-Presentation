@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Threadline Service Blueprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0,0&display=block">
+<style>
+:root{
+  /* Threadline v2. Navy structure, teal = Route A (free, AI assistant), marigold = Route B (premium, production manager). Standard five-layer blueprint on a pannable sheet. */
+  color-scheme:light;
+  --cream:#FEF6EE;--paper:#FFF2E3;--sand:#FCE8CF;--beige:#EFE0CF;--tan:#F5E6D5;--line:#E6D8C7;--line2:#D2C4B4;
+  --ink:#0C1D3D;--muted:#3A4664;--soft:#6A7797;--navy:#1A3C7B;--peri:#D9E2FF;--peri2:#B0C6FF;
+  --teal:#0F5D6C;--teal-l:#C2E9F4;--teal-ink:#001F26;--gold:#F99C21;--goldd:#C77700;--brown:#895100;--gold-ink:#2C1700;
+  --open:#FFDCBC;--err:#FFDAD3;--red:#A8341E;
+  --serif:'Young Serif',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'Roboto Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45;overflow:hidden}
+.ms{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:20px;line-height:1;display:inline-block;white-space:nowrap;font-feature-settings:'liga';-webkit-font-smoothing:antialiased;vertical-align:middle;overflow:hidden;max-width:1.2em}
+button,select{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--brown);outline-offset:2px}
+h1,h2,h3{text-wrap:balance}
+.app{display:flex;flex-direction:column;height:100%}
+.top{background:var(--navy);color:var(--cream);display:flex;align-items:center;gap:8px 20px;padding:10px 20px;flex-wrap:wrap;position:relative;z-index:40}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+.brand b{font-family:var(--serif);font-weight:400;font-size:24px;line-height:40px}
+.brand span{font-size:13px;color:var(--peri)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.tab{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 16px;border-radius:999px;border:0;background:transparent;color:var(--peri);font-weight:500;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab:hover{background:rgba(254,246,238,.14)}
+.tab[aria-selected=true]{background:var(--teal-l);color:var(--teal-ink);font-weight:700}
+.meta{font-size:12px;color:var(--peri);font-family:var(--mono)}
+.bar{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;padding:10px 20px;border-bottom:1px solid var(--line);background:var(--paper);position:relative;z-index:30}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;background:var(--cream)}
+.seg button{border:0;background:transparent;min-height:34px;padding:0 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.seg button+button{border-left:1px solid var(--line2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--cream)}
+.seg button[data-route=A][aria-pressed=true]{background:var(--teal);color:#fff}
+.seg button[data-route=B][aria-pressed=true]{background:var(--gold);color:var(--ink)}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;min-height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:var(--cream);white-space:nowrap}
+.chk[aria-pressed=true]{background:var(--teal-l);color:var(--teal-ink);border-color:var(--teal-l)}
+.search{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);border-radius:999px;background:#fff;padding:0 6px 0 12px;min-height:34px}
+.search input{border:0;outline:0;background:transparent;font:inherit;font-size:13px;width:160px;color:var(--ink)}
+.search .cnt{font-family:var(--mono);font-size:11px;color:var(--soft);min-width:38px;text-align:right}
+.zoom{display:inline-flex;align-items:center;gap:2px}
+.ib{border:1px solid var(--line2);background:var(--cream);border-radius:999px;min-width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0 8px;font-size:12px;font-weight:600}
+.ib:hover{background:#fff}
+.zl{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:40px;text-align:center}
+.spacer{flex:1}
+.tourbtn{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 14px;border-radius:999px;border:0;background:var(--ink);color:var(--cream);font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap}
+.tourmenu{position:absolute;right:20px;top:52px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(12,29,61,.16);padding:8px;display:none;z-index:60;min-width:300px}
+.tourmenu.on{display:block}
+.tourmenu button{display:flex;width:100%;text-align:left;gap:10px;align-items:center;border:0;background:transparent;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px}
+.tourmenu button:hover{background:var(--paper)}
+.tourmenu small{display:block;color:var(--soft);font-size:12px}
+.routes{display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;padding:10px 20px;border-bottom:1px solid var(--line);background:var(--cream);position:relative;z-index:25;font-size:13px}
+.rk{display:inline-flex;align-items:center;gap:8px}
+.rk b{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:6px;font-size:12px}
+.rk.A b{background:var(--teal);color:#fff}.rk.B b{background:var(--gold);color:var(--ink)}.rk.S b{background:#fff;border:1px solid var(--line2)}
+.lg{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px}
+.lg i{display:inline-block;width:24px;border-top:2.5px solid;vertical-align:middle}
+.view{display:none;flex:1;min-height:0;position:relative}
+.view.on{display:flex;flex-direction:column}
+.scrollview{overflow:auto;flex:1}
+.vpwrap{position:relative;flex:1;min-height:0}
+.vp{position:absolute;inset:0;overflow:auto;cursor:grab;background:radial-gradient(circle,rgba(26,60,123,.09) 1px,transparent 1.4px) 0 0/22px 22px,var(--cream)}
+.vp.drag{cursor:grabbing;user-select:none}
+.spacerbox{position:relative}
+.board{position:absolute;left:0;top:0;transform-origin:0 0;padding:24px 60px 140px 24px}
+.grid{display:grid;column-gap:0;row-gap:36px;position:relative}
+.ph{grid-row:1;background:var(--navy);color:var(--cream);border-radius:12px;padding:10px 14px;display:flex;align-items:baseline;gap:10px;margin-right:140px}
+.ph b{font-family:var(--serif);font-weight:400;font-size:20px}
+.ph span{font-family:var(--mono);font-size:11px;color:var(--peri2)}
+.sh{grid-row:2;padding:8px 2px 8px;border-bottom:3px solid var(--ink);display:flex;flex-direction:column;gap:2px;margin-right:140px}
+.sh .n{font-family:var(--mono);font-size:11px;color:var(--soft)}
+.sh .t{font-family:var(--serif);font-size:18px;line-height:23px}
+.rh{grid-row:3;display:flex;gap:6px;margin-right:140px}
+.rh span{flex:1;display:flex;align-items:center;justify-content:center;min-height:22px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.3px}
+.rh .A{background:var(--teal);color:#fff}.rh .B{background:var(--gold);color:var(--ink)}.rh .S{background:#fff;border:1px dashed var(--line2);color:var(--muted);font-weight:600}
+.corner{grid-column:1;grid-row:1 / span 3;display:flex;flex-direction:column;justify-content:flex-end;padding:0 16px 6px 0}
+.corner b{font-family:var(--serif);font-weight:400;font-size:24px;line-height:28px}
+.corner span{font-size:12px;color:var(--muted)}
+.lh{grid-column:1;border-radius:12px;padding:12px 14px;background:var(--ink);color:var(--cream);margin-right:24px;display:flex;flex-direction:column;justify-content:center}
+.lh b{font-size:15px;line-height:19px}
+.lh small{font-size:11.5px;color:var(--peri2);line-height:15px;margin-top:3px}
+.lh.ev{background:var(--muted)}
+.line{grid-column:1 / -1;display:flex;align-items:center;height:26px;position:relative}
+.line::before{content:"";position:absolute;left:0;right:140px;top:11px;border-top:2px dashed var(--soft);opacity:.7}
+.line span{position:relative;background:var(--cream);padding:0 10px 0 0;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.slot{display:flex;flex-direction:column;gap:8px;margin-right:140px}
+.cell{position:relative;z-index:1;flex:1;border-radius:12px;padding:9px 11px;font-size:12.5px;line-height:17px;background:#fff;border:1px solid var(--line);cursor:pointer;transition:opacity .15s,box-shadow .15s;display:flex;flex-direction:column;gap:6px}
+.cell:hover{box-shadow:0 4px 12px rgba(12,29,61,.12)}
+.cell .who{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.cell.A{background:#E7F6FA;border-color:#9fd6e6;border-left:5px solid var(--teal)}
+.cell.A .who{color:var(--teal)}
+.cell.B{background:#FFF3E2;border-color:#f6cf98;border-left:5px solid var(--gold)}
+.cell.B .who{color:var(--brown)}
+.cell.S .who{color:var(--soft)}
+.l-ev .cell{background:var(--paper)}
+.l-ev .cell.A{background:#EFF8FA}.l-ev .cell.B{background:#FFF7EC}
+.l-ca .cell.S{border-left:5px solid var(--ink)}
+.phd{font-family:var(--mono);font-size:.94em;background:rgba(249,156,33,.16);border-bottom:1px dashed var(--brown);padding:0 2px;border-radius:2px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto}
+.chip{border:1px solid transparent;border-radius:999px;min-height:22px;padding:0 8px;font-family:var(--mono);font-size:10.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.chip::before{content:"!";font-family:var(--sans);font-weight:800;font-size:10px;width:13px;height:13px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--red);color:#fff}
+.chip.P{background:#FFF0EC;color:var(--ink);border-color:#F2B8AC}
+.chip.O{background:var(--open);color:var(--gold-ink);border-color:#f3b985}
+.chip:hover{filter:brightness(.96)}
+.chip.sel{outline:3px solid var(--ink);outline-offset:1px}
+.cell.sel{box-shadow:0 0 0 3px var(--ink),0 8px 18px rgba(12,29,61,.18);z-index:3}
+.cell.rel{box-shadow:0 0 0 2px var(--red);z-index:2}
+.cell.relc{box-shadow:0 0 0 2px var(--navy);z-index:2}
+.board.focus .cell:not(.sel):not(.rel):not(.relc){opacity:.25}
+.cell.hit{box-shadow:0 0 0 3px var(--gold)}
+.board.searching .cell:not(.hit){opacity:.2}
+.route-A .cell.B,.route-B .cell.A{opacity:.15}
+.route-A .rh .B,.route-B .rh .A{opacity:.3}
+.route-A .w-B,.route-B .w-A{display:none}
+.hide-edges .chips{display:none}
+.lod-mid .cell .txt{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.lod-far .cell .txt,.lod-far .cell .who{display:none}
+.lod-far .cell::after{content:attr(data-gist);font-size:22px;font-weight:600;line-height:28px}
+.lod-far .sh .t{font-size:32px;line-height:38px}
+.lod-far .ph b{font-size:42px}
+.lod-far .lh b{font-size:26px;line-height:30px}.lod-far .lh small{display:none}
+.lod-far .rh span{font-size:18px;min-height:32px}
+.lod-far .chip{font-size:18px;min-height:32px}
+svg.wires,svg.topw{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:4}
+.halo{fill:none;stroke:#FEF6EE;stroke-width:7;stroke-linejoin:round;stroke-linecap:round;opacity:.9}
+.wire{fill:none;stroke-width:2.4;stroke-linejoin:round;transition:opacity .15s}
+.wire.S{stroke:#1A3C7B}.wire.A{stroke:#0F5D6C}.wire.B{stroke:#C77700}
+.wire.flow{stroke-width:3.6}
+.wire.loop{stroke:#895100;stroke-dasharray:2 6;stroke-linecap:round;stroke-width:3}
+.wire.switch{stroke:#C77700;stroke-dasharray:9 5;stroke-width:3}
+.wire.edge{stroke:#A8341E;stroke-dasharray:6 4;stroke-width:2.6}
+.wlab{transition:opacity .15s}
+.wlab rect.bg{fill:#fff;stroke-width:1.4}
+.wlab text{font-family:'DM Sans',system-ui,sans-serif;font-size:10.5px;fill:#0C1D3D}
+.wlab .num{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;fill:#fff}
+.wlab{display:none}
+.show-labs .wlab{display:inline}
+.wlab.hl{display:inline}
+.board.focus .wire:not(.hl),.board.focus .halo:not(.hl){opacity:.07}
+.board.focus .wlab:not(.hl){display:none}
+.board.hovering .wire:not(.hl){opacity:.22}
+.board.hovering .wlab:not(.hl){opacity:.25}
+.wire.hl{opacity:1;stroke-width:3.4}
+.wire.flow.hl{stroke-width:4.4}
+.hide-wires svg .wire:not(.edge),.hide-wires svg .halo,.hide-wires svg .wlab{display:none}
+.lod-far .wlab{display:none !important}
+.ovl-lanes{position:absolute;left:0;top:0;bottom:0;width:30px;pointer-events:none;z-index:20;background:rgba(254,246,238,.96);border-right:1px solid var(--line2);overflow:hidden}
+.ovl-lanes .ol{position:absolute;left:3px;width:24px;border-radius:6px;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ovl-lanes .ol span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-height:100%;padding:4px 0}
+.ovl-steps{position:absolute;left:0;right:0;top:0;height:30px;pointer-events:none;z-index:21;background:rgba(254,246,238,.96);border-bottom:1px solid var(--line2);overflow:hidden}
+.ovl-steps .os{position:absolute;top:4px;height:22px;padding:0 8px;display:flex;align-items:center;border-left:2px solid var(--ink);font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovl-steps .os i{font-style:normal;font-family:var(--mono);color:var(--soft);margin-right:6px}
+.off{display:none !important}
+.sel-pill{display:none;align-items:center;gap:6px;min-height:30px;padding:0 6px 0 12px;border-radius:999px;background:var(--ink);color:var(--cream);font-size:12px;font-weight:600;max-width:420px}
+.sel-pill.on{display:inline-flex}
+.sel-pill small{color:var(--peri2);text-transform:uppercase;letter-spacing:.6px;font-size:10px}
+.sel-pill #selTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sel-pill button{border:0;background:rgba(255,255,255,.14);color:var(--cream);border-radius:50%;width:22px;height:22px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.panel{position:absolute;right:16px;top:16px;bottom:16px;width:390px;max-width:calc(100% - 32px);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 40px rgba(12,29,61,.18);z-index:35;display:none;flex-direction:column;overflow:hidden}
+.panel.on{display:flex}
+.panel header{padding:16px 18px 12px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.panel header .k{font-family:var(--mono);font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.8px}
+.panel header h2{margin:4px 0 0;font-family:var(--serif);font-weight:400;font-size:22px;line-height:28px}
+.panel header button{margin-left:auto;border:0;background:var(--paper);border-radius:50%;width:32px;height:32px;cursor:pointer;flex:none}
+.panel .pb{padding:14px 18px 18px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+.panel h3{margin:4px 0 0;font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:500}
+.panel .box{border-radius:12px;padding:10px 12px;background:var(--paper);font-size:14px}
+.panel .box.A{background:#E7F6FA;border-left:4px solid var(--teal)}
+.panel .box.B{background:#FFF3E2;border-left:4px solid var(--gold)}
+.panel .lk{display:flex;gap:8px;align-items:flex-start;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;font-size:13px}
+.panel .lk:hover{background:var(--paper)}
+.panel .lk .ms{font-size:18px;color:var(--soft)}
+.panel .lk em{font-style:normal;color:var(--soft);font-size:12px;display:block}
+.stpill{display:inline-flex;align-items:center;min-height:22px;padding:0 8px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.stpill.P{background:var(--teal-l);color:var(--teal-ink)}
+.stpill.O{background:var(--open);color:var(--gold-ink)}
+.stpill.A{background:var(--teal);color:#fff}.stpill.B{background:var(--gold);color:var(--ink)}.stpill.S{background:var(--beige);color:var(--muted)}
+.dock{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(680px,calc(100% - 32px));background:var(--ink);color:var(--cream);border-radius:18px;padding:14px 16px;z-index:36;display:none;gap:14px;align-items:center;box-shadow:0 14px 34px rgba(12,29,61,.3)}
+.dock.on{display:flex}
+.dock .tn{font-family:var(--mono);font-size:11px;color:var(--peri2);text-transform:uppercase;letter-spacing:.8px}
+.dock p{margin:2px 0 0;font-size:14px;line-height:20px}
+.dock .db{display:flex;gap:6px;flex:none}
+.dock button{border:1px solid rgba(255,255,255,.25);background:transparent;color:var(--cream);border-radius:999px;min-height:36px;padding:0 12px;cursor:pointer;font-weight:600;font-size:13px}
+.dock button.pri{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.page{max-width:1200px;margin:0 auto;padding:40px 24px 80px;display:flex;flex-direction:column;gap:28px}
+.page h1{margin:0;font-family:var(--serif);font-weight:400;font-size:44px;line-height:52px}
+.page h2{margin:0;font-family:var(--serif);font-weight:400;font-size:26px;line-height:34px}
+.page .lede{margin:0;font-size:17px;color:var(--muted);max-width:820px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.card.A{background:#E7F6FA;border-color:#9fd6e6}
+.card.B{background:#FFF3E2;border-color:#f6cf98}
+.card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.card .big{font-family:var(--mono);font-size:20px;font-weight:500}
+table.t{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+table.t th{background:var(--ink);color:var(--cream);text-align:left;font-weight:600;font-size:12px;letter-spacing:.4px;padding:10px 12px}
+table.t td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+table.t tr.g td{background:var(--paper);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:6px 12px}
+table.t td.A{background:#EFF8FA}
+table.t td.B{background:#FFF7EC}
+table.t tr.same td.A,table.t tr.same td.B{color:var(--soft)}
+table.t .src{font-family:var(--mono);font-size:11px;color:var(--soft);display:block;margin-top:4px}
+table.t tr.click{cursor:pointer}
+table.t tr.click:hover td{background:var(--paper)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.calc .row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.calc .row b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+.note{font-size:12px;color:var(--muted)}
+.kbd{font-family:var(--mono);font-size:12px;background:#fff;border:1px solid var(--line2);border-bottom-width:2px;border-radius:5px;padding:0 5px}
+@media (max-width:760px){.brand span,.meta,.routes .lg{display:none}.top{flex-wrap:nowrap;overflow-x:auto}.tabs{flex-wrap:nowrap}.bar{flex-wrap:nowrap;overflow-x:auto}.bar>*{flex:none}.tourmenu{position:fixed;right:12px;top:120px}.panel{top:auto;height:62%}.dock{flex-direction:column;align-items:stretch}}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;scroll-behavior:auto !important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand"><b>Threadline</b><span>Service blueprint · aggregator · two routes</span></div>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button class="tab" role="tab" data-view="blueprint" aria-selected="true"><span class="ms">view_timeline</span>Blueprint</button>
+      <button class="tab" role="tab" data-view="routes" aria-selected="false"><span class="ms">alt_route</span>Route A vs Route B</button>
+      <button class="tab" role="tab" data-view="edges" aria-selected="false"><span class="ms">warning</span>Edge cases</button>
+      <button class="tab" role="tab" data-view="read" aria-selected="false"><span class="ms">help</span>How to read</button>
+    </nav>
+    <span class="meta">v2 · 21 Nov 2026 · Proposed</span>
+  </header>
+
+  <section class="view on" id="v-blueprint" aria-label="Blueprint">
+    <div class="bar">
+      <div class="seg" role="group" aria-label="Show route">
+        <button data-route="both" aria-pressed="true">Both routes</button>
+        <button data-route="A" aria-pressed="false">Route A only</button>
+        <button data-route="B" aria-pressed="false">Route B only</button>
+      </div>
+      <button class="chk" id="tgWires" aria-pressed="true"><span class="ms">conversion_path</span>Arrows</button>
+      <button class="chk" id="tgLabs" aria-pressed="true"><span class="ms">label</span>Arrow labels</button>
+      <button class="chk" id="tgEdges" aria-pressed="true"><span class="ms">warning</span>Edge cases</button>
+      <label class="search"><span class="ms" style="font-size:18px;color:var(--soft)">search</span><input id="q" type="search" placeholder="Search" aria-label="Search the blueprint"><span class="cnt" id="qc"></span></label>
+      <div class="zoom" aria-label="Zoom">
+        <button class="ib" id="zOut" aria-label="Zoom out"><span class="ms">remove</span></button>
+        <span class="zl" id="zLab">100%</span>
+        <button class="ib" id="zIn" aria-label="Zoom in"><span class="ms">add</span></button>
+        <button class="ib" id="zFit">Fit</button>
+        <button class="ib" id="z100">1:1</button>
+      </div>
+      <span class="sel-pill" id="selPill"><small>Selected</small><span id="selTxt"></span><button id="selClr" aria-label="Clear selection"><span class="ms" style="font-size:16px">close</span></button></span>
+      <span class="spacer"></span>
+      <button class="tourbtn" id="tourBtn" aria-haspopup="true"><span class="ms">route</span>Walk a route</button>
+      <div class="tourmenu" id="tourMenu" role="menu"></div>
+    </div>
+    <div class="routes">
+      <span class="rk A"><b>Route A</b>Free member: AI production assistant and ready-made templates</span>
+      <span class="rk B"><b>Route B</b>Premium member: named human production manager (PM)</span>
+      <span class="rk S"><b>Both</b>Shared step</span>
+      <span class="spacer"></span>
+      <span class="lg"><i style="border-color:var(--navy);border-top-width:4px"></i>Customer journey</span><span class="lg"><i style="border-color:var(--navy)"></i>Shared step</span>
+      <span class="lg"><i style="border-color:var(--teal)"></i>Route A</span>
+      <span class="lg"><i style="border-color:var(--goldd)"></i>Route B</span>
+      <span class="lg"><i style="border-color:var(--brown);border-top-style:dotted"></i>Loop back</span>
+      <span class="lg"><svg width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="#1A3C7B"/><text x="10" y="14" text-anchor="middle" font-size="10" fill="#fff" font-family="Roboto Mono">1</text></svg>order of arrows within a step</span><span class="lg"><span class="chip P" style="cursor:default">E00</span>edge case</span>
+      <span class="lg"><span class="chip O" style="cursor:default">E00</span>open, team decides</span>
+    </div>
+    <div class="vpwrap">
+      <div class="vp" id="vp" tabindex="0" aria-label="Service blueprint canvas">
+        <div class="spacerbox" id="spacer">
+          <div class="board show-labs" id="board">
+            <div class="grid" id="grid"></div>
+            <svg class="wires" id="wires" aria-hidden="true"></svg>
+            <svg class="topw" id="topsvg" aria-hidden="true"></svg>
+          </div>
+        </div>
+      </div>
+      <div class="ovl-lanes off" id="ovlL"></div>
+      <div class="ovl-steps off" id="ovlS"></div>
+      <aside class="panel" id="panel" aria-live="polite"></aside>
+      <div class="dock" id="dock" role="region" aria-label="Route walk">
+        <div style="flex:1;min-width:0"><div class="tn" id="dkN"></div><p id="dkP"></p></div>
+        <div class="db"><button id="dkPrev">Back</button><button class="pri" id="dkNext">Next</button><button id="dkEnd" aria-label="End"><span class="ms" style="font-size:18px">close</span></button></div>
+      </div>
+    </div>
+  </section>
+  <section class="view scrollview" id="v-routes" aria-label="Route A vs Route B"><div class="page" id="routesPage"></div></section>
+  <section class="view scrollview" id="v-edges" aria-label="Edge cases"><div class="page" id="edgesPage"></div></section>
+  <section class="view scrollview" id="v-read" aria-label="How to read"><div class="page" id="readPage"></div></section>
+</div>
+<script>
+/* Threadline service blueprint v2: standard layers, two routes.
+   Route A: free member, self-run with an AI production assistant and ready-made templates.
+   Route B: premium member, a named human production manager (PM).
+   A layer value is a string when both routes share it, or {A, B} when the routes differ. */
+
+const ROUTES = {
+  A: { name: "Route A", who: "Free member", how: "AI production assistant and ready-made templates" },
+  B: { name: "Route B", who: "Premium member", how: "Named human production manager (PM)" }
+};
+
+const LAYERS = [
+  { id: "ev", name: "Physical evidence", sub: "What she sees, holds or receives" },
+  { id: "ca", name: "Customer actions", sub: "What the designer does" },
+  { line: "Line of interaction" },
+  { id: "fs", name: "Frontstage", sub: "What Threadline does in front of her: app, AI assistant, PM, messages" },
+  { line: "Line of visibility" },
+  { id: "bs", name: "Backstage", sub: "Out of her sight: operations, field team, PM work, the maker's work" },
+  { line: "Line of internal interaction" },
+  { id: "sp", name: "Support processes", sub: "Systems and partners: data, payments, logistics, messaging" }
+];
+
+const PHASES = [
+  { n: 1, name: "Join", steps: ["s1", "s2"] },
+  { n: 2, name: "Explore", steps: ["s3", "s4"] },
+  { n: 3, name: "Brief and quote", steps: ["s5", "s6", "s7", "s8"] },
+  { n: 4, name: "Book", steps: ["s9", "s10"] },
+  { n: 5, name: "Make", steps: ["s11", "s12", "s13", "s14"] },
+  { n: 6, name: "Deliver", steps: ["s15", "s16"] },
+  { n: 7, name: "Return", steps: ["s17", "s18", "s19"] }
+];
+
+const STEPS = {
+  s1: { t: "Finds Threadline", c: {
+    ev: "A maker page link in a WhatsApp group, an Instagram reel, a campus or partner poster.",
+    ca: "Opens a maker page a friend shared. Reads who vouched, for what job and at what price band.",
+    fs: "Public maker page with dated vouches and work photos. Phone numbers hidden. One button: Start a brief. No login needed.",
+    bs: "Community manager seeds circles in schools and markets. Makers share their own page links to win work.",
+    sp: "Maker pages, vouch graph, link attribution." } },
+  s2: { t: "Signs up and chooses a plan", c: {
+    ev: { A: "Phone code sign up. Plan page with Free selected.", B: "Phone code sign up. Plan page with Premium, ₹[299 to 499] a month, or a partner trial code." },
+    ca: { A: "Signs up free. Answers five questions from the AI assistant about what she makes.", B: "Signs up for Premium and books an intro call with her production manager." },
+    fs: { A: "AI assistant onboarding chat. Suggests circles and the starter templates for her garments.", B: "Plan page takes payment. A named production manager (PM) calls within [1 working day] to learn her label, budget and calendar." },
+    bs: { A: "Profile and circle graph built. Template set chosen by garment type.", B: "PM assigned by city and category after a capacity check." },
+    sp: { A: "Sign-in code gateway. AI assistant model. Template library.", B: "Sign-in code gateway. Subscription billing. PM roster." } } },
+  s3: { t: "Learns the market", c: {
+    ev: "Threads, market lane guides, trade glossary, fabric library, failure log.",
+    ca: "Reads guides and asks questions, anonymously if she wants. All of it is free on both routes.",
+    fs: "One search across threads and guides. Answers from makers and seniors. Premium also sees city price ranges.",
+    bs: "Community manager makes sure no question waits more than a day. Moderation. Makers answer in their craft.",
+    sp: "Search index. Hindi and English translation. Price range data from completed orders." } },
+  s4: { t: "Discovers and saves makers", c: {
+    ev: "Maker cards with trust level: Listed, Vouched, Verified, Proven. My Book of saved makers.",
+    ca: "Filters by craft, city and minimum. Sees who in her circles vouched. Saves makers to My Book.",
+    fs: "Discover page. Each vouch shows name, job, price band and date. Sponsored slots labelled.",
+    bs: "Field team verifies workshops. Trust levels computed. Vouches from accounts linked to the maker discarded.",
+    sp: "Vouch graph. Verification records. Maps. Maker capacity calendar." } },
+  s5: { t: "Writes the brief", c: {
+    ev: { A: "A brief template for her garment, with an example in every field.", B: "A brief drafted with her PM, with the PM's notes in it." },
+    ca: { A: "Fills the template. Fixes what the AI assistant flags before sending.", B: "Shares references and a target price. The PM turns them into a full spec." },
+    fs: { A: "AI assistant checks measurements, fabric, quantity and date, and suggests a target price from the costing template.", B: "PM call or chat. PM reviews the brief within [4 working hours]." },
+    bs: { A: "Completeness rules run. Costing template prefilled.", B: "PM checks the spec against what local makers can actually do." },
+    sp: "File storage: design files are visible only to makers the brief is sent to. Costing data." } },
+  s6: { t: "Shortlists makers", c: {
+    ev: { A: "Shortlist of up to 3 makers, each saying why it is there.", B: "The PM's shortlist of up to [6] makers, for her approval." },
+    ca: { A: "Picks up to 3 makers from the AI shortlist and sends the brief.", B: "Approves the PM's shortlist. The PM sends the brief." },
+    fs: { A: "AI assistant ranks makers on craft, minimum, capacity, distance and trust, and says which line narrows the search.", B: "PM presents the shortlist with notes, including makers known from the field." },
+    bs: { A: "Matching engine. Makers with an open dispute against her are held back.", B: "PM phones makers to confirm capacity. Off-platform makers invited to claim a page." },
+    sp: "Matching model. Vouch graph. Capacity calendar." } },
+  s7: { t: "Makers quote", c: {
+    ev: { A: "Waiting page: who opened the brief, who asked, who quoted.", B: "PM update: quotes expected by [date]." },
+    ca: { A: "Waits. Answers maker questions in the thread.", B: "Waits. Only questions that need her decision reach her." },
+    fs: { A: "Maker questions arrive translated. The AI assistant drafts replies she can edit.", B: "PM answers routine maker questions and relays the rest." },
+    bs: { A: "Maker quotes on WhatsApp by text or voice. Reminder at 12 h, widened to 2 more makers at 24 h, field team calls at 72 h.", B: "Maker quotes. Brief flagged Priority. PM chases at [12 h]." },
+    sp: "WhatsApp Business messaging. Speech to text and translation. Quote ledger." } },
+  s8: { t: "Compares and chooses", c: {
+    ev: { A: "Quotes side by side with landed cost per piece.", B: "The same table with the PM's recommendation on top." },
+    ca: { A: "Compares like for like and picks a maker.", B: "Reads the PM's recommendation and picks a maker." },
+    fs: { A: "AI assistant marks the lowest landed cost and flags differences from the brief and prices above the city range.", B: "PM negotiates price or date in the thread before recommending." },
+    bs: { A: "Quote versions kept. A sent quote cannot be edited.", B: "PM checks the maker's recent jobs and reliability record." },
+    sp: "Quote ledger. Price range data." } },
+  s9: { t: "Books and pays", c: {
+    ev: "Pay page: maker's quote, pickup, Threadline fee, GST, total. Receipt and tax invoice.",
+    ca: "Pays the full amount into protected payment.",
+    fs: "Checkout by UPI, card or bank. Quote locked 30 minutes. Fee: Route A [FEE %], first order free; Route B [PRO FEE %].",
+    bs: "Payments team opens an escrow record for the order.",
+    sp: "Licensed payment and escrow partner. GST invoicing." } },
+  s10: { t: "Maker confirms", c: {
+    ev: "Order Thread opens with a 24 hour confirmation limit.",
+    ca: "Waits for confirmation. Can cancel for a full refund until then.",
+    fs: "Notification: Confirmed, with dates. First payment release shown on the thread.",
+    bs: "Maker confirms on WhatsApp or the Partner app. Field team calls at 18 h if there is no answer.",
+    sp: "Escrow releases 30 per cent to the maker's verified bank account." } },
+  s11: { t: "Fabric reaches the maker", c: {
+    ev: { A: "Pickup booking and tracking number.", B: "The PM's fabric count sheet with photos." },
+    ca: { A: "Books a pickup and hands over her fabric, or approves maker sourcing.", B: "Hands her fabric to the PM at her door." },
+    fs: { A: "AI pickup checklist: count, label and photograph before handover.", B: "PM counts and photographs the fabric at pickup." },
+    bs: { A: "Maker counts on arrival and posts a photo before cutting.", B: "Maker confirms the PM's count on arrival." },
+    sp: "Logistics partner with cover up to the declared value." } },
+  s12: { t: "Approves the sample", c: {
+    ev: { A: "Sample photos with process notes and an AI checklist.", B: "The PM's sample report with measurements." },
+    ca: { A: "Reviews the photos within 3 days. Approves, or asks for one free revision.", B: "Approves on the PM's report." },
+    fs: { A: "AI assistant compares the photos with the brief and lists points to check.", B: "PM inspects the physical sample at the workshop, or by video." },
+    bs: { A: "Maker makes the sample and posts photos.", B: "Maker makes the sample. PM visit scheduled." },
+    sp: "Photo storage. Escrow releases 30 per cent on approval." } },
+  s13: { t: "Follows production", c: {
+    ev: { A: "Stage photos in the Order Thread and a weekly AI digest.", B: "One weekly summary from the PM." },
+    ca: { A: "Follows updates. Can book ‘Visit this maker’ to learn on site.", B: "Reads the weekly summary." },
+    fs: { A: "AI digest and nudges. A delay post shows the new date and her choices.", B: "PM visits or calls weekly and handles delays first." },
+    bs: { A: "Maker posts stage photos. Silence ladder: nudge on day 4, call on day 5, she is told on day 6.", B: "Maker posts stage photos. PM checks progress against the plan." },
+    sp: "Notifications. Field visit scheduling." } },
+  s14: { t: "Quality check", c: {
+    ev: { A: "Packed photo and final count, checked against the AI checklist.", B: "The PM's QC report with photos and measurements." },
+    ca: { A: "Reviews the packed photo. Can buy a one-off QC visit at [QC FEE].", B: "Reads the QC report." },
+    fs: { A: "AI checklist built from the brief and the approved sample.", B: "PM or inspector checks at the workshop before dispatch." },
+    bs: { A: "Maker checks pieces against the sample and counts them.", B: "Failed pieces go back to the maker before anything ships." },
+    sp: "Inspector network." } },
+  s15: { t: "Receives and inspects", c: {
+    ev: { A: "Tracking number. Inspection screen.", B: "Tracking number. The PM's delivery note." },
+    ca: { A: "Inspects within 3 days. Accepts, or reports faulty pieces with photos.", B: "Accepts on the PM's note. The PM raises any claim." },
+    fs: { A: "Delivery shown in the thread. Problem report flow; silence after 3 days counts as accepted.", B: "Delivery shown in the thread. PM confirms the count on delivery." },
+    bs: { A: "Dispute desk decides in [3 working days] if asked. Maker has 48 h to answer.", B: "PM-run claims decided in [1 working day]." },
+    sp: "Logistics partner. Dispute records." } },
+  s16: { t: "Order closes", c: {
+    ev: "Final receipt. Order marked Closed.",
+    ca: "Sees the order closed and every payment release.",
+    fs: "Order Thread shows all three releases and any refund.",
+    bs: "Payments team closes the escrow record.",
+    sp: "Escrow releases the final 40 per cent, or the undisputed part. Refunds in 5 to 7 days." } },
+  s17: { t: "Vouches", c: {
+    ev: "Vouch card: job, price band, date.",
+    ca: "Vouches for the maker, which spends some of her standing, or leaves private feedback.",
+    fs: "The vouch appears on the maker's page and in her circles. Flagged vouches are sent for review.",
+    bs: "Trust and safety review flagged vouches. The maker can reply once.",
+    sp: "Vouch graph and price range data updated." } },
+  s18: { t: "Reorders", c: {
+    ev: { A: "My Book with the past order and approved sample. Reorder button.", B: "The PM's season plan." },
+    ca: { A: "Reorders in two taps at [REPEAT FEE %].", B: "Plans the next season with her PM and reserves maker capacity." },
+    fs: { A: "AI assistant prefills the reorder from the last order.", B: "PM season planning call." },
+    bs: { A: "Leakage watch: repeat pairs that go quiet on the platform.", B: "PM books capacity with makers." },
+    sp: "Order history. Capacity reservations." } },
+  s19: { t: "Stays, upgrades or renews", c: {
+    ev: { A: "Upgrade card showing what a PM would have saved her.", B: "Monthly cost report." },
+    ca: { A: "Stays free, or upgrades to Premium.", B: "Renews, or downgrades and keeps every record." },
+    fs: { A: "Plan page with the upgrade offer.", B: "PM check-in before each season." },
+    bs: { A: "Upgrade prompt shown only when the saving is clear.", B: "Value report computed for her account." },
+    sp: "Subscription billing." } }
+};
+
+/* Connections: [from, to, label]. Cell id: step.layer, plus .A or .B for a route half.
+   Down = triggers or relies on. Up = the system or a person reaches back to her. */
+const CONN = [
+  // 01 Finds Threadline
+  ["s1.bs", "s1.fs", "maker shares page link"], ["s1.ca", "s1.fs", "opens the page"], ["s1.fs", "s1.sp", "loads vouches"],
+  ["s1.ca", "s2.ca.A", "signs up free"], ["s1.ca", "s2.ca.B", "signs up Premium"],
+  // 02 Signs up and chooses a plan
+  ["s2.ca.A", "s2.fs.A", "answers 5 questions"], ["s2.fs.A", "s2.sp.A", "runs on the AI model"], ["s2.fs.A", "s2.bs.A", "builds her profile"], ["s2.bs.A", "s2.sp.A", "picks templates"], ["s2.bs.A", "s2.fs.A", "suggests circles, templates"],
+  ["s2.ca.B", "s2.fs.B", "subscribes"], ["s2.fs.B", "s2.sp.B", "starts billing"], ["s2.fs.B", "s2.bs.B", "requests a PM"], ["s2.bs.B", "s2.sp.B", "checks PM roster"], ["s2.bs.B", "s2.fs.B", "PM assigned, calls her"],
+  ["s2.ca.A", "s3.ca", "explores"], ["s2.ca.B", "s3.ca", "explores"],
+  // 03 Learns the market
+  ["s3.ca", "s3.fs", "asks, searches"], ["s3.fs", "s3.sp", "searches the index"], ["s3.fs", "s3.bs", "unanswered question routed"], ["s3.bs", "s3.fs", "answered within a day"],
+  ["s3.ca", "s4.ca", "looks for makers"],
+  // 04 Discovers and saves makers
+  ["s4.bs", "s4.sp", "field verification recorded"], ["s4.ca", "s4.fs", "filters, saves to My Book"], ["s4.fs", "s4.sp", "reads trust and capacity"],
+  ["s4.ca", "s5.ca.A", "starts a brief"], ["s4.ca", "s5.ca.B", "starts a brief with her PM"],
+  // 05 Writes the brief
+  ["s5.ca.A", "s5.fs.A", "fills the template"], ["s5.fs.A", "s5.sp", "reads costing data"], ["s5.fs.A", "s5.bs.A", "runs completeness rules"], ["s5.fs.A", "s5.ca.A", "flags gaps, suggests price"], ["s5.bs.A", "s5.sp", "saves the draft"],
+  ["s5.ca.B", "s5.fs.B", "shares references"], ["s5.fs.B", "s5.bs.B", "PM works the spec"], ["s5.bs.B", "s5.fs.B", "spec ready"], ["s5.fs.B", "s5.ca.B", "spec to approve"], ["s5.bs.B", "s5.sp", "saves the brief"],
+  ["s5.ca.A", "s5.ca.B", "buys a PM for this order", "switch"],
+  ["s5.ca.A", "s6.ca.A", "brief ready"], ["s5.ca.B", "s6.ca.B", "brief approved"],
+  // 06 Shortlists makers
+  ["s6.ca.A", "s6.fs.A", "asks for matches"], ["s6.fs.A", "s6.bs.A", "runs matching"], ["s6.bs.A", "s6.sp", "reads graph and capacity"], ["s6.bs.A", "s6.fs.A", "ranked matches"], ["s6.fs.A", "s6.ca.A", "shortlist of 3"],
+  ["s6.bs.B", "s6.sp", "PM checks capacity"], ["s6.bs.B", "s6.fs.B", "makers confirmed by phone"], ["s6.fs.B", "s6.ca.B", "presents shortlist"],
+  ["s6.ca.A", "s7.ca.A", "sends the brief"], ["s6.ca.B", "s7.ca.B", "approves, PM sends"],
+  // 07 Makers quote
+  ["s7.sp", "s7.bs.A", "brief reaches makers"], ["s7.bs.A", "s7.sp", "questions, quotes by WhatsApp"], ["s7.sp", "s7.fs.A", "translated into the thread"], ["s7.fs.A", "s7.ca.A", "questions and quotes"], ["s7.ca.A", "s7.fs.A", "edits AI draft, replies"], ["s7.fs.A", "s7.sp", "reply sent to maker"],
+  ["s7.sp", "s7.bs.B", "Priority brief reaches makers"], ["s7.bs.B", "s7.sp", "questions, quotes by WhatsApp"], ["s7.sp", "s7.fs.B", "reaches her PM"], ["s7.fs.B", "s7.ca.B", "decisions only"],
+  ["s7.ca.A", "s8.ca.A", "quotes in"], ["s7.ca.B", "s8.ca.B", "quotes in"],
+  // 08 Compares and chooses
+  ["s8.ca.A", "s8.fs.A", "compares"], ["s8.fs.A", "s8.bs.A", "reads quote versions"], ["s8.bs.A", "s8.sp", "ledger and city ranges"],
+  ["s8.ca.B", "s8.fs.B", "asks her PM"], ["s8.fs.B", "s8.bs.B", "negotiates with maker"], ["s8.bs.B", "s8.sp", "updates quote ledger"], ["s8.fs.B", "s8.ca.B", "recommendation"],
+  ["s8.ca.A", "s9.ca", "books the maker"], ["s8.ca.B", "s9.ca", "books the maker"],
+  // 09 Books and pays
+  ["s9.ca", "s9.fs", "pays"], ["s9.fs", "s9.sp", "charges through partner"], ["s9.sp", "s9.bs", "payment held: escrow record"],
+  ["s9.ca", "s10.ca", "waits for the maker"],
+  // 10 Maker confirms
+  ["s10.bs", "s10.fs", "maker confirms"], ["s10.fs", "s10.ca", "notifies her"], ["s10.bs", "s10.sp", "release 1 of 3"],
+  ["s10.ca", "s11.ca.A", "sends her fabric"], ["s10.ca", "s11.ca.B", "PM collects fabric"],
+  // 11 Fabric reaches the maker
+  ["s11.ca.A", "s11.fs.A", "books pickup"], ["s11.fs.A", "s11.sp", "courier booked"], ["s11.sp", "s11.bs.A", "delivers fabric"], ["s11.bs.A", "s11.fs.A", "arrival count photo"], ["s11.fs.A", "s11.ca.A", "count shown to her"],
+  ["s11.ca.B", "s11.fs.B", "hands fabric to PM"], ["s11.fs.B", "s11.sp", "ships counted fabric"], ["s11.sp", "s11.bs.B", "delivers fabric"], ["s11.bs.B", "s11.fs.B", "count confirmed"],
+  ["s11.ca.A", "s12.ca.A", "waits for sample"], ["s11.ca.B", "s12.ca.B", "waits for sample"],
+  // 12 Approves the sample
+  ["s12.bs.A", "s12.fs.A", "posts sample photos"], ["s12.fs.A", "s12.ca.A", "photos with AI checklist"], ["s12.ca.A", "s12.fs.A", "approves or revises"], ["s12.fs.A", "s12.sp", "release 2 of 3"],
+  ["s12.bs.B", "s12.fs.B", "sample ready to inspect"], ["s12.fs.B", "s12.ca.B", "sample report"], ["s12.ca.B", "s12.fs.B", "approves"], ["s12.fs.B", "s12.sp", "release 2 of 3"],
+  ["s12.ca.A", "s13.ca.A", "production starts"], ["s12.ca.B", "s13.ca.B", "production starts"],
+  // 13 Follows production
+  ["s13.bs.A", "s13.fs.A", "stage photos"], ["s13.fs.A", "s13.ca.A", "digest and nudges"], ["s13.bs.A", "s13.sp", "silence ladder alerts"],
+  ["s13.fs.B", "s13.sp", "books weekly visit"], ["s13.bs.B", "s13.fs.B", "progress on visit"], ["s13.fs.B", "s13.ca.B", "weekly summary"],
+  ["s13.ca.A", "s14.ca.A", "ready to pack"], ["s13.ca.B", "s14.ca.B", "ready to pack"],
+  // 14 Quality check
+  ["s14.bs.A", "s14.fs.A", "count and packed photo"], ["s14.fs.A", "s14.ca.A", "checklist result"], ["s14.ca.A", "s14.fs.A", "books optional QC visit"], ["s14.fs.A", "s14.sp", "inspector booked"],
+  ["s14.fs.B", "s14.sp", "inspector booked"], ["s14.fs.B", "s14.bs.B", "failed pieces sent back"], ["s14.fs.B", "s14.ca.B", "QC report"],
+  ["s14.ca.A", "s15.ca.A", "dispatched"], ["s14.ca.B", "s15.ca.B", "dispatched"],
+  // 15 Receives and inspects
+  ["s15.sp", "s15.fs.A", "delivered"], ["s15.ca.A", "s15.fs.A", "accepts or reports"], ["s15.fs.A", "s15.bs.A", "report to dispute desk"], ["s15.bs.A", "s15.sp", "decision recorded"],
+  ["s15.sp", "s15.fs.B", "delivered"], ["s15.ca.B", "s15.fs.B", "accepts"], ["s15.fs.B", "s15.bs.B", "PM raises claims"], ["s15.bs.B", "s15.sp", "decision recorded"],
+  ["s15.ca.A", "s16.ca", "accepted"], ["s15.ca.B", "s16.ca", "accepted"],
+  // 16 Order closes
+  ["s16.bs", "s16.sp", "release 3 of 3"], ["s16.sp", "s16.fs", "payout and receipt"], ["s16.fs", "s16.ca", "order closed"],
+  ["s16.ca", "s17.ca", "asked to vouch"],
+  // 17 Vouches
+  ["s17.ca", "s17.fs", "vouches"], ["s17.fs", "s17.sp", "adds vouch to graph"], ["s17.fs", "s17.bs", "flagged ones reviewed"],
+  ["s17.ca", "s18.ca.A", "comes back to reorder"], ["s17.ca", "s18.ca.B", "plans next season"],
+  // 18 Reorders
+  ["s18.ca.A", "s18.fs.A", "reorders"], ["s18.fs.A", "s18.sp", "reads order history"], ["s18.bs.A", "s18.sp", "watches repeat pairs"],
+  ["s18.ca.B", "s18.fs.B", "plans the season"], ["s18.fs.B", "s18.bs.B", "reserve capacity"], ["s18.bs.B", "s18.sp", "reservation saved"],
+  ["s18.ca.A", "s19.ca.A", "end of month"], ["s18.ca.B", "s19.ca.B", "end of month"],
+  // 19 Stays, upgrades or renews
+  ["s19.bs.A", "s19.fs.A", "triggers the offer"], ["s19.fs.A", "s19.ca.A", "upgrade card"], ["s19.ca.A", "s19.fs.A", "upgrades or stays"], ["s19.fs.A", "s19.sp", "billing starts if she upgrades"],
+  ["s19.bs.B", "s19.fs.B", "value report"], ["s19.fs.B", "s19.ca.B", "report and check-in"], ["s19.ca.B", "s19.fs.B", "renews or downgrades"], ["s19.fs.B", "s19.sp", "bills monthly"],
+  // Loops back to earlier steps
+  ["s15.bs.A", "s4.bs", "outcome updates maker reliability", "loop"],
+  ["s15.bs.B", "s4.bs", "outcome updates maker reliability", "loop"],
+  ["s17.sp", "s4.fs", "vouches improve discovery", "loop"],
+  ["s17.sp", "s3.fs", "completed prices feed ranges", "loop"],
+  ["s18.ca.A", "s9.ca", "reorder skips brief and quotes", "loop"],
+  ["s18.ca.B", "s9.ca", "reserved maker, straight to booking", "loop"],
+  ["s19.ca.A", "s5.ca.B", "upgrade: next brief with a PM", "loop"],
+  ["s19.ca.B", "s5.ca.A", "downgrade: next brief with the AI", "loop"]
+];
+
+/* Edge cases. at = the cell where it happens. r = A, B or "" for both routes.
+   a / b = how Route A / Route B handle it when it differs. st: P proposed rule, O open. */
+const EDGES = [
+  { id: "E01", at: "s1.fs", r: "", t: "Maker is not on Threadline yet", trig: "A designer listed the maker before the maker joined.", rule: "Page shows ‘Not yet on Threadline’ with vouches but no booking. The maker claims it with a code sent to their phone.", b: "The PM can bring the maker on board and run the first order.", st: "P" },
+  { id: "E02", at: "s1.ev", r: "", t: "A fake Threadline page is shared", trig: "Someone copies a maker page to collect advances.", rule: "Real pages live only on the Threadline address; a Report page button; the Verified badge links to its record.", loss: "The designer, if she pays outside", st: "O" },
+  { id: "E03", at: "s2.sp.A", r: "", t: "Sign-in code does not arrive", trig: "SMS delay, DND list, weak network.", rule: "Resend after 30 seconds, then a WhatsApp code, then a voice call.", also: ["s2.sp.B"], st: "P" },
+  { id: "E04", at: "s2.ca.A", r: "", t: "One phone shared with family", trig: "Designer or maker uses a family phone.", rule: "Code at every session. Payment details behind a second code.", also: ["s2.ca.B"], st: "P" },
+  { id: "E05", at: "s2.fs.A", r: "A", t: "AI onboarding misreads what she makes", trig: "Vague answers, mixed categories.", rule: "Every AI suggestion is editable. A ‘Talk to a person’ link goes to the community manager.", st: "P" },
+  { id: "E06", at: "s2.ca.B", r: "B", t: "Partner trial code invalid or used up", trig: "Expired cohort or code shared too widely.", rule: "Say which; offer the standard trial; show the partner contact.", st: "P" },
+  { id: "E07", at: "s2.bs.B", r: "B", t: "No PM free in her city or season", trig: "Festive peak, new city.", rule: "Show the wait honestly. Offer Route A for this order with a PM review at the sample stage.", st: "O" },
+  { id: "E08", at: "s2.bs.A", r: "", t: "She lives where Threadline has no makers yet", trig: "Tier two or three city.", rule: "Show makers who ship to her and remote sampling; add her city to the launch list.", b: "The PM can source from other cities and run sampling remotely.", also: ["s2.bs.B"], st: "O" },
+  { id: "E09", at: "s3.fs", r: "", t: "Advice in a thread is out of date", trig: "A vendor moved, a price changed.", rule: "Answers carry dates; anyone can mark ‘no longer true’; guide owners update.", st: "P" },
+  { id: "E10", at: "s3.bs", r: "", t: "A maker advertises inside answers", trig: "Self-promotion.", rule: "A maker may say ‘I do this’ once, tagged as a maker; links held for review.", st: "P" },
+  { id: "E11", at: "s3.bs", r: "", t: "Question unanswered for a day", trig: "Rare craft, quiet circle.", rule: "Community manager answers or tags a maker or senior.", a: "The AI assistant also offers related answers while she waits.", st: "P" },
+  { id: "E12", at: "s3.fs", r: "", t: "Is a price range trust information or a Premium tool?", trig: "The Business Plan says basic trust information stays free, but lists price ranges as paid.", rule: "Team must decide. One option: one free range per craft, full city ranges in Premium.", loss: "Credibility of the free promise", st: "O" },
+  { id: "E13", at: "s4.bs", r: "", t: "Vouches from accounts linked to the maker", trig: "Family, staff or fake accounts vouch.", rule: "Discarded. Repeat attempts lower the maker's trust level.", st: "P" },
+  { id: "E14", at: "s4.fs", r: "", t: "A sponsored maker shows above trusted ones", trig: "The maker bought a boost.", rule: "Sponsored slots labelled and capped. They never change trust level or the order of vouched results.", st: "P" },
+  { id: "E15", at: "s4.sp", r: "", t: "Page shows free capacity but the maker is full", trig: "The maker forgot to update.", rule: "Capacity expires every 14 days unless confirmed. Declines count against reliability.", b: "The PM confirms capacity by phone before shortlisting.", st: "P" },
+  { id: "E16", at: "s4.ca", r: "", t: "No one in her circles has vouched yet", trig: "Cold start: no friends on Threadline.", rule: "Show Verified makers labelled ‘not from your circle’ and join the city circle by default.", b: "The PM suggests makers from field knowledge.", st: "P" },
+  { id: "E17", at: "s5.ca.A", r: "A", t: "She has no tech pack at all", trig: "First collection, no pattern skills.", rule: "The template accepts photos and plain words. The AI assistant offers a pattern maker, or a PM for this one order.", st: "P" },
+  { id: "E18", at: "s5.fs.A", r: "A", t: "The AI suggests a wrong spec or target price", trig: "Thin data, unusual garment.", rule: "Every AI suggestion shows where it came from and needs her confirmation. Reported errors are reviewed.", loss: "The designer, if she sends a wrong spec", st: "P" },
+  { id: "E19", at: "s5.sp", r: "", t: "She worries a maker will copy the design", trig: "Original print or silhouette.", rule: "Files go only to makers sent the brief, watermarked. What Threadline promises beyond that is not decided.", b: "The PM sends files only to makers who accept a confidentiality note [open].", loss: "The designer", st: "O" },
+  { id: "E20", at: "s5.fs.B", r: "B", t: "PM and designer disagree on the spec", trig: "The PM thinks a detail is too costly or risky.", rule: "The designer has the final say. The PM records the risk in the brief.", st: "P" },
+  { id: "E21", at: "s5.ca.A", r: "A", t: "A free member wants a PM for just this order", trig: "The order feels too big to run alone.", rule: "She buys a PM for this project at [MANAGED FEE] (5 to 10 per cent in the Business Plan) and moves to Route B from here.", also: ["s5.ca.B"], st: "O" },
+  { id: "E22", at: "s6.fs.A", r: "", t: "No maker fits the brief", trig: "Rare craft, tight date, low budget.", rule: "Say which line narrows the search; offer to loosen quantity or date; show Verified makers.", a: "Offers a PM for this order.", b: "The PM searches off-platform.", also: ["s6.fs.B"], st: "P" },
+  { id: "E23", at: "s6.fs.A", r: "", t: "Quantity below every maker's minimum", trig: "20 pieces, makers start at 50.", rule: "Show the nearest minimum and the price difference; suggest a trial sample or pooling with other labels.", b: "The PM finds a maker who bends the minimum for a known client.", st: "P" },
+  { id: "E24", at: "s6.ca.A", r: "", t: "Only Listed makers fit (no vouches)", trig: "New category.", rule: "Say so plainly and suggest a sample order first.", b: "The PM visits the maker before she books.", also: ["s6.bs.B"], st: "P" },
+  { id: "E25", at: "s6.bs.A", r: "", t: "A maker in the list has an open dispute with her", trig: "An earlier order is unresolved.", rule: "That maker is held back from her shortlist until it closes.", st: "P" },
+  { id: "E26", at: "s6.bs.B", r: "B", t: "PM favours makers they have a personal tie with", trig: "Conflict of interest, or a kickback.", rule: "PMs declare ties and take nothing from makers. Every PM shortlist also shows the top AI match for comparison.", loss: "The designer, through a worse maker", st: "O" },
+  { id: "E27", at: "s7.bs.A", r: "", t: "One quote, or none, after 24 hours", trig: "Makers are busy or unsure.", rule: "Widen to 2 more makers; after 72 hours with none, a person calls.", b: "The PM calls makers at [12 h].", also: ["s7.bs.B"], st: "P" },
+  { id: "E28", at: "s7.sp", r: "", t: "Maker cannot read English or type", trig: "Many small units and karigars.", rule: "Partner side in Hindi, voice notes both ways, translated with the original kept.", st: "P" },
+  { id: "E29", at: "s7.fs.A", r: "A", t: "AI mistranslates a voice-note quote", trig: "Dialect, noise, numbers spoken quickly.", rule: "The original sits beside the translation. The maker confirms numbers as text before a quote counts.", loss: "The designer, if she books on a wrong price", st: "P" },
+  { id: "E30", at: "s7.ca.A", r: "", t: "They try to deal outside Threadline", trig: "To save the fee.", rule: "Numbers hidden until booking and masked if typed. No penalty, but no payment protection and no vouch for work outside.", b: "The PM is the single contact, so it rarely comes up.", also: ["s7.bs.A"], loss: "Threadline's fee, the designer's protection", st: "O" },
+  { id: "E31", at: "s7.fs.A", r: "", t: "Abusive or harassing message", trig: "Either side.", rule: "Report; the message is hidden; account reviewed. She can prefer women-led units.", b: "The PM takes over the conversation.", also: ["s7.fs.B"], st: "P" },
+  { id: "E32", at: "s8.fs.A", r: "", t: "Maker quotes far above the city range", trig: "Price testing or a misunderstanding.", rule: "Shown to her as above range, never hidden.", b: "The PM negotiates using the range.", st: "P" },
+  { id: "E33", at: "s8.bs.A", r: "", t: "A quote changes after she saw it", trig: "The maker rethinks.", rule: "A sent quote cannot be edited. The maker withdraws it and sends a new one; she sees both.", st: "P" },
+  { id: "E34", at: "s8.fs.A", r: "A", t: "Quotes are not like for like", trig: "Different fabric or finishing assumed.", rule: "Each column flags differences from the brief; she can ask for requotes on the same basis.", st: "P" },
+  { id: "E35", at: "s8.ca.A", r: "", t: "A quote expires while she decides", trig: "Quotes are held 7 days.", rule: "Greyed with a Renew request.", b: "Quotes held [14 days].", also: ["s8.ca.B"], st: "P" },
+  { id: "E36", at: "s8.fs.B", r: "B", t: "PM pushes the maker below a fair price", trig: "Hard negotiation for a Premium client.", rule: "The PM sees a price floor agreed with makers. The maker can decline without penalty.", loss: "The maker", st: "O" },
+  { id: "E37", at: "s9.fs", r: "", t: "Payment fails or times out", trig: "Bank or UPI error.", rule: "No money taken. Quote held 30 minutes. Offer UPI, card or bank transfer.", st: "P" },
+  { id: "E38", at: "s9.sp", r: "", t: "Charged twice", trig: "Retry during a slow confirmation.", rule: "Duplicate detected; second payment refunded in 5 to 7 days; she is told at once.", st: "P" },
+  { id: "E39", at: "s9.sp", r: "", t: "GST number does not match the business", trig: "Typo or wrong entity.", rule: "Invoice issued without GST credit and reissued within the month once fixed.", st: "P" },
+  { id: "E40", at: "s9.fs", r: "", t: "Quote lock ran out on the pay page", trig: "She left the page open.", rule: "Price rechecked with the maker; locked again if unchanged.", st: "P" },
+  { id: "E41", at: "s10.bs", r: "", t: "Maker does not confirm in 24 hours", trig: "Busy or unreachable.", rule: "Field team calls at 18 hours. At 24 she picks the next quote or a full refund.", b: "The PM calls at [6 h].", st: "P" },
+  { id: "E42", at: "s10.bs", r: "", t: "Maker cancels after confirming", trig: "A bigger order came in.", rule: "Release 1 returned to her; counts against the maker's reliability.", a: "She picks the next quote or takes a full refund.", b: "The PM brings a replacement maker within [2 working days].", loss: "The maker", st: "O" },
+  { id: "E43", at: "s10.sp", r: "", t: "Maker has no bank account in their own name", trig: "Uses a relative's account.", rule: "Field team helps set one up at onboarding. Payouts only to the verified name.", st: "P" },
+  { id: "E44", at: "s11.bs.A", r: "", t: "Fabric arrives short or damaged", trig: "Wrong count, stain, tear.", rule: "Counted with a photo before cutting. Work pauses until she replies.", a: "Caught at the maker; she replaces or adjusts the quantity.", b: "Caught at her door, because the PM counts at pickup.", also: ["s11.fs.B"], st: "P" },
+  { id: "E45", at: "s11.ca.A", r: "", t: "She sent the wrong fabric", trig: "Mix-up at her end.", rule: "Maker flags it with a photo; she replaces or adjusts; the clock pauses.", b: "The PM checks fabric against the brief at pickup.", st: "P" },
+  { id: "E46", at: "s11.sp", r: "", t: "Fabric lost in transit", trig: "Courier failure.", rule: "Threadline files the logistics claim. Neither side pays meanwhile.", b: "The PM arranges replacement fabric while the claim runs.", loss: "Partner up to declared value; the rest is open", st: "O" },
+  { id: "E47", at: "s12.ca.A", r: "", t: "Sample rejected twice", trig: "Fit or finish keeps missing.", rule: "One free revision. After a second rejection either side can end the order; the maker keeps release 1 for work done.", b: "The PM inspects before she sees it, so second rejections are rare.", also: ["s12.ca.B"], loss: "The designer (release 1)", st: "O" },
+  { id: "E48", at: "s12.ca.A", r: "", t: "She changes the design after the sample", trig: "New idea, client feedback.", rule: "A change request: the maker requotes the difference and she approves before work continues.", b: "The PM prices the change with the maker first.", st: "P" },
+  { id: "E49", at: "s12.ca.A", r: "A", t: "She does not reply on the sample", trig: "Travelling, busy.", rule: "Reminders on day 2 and 3. A sample never auto-approves. The order pauses after [7 days].", st: "P" },
+  { id: "E50", at: "s12.bs.A", r: "", t: "Fabric spoiled during printing", trig: "Misprint, dye bleed.", rule: "Who pays for the fabric: maker, designer, or shared up to a limit. Needs a rule before launch.", b: "The PM approves a strike-off before the full print, so less fabric is at risk.", also: ["s12.bs.B"], loss: "Open", st: "O" },
+  { id: "E51", at: "s12.fs.A", r: "A", t: "The AI checklist passes a sample with a fit problem", trig: "Photos hide fit issues.", rule: "The checklist is advice; she approves. She can book a one-off sample QC visit.", loss: "The designer", st: "P" },
+  { id: "E52", at: "s13.bs.A", r: "A", t: "Maker goes quiet", trig: "No update for days.", rule: "Nudge on day 4, call on day 5, she is told on day 6 and can wait or cancel the unstarted part.", st: "P" },
+  { id: "E53", at: "s13.bs.A", r: "", t: "Maker posts a delay", trig: "Capacity, power, labour.", rule: "She accepts the new date or cancels what has not started. A second delay goes to Threadline.", b: "The PM checks the reason and proposes a recovery plan.", also: ["s13.fs.B"], st: "P" },
+  { id: "E54", at: "s13.bs.B", r: "", t: "Maker subcontracts without telling her", trig: "An overbooked unit passes work on.", rule: "Makers must name any other unit. Found out, it counts against reliability.", a: "Found only at quality check or delivery.", b: "Found on the PM's visit.", also: ["s14.bs.A"], st: "O" },
+  { id: "E55", at: "s13.sp", r: "", t: "Festival, power cut or labour shortage", trig: "Seasonal shutdowns.", rule: "The fashion calendar warns before booking. Declared early, it does not count against the maker.", b: "The PM plans dates around the calendar at the brief.", st: "P" },
+  { id: "E56", at: "s13.fs.B", r: "B", t: "PM visit missed: PM ill or overloaded", trig: "Peak season.", rule: "Every Premium account has a backup PM. Missed visits are covered by video.", st: "P" },
+  { id: "E57", at: "s14.fs.B", r: "B", t: "QC fails at the workshop", trig: "Pieces off spec.", rule: "The maker fixes them before dispatch; the date moves; she is told.", st: "P" },
+  { id: "E58", at: "s14.bs.A", r: "", t: "Final count short", trig: "Rejects or miscount.", rule: "Ship what passes. Short pieces refunded at the quoted rate or finished later, her choice.", b: "Caught in the PM's QC count before dispatch.", st: "P" },
+  { id: "E59", at: "s14.ca.A", r: "A", t: "She skips QC and faults appear at delivery", trig: "Saving the QC fee.", rule: "The problem report still protects her; only faulty pieces are held.", loss: "Time, and sometimes the designer", st: "P" },
+  { id: "E60", at: "s15.sp", r: "", t: "Parcel lost or damaged in transit", trig: "Courier failure.", rule: "Partner covers up to the declared value; Threadline files the claim; neither side pays meanwhile.", b: "The PM arranges a replacement run if needed.", loss: "Open above declared value", st: "O" },
+  { id: "E61", at: "s15.sp", r: "", t: "Delivered to the wrong address", trig: "Old address on file.", rule: "Address confirmed at dispatch; the partner redelivers.", st: "P" },
+  { id: "E62", at: "s15.ca.A", r: "", t: "Some pieces are faulty", trig: "Stitching, print, size.", rule: "Report within 3 days with photos. Only disputed pieces held. Reprint, refund, or Threadline decides.", a: "She reports; decided in [3 working days].", b: "The PM files it; decided in [1 working day].", also: ["s15.bs.B"], st: "P" },
+  { id: "E63", at: "s15.fs.A", r: "A", t: "She does not inspect", trig: "Busy with her launch.", rule: "Reminder on day 2. Accepted after day 3 and the final payment released.", st: "P" },
+  { id: "E64", at: "s15.bs.A", r: "", t: "She says the maker copied or resold the design", trig: "The same print seen elsewhere.", rule: "Evidence gathered from the thread and files. What Threadline promises beyond that is not decided.", also: ["s5.sp"], loss: "Open", st: "O" },
+  { id: "E65", at: "s15.bs.A", r: "", t: "A good lot is rejected unfairly", trig: "Buyer's remorse, cash crunch.", rule: "Judged against the approved sample. The maker is paid if the lot matches. Repeat unfair claims lower her standing.", b: "The PM's QC report is the evidence; it protects both sides.", loss: "The maker, until decided", st: "O" },
+  { id: "E66", at: "s16.sp", r: "", t: "A refund is late", trig: "Bank delay past 7 days.", rule: "Escalated automatically; she sees the status and a reference number.", st: "P" },
+  { id: "E67", at: "s17.fs", r: "", t: "An unfair or false review", trig: "An angry customer.", rule: "Vouches only after a finished order. The maker replies once. Threadline removes only abuse or proven falsehood.", st: "P" },
+  { id: "E68", at: "s17.bs", r: "", t: "Maker offers a discount for a vouch", trig: "Gaming trust.", rule: "Paid or traded vouches removed; the maker loses the Vouched level.", st: "P" },
+  { id: "E69", at: "s17.ca", r: "", t: "Vouching for a friend's unit with no job done", trig: "Goodwill.", rule: "Vouches only after a finished order through Threadline.", st: "P" },
+  { id: "E70", at: "s18.bs.A", r: "", t: "The repeat order moves to WhatsApp", trig: "They know each other now.", rule: "Reorder is cheaper and protected. No penalty, but no protection and no Proven credit outside.", b: "Season reservations and the lower Premium fee reduce the pull to go direct.", loss: "Threadline's fee", st: "O" },
+  { id: "E71", at: "s18.fs.A", r: "", t: "Maker raised the price for the reorder", trig: "Costs went up.", rule: "The reorder becomes a fresh quote with the old price shown.", b: "The PM negotiates the reorder price.", st: "P" },
+  { id: "E72", at: "s18.fs.A", r: "", t: "The maker has stopped working", trig: "Closed, moved, retired.", rule: "My Book marks them inactive and suggests vouched makers with the same craft.", b: "The PM proposes a replacement with a trial sample.", st: "P" },
+  { id: "E73", at: "s19.ca.B", r: "B", t: "Premium lapses with an order running", trig: "Card expired or cancelled.", rule: "The running order keeps Premium terms and the PM until it closes.", st: "P" },
+  { id: "E74", at: "s19.sp", r: "B", t: "Subscription payment fails", trig: "Card or UPI mandate fails.", rule: "[7 day] grace. Features pause; records never do.", st: "P" },
+  { id: "E75", at: "s19.ca.B", r: "B", t: "A team member leaves the studio", trig: "Staff change.", rule: "The studio keeps makers and records; the person keeps their own vouches and standing.", st: "P" },
+  { id: "E76", at: "s19.fs.B", r: "B", t: "Her PM leaves Threadline", trig: "Staff change.", rule: "The backup PM takes over with a handover note in every open thread.", st: "P" }
+];
+
+const TOURS = [
+  { id: "A", name: "Route A: free member with the AI assistant", stops: [
+    ["s1.ca", "Naina opens a maker page from her batch WhatsApp group and judges the maker by who vouched."],
+    ["s2.ca.A", "She signs up free. The AI assistant asks what she makes and sets up her templates."],
+    ["s3.ca", "All knowledge is free on both routes. Trust is never paywalled."],
+    ["s5.fs.A", "The AI assistant checks her brief and suggests a target price from the costing template."],
+    ["s6.fs.A", "The AI ranks makers and explains each choice. She picks up to 3."],
+    ["s7.fs.A", "Maker questions arrive translated; the AI drafts replies she can edit."],
+    ["s8.fs.A", "The AI marks the lowest landed cost and flags anything off-brief."],
+    ["s9.ca", "Both routes meet at protected payment."],
+    ["s11.ca.A", "She books the pickup herself, with an AI checklist."],
+    ["s12.ca.A", "She judges the sample from photos within 3 days."],
+    ["s14.ca.A", "No workshop QC unless she pays for a visit. The biggest risk gap on Route A."],
+    ["s15.ca.A", "She inspects and reports problems herself."],
+    ["s18.ca.A", "Reorder in two taps, straight to booking."],
+    ["s19.ca.A", "The upgrade card appears only when a PM would have saved her money."]
+  ] },
+  { id: "B", name: "Route B: premium member with a production manager", stops: [
+    ["s2.ca.B", "She subscribes and meets her named production manager."],
+    ["s5.fs.B", "The PM turns her references into a full spec."],
+    ["s6.bs.B", "The PM phones makers and adds ones known from the field."],
+    ["s7.fs.B", "Only decisions reach her; the PM answers routine questions."],
+    ["s8.fs.B", "The PM negotiates before recommending."],
+    ["s11.fs.B", "Fabric counted at her door."],
+    ["s12.fs.B", "The PM inspects the physical sample."],
+    ["s13.fs.B", "One weekly summary; the PM handles delays first."],
+    ["s14.fs.B", "Workshop QC before anything ships."],
+    ["s15.ca.B", "She accepts on the PM's note; claims decided in 1 working day."],
+    ["s18.ca.B", "She plans the season and reserves capacity."],
+    ["s19.ca.B", "A monthly cost report shows what Premium saved."]
+  ] },
+  { id: "F", name: "When things break", stops: [
+    ["E18", "Route A risk: the AI suggests a wrong spec."],
+    ["E26", "Route B risk: a PM favours makers they know."],
+    ["E27", "No quotes: the system widens, then a person calls."],
+    ["E41", "Maker does not confirm: refund or next quote."],
+    ["E44", "Short fabric: caught at the maker on Route A, at her door on Route B."],
+    ["E47", "Sample rejected twice: who keeps release 1 is still open."],
+    ["E50", "Fabric spoiled in printing: the rule that most needs deciding."],
+    ["E62", "Faulty pieces: only those pieces are held."],
+    ["E70", "Leakage to WhatsApp: the platform must stay cheaper and safer."]
+  ] }
+];
+
+const TIERS = [
+  { g: "Know", s: "Threads, guides, glossary, fabric library, failure log", f: "Included", p: "Included", why: "Business Plan rule: the Know layer stays free.", same: true },
+  { g: "Know", s: "City price ranges", f: "[One range per craft]", p: "Full ranges by city and category", why: "Listed as paid in the Business Plan but close to trust information. Open decision E12.", open: true },
+  { g: "Find", s: "Makers, circles and vouches", f: "Included", p: "Included", why: "Vouches are never paywalled.", same: true },
+  { g: "Help", s: "Who helps her run the order", f: "AI production assistant", p: "Named human production manager", why: "The core difference between the two routes." },
+  { g: "Help", s: "Writing the brief", f: "Ready-made templates with AI checks", p: "PM writes the spec with her", why: "Templates scale at no cost; a PM's time does not." },
+  { g: "Help", s: "Shortlist", f: "AI shortlist, up to 3 makers", p: "PM shortlist, up to [6], including off-platform makers", why: "Field knowledge is what a person adds." },
+  { g: "Help", s: "Quotes", f: "Automatic reminders and widening; held 7 days", p: "PM chases at [12 h]; held [14 days]", why: "Premium buys time." },
+  { g: "Help", s: "Comparing quotes", f: "AI comparison with landed cost", p: "PM negotiates and recommends", why: "Negotiation needs a person." },
+  { g: "Make", s: "Fabric handover", f: "She books the pickup", p: "PM collects and counts at her door", why: "Catches shortfalls before they travel." },
+  { g: "Make", s: "Sample", f: "Photo review with AI checklist", p: "PM inspects the physical sample", why: "Photos hide fit problems." },
+  { g: "Make", s: "Quality check", f: "Maker self-check; QC visit at [QC FEE]", p: "Workshop QC included", why: "The largest risk gap on Route A." },
+  { g: "Make", s: "Disputes", f: "Decided in [3 working days]", p: "PM-run, decided in [1 working day]", why: "Same rules, faster help." },
+  { g: "Pay", s: "Protected payment in three releases", f: "Included", p: "Included", why: "Safety is the same for everyone.", same: true },
+  { g: "Pay", s: "Threadline fee per order", f: "[FEE %], first order free, reorders [REPEAT FEE %]", p: "₹[299 to 499] a month plus [PRO FEE %]", why: "Keep the Premium fee discount small (see the arithmetic)." },
+  { g: "Pay", s: "PM for a single order", f: "Buy per project at [MANAGED FEE], 5 to 10 per cent", p: "Included in the plan", why: "Lets a free member try Route B once (E21)." }
+];
+
+const OPEN = [
+  "Does Premium exist at launch, or follow once there are repeat orders?",
+  "How many orders a month can one PM run? This sets the Premium price.",
+  "Are city price ranges free trust information or a Premium tool? (E12)",
+  "Can a free member buy a PM for one order, and at what fee? (E21)",
+  "How do we keep PMs neutral between makers? (E26)",
+  "Who pays for fabric spoiled in printing, and who keeps release 1 after two rejected samples? (E47, E50)",
+  "What Threadline promises on copied designs. (E19, E64)"
+];
+
+</script>
+<script>
+(function () {
+  "use strict";
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const fmt = (s) => esc(s).replace(/\[([^\]]+)\]/g, '<span class="phd">[$1]</span>');
+  const ORDER = PHASES.flatMap((p) => p.steps);
+  const sIdx = {}; ORDER.forEach((s, i) => (sIdx[s] = i));
+  const phaseOf = {}; PHASES.forEach((p) => p.steps.forEach((s) => (phaseOf[s] = p)));
+  const LYR = LAYERS.filter((l) => l.id);
+  const lIdx = {}; LYR.forEach((l, i) => (lIdx[l.id] = i));
+  const layerOf = {}; LYR.forEach((l) => (layerOf[l.id] = l));
+  const edgeById = {}; EDGES.forEach((e) => (edgeById[e.id] = e));
+  const nn = (s) => String(sIdx[s] + 1).padStart(2, "0");
+  const isSplit = (s) => typeof STEPS[s].c.ca === "object";
+  const parse = (id) => { const [s, l, r] = id.split("."); return { s, l, r: r || "" }; };
+  const textOf = (id) => { const p = parse(id), v = STEPS[p.s].c[p.l]; return typeof v === "string" ? v : v[p.r]; };
+  const gist = (t) => { const w = t.replace(/\[|\]/g, "").split(/\s+/); return w.slice(0, 6).join(" ") + (w.length > 6 ? "…" : ""); };
+  const routeName = (r) => (r === "A" ? "Route A · Free · AI assistant" : r === "B" ? "Route B · Premium · Production manager" : "Both routes");
+
+  /* ---------- Build ---------- */
+  const grid = $("#grid"), board = $("#board"), vp = $("#vp"), spacer = $("#spacer"), wires = $("#wires"), topsvg = $("#topsvg");
+  grid.appendChild(wires); grid.appendChild(topsvg);
+  const COLW = 384;
+  grid.style.gridTemplateColumns = `234px repeat(${ORDER.length}, ${COLW}px)`;
+  const cells = {};
+  function chipsFor(id) {
+    return EDGES.filter((e) => e.at === id).map((e) => `<button class="chip ${e.st}" data-edge="${e.id}" title="${esc(e.t)}">${e.id}</button>`).join("");
+  }
+  function cellHTML(id, r) {
+    const who = r === "A" ? "Route A · AI assistant" : r === "B" ? "Route B · Production manager" : "";
+    const t = textOf(id), ch = chipsFor(id);
+    return `<div class="cell ${r || "S"}" tabindex="0" data-id="${id}" data-gist="${esc(gist(t))}">${who ? `<span class="who">${who}</span>` : ""}<div class="txt">${fmt(t)}</div>${ch ? `<div class="chips">${ch}</div>` : ""}</div>`;
+  }
+  function build() {
+    let h = `<div class="corner"><b>Service blueprint</b><span>Threadline as an aggregator, from finding a maker to reordering. ${ORDER.length} steps, two routes, ${EDGES.length} edge cases.</span></div>`;
+    PHASES.forEach((p) => { h += `<div class="ph" style="grid-column:${sIdx[p.steps[0]] + 2} / span ${p.steps.length}"><span>PHASE ${p.n}</span><b>${esc(p.name)}</b></div>`; });
+    ORDER.forEach((s, i) => {
+      h += `<div class="sh" data-step="${s}" style="grid-column:${i + 2}"><span class="n">STEP ${nn(s)}</span><span class="t">${esc(STEPS[s].t)}</span></div>`;
+      h += `<div class="rh" style="grid-column:${i + 2}">${isSplit(s) ? '<span class="A">Route A</span><span class="B">Route B</span>' : '<span class="S">Both routes</span>'}</div>`;
+    });
+    let row = 4;
+    LAYERS.forEach((l) => {
+      if (l.line) { h += `<div class="line" style="grid-row:${row}"><span>${esc(l.line)}</span></div>`; row++; return; }
+      h += `<div class="lh ${l.id}" data-layer="${l.id}" style="grid-row:${row}"><b>${esc(l.name)}</b><small>${esc(l.sub)}</small></div>`;
+      ORDER.forEach((s, i) => {
+        const v = STEPS[s].c[l.id];
+        h += `<div class="slot l-${l.id}" style="grid-row:${row};grid-column:${i + 2}">` +
+          (typeof v === "string" ? cellHTML(`${s}.${l.id}`, "") : cellHTML(`${s}.${l.id}.A`, "A") + cellHTML(`${s}.${l.id}.B`, "B")) + `</div>`;
+      });
+      row++;
+    });
+    grid.insertAdjacentHTML("afterbegin", h);
+    $$(".cell", grid).forEach((el) => (cells[el.dataset.id] = el));
+  }
+
+  /* ---------- Arrows ---------- */
+  const COL = { S: "#1A3C7B", A: "#0F5D6C", B: "#C77700", loop: "#895100", switch: "#C77700", edge: "#A8341E" };
+  let s = 1, wireEls = [];
+  const GAP = 110;
+  function rect(el) {
+    const g = grid.getBoundingClientRect(), r = el.getBoundingClientRect();
+    const x = (r.left - g.left) / s, y = (r.top - g.top) / s, w = r.width / s, h = r.height / s;
+    return { l: x, t: y, r: x + w, b: y + h, w, h, cx: x + w / 2, cy: y + h / 2 };
+  }
+  // number arrows inside each step, per route, in the order they are listed
+  const SEQ = {};
+  (function () {
+    const cnt = {};
+    CONN.forEach((c, i) => {
+      if (c[3]) return;
+      const A = parse(c[0]), B = parse(c[1]);
+      if (A.s !== B.s) return;
+      const key = A.s + (A.r || B.r || "S");
+      cnt[key] = (cnt[key] || 0) + 1; SEQ[i] = cnt[key];
+    });
+  })();
+  function kindOf(c) {
+    const A = parse(c.f), B = parse(c.t);
+    if (c.k) return c.k;
+    if (A.s !== B.s) return "flow";
+    const rt = A.r || B.r || "";
+    const adjacent = Math.abs(lIdx[B.l] - lIdx[A.l]) === 1;
+    if (!rt && adjacent) return "straight";
+    if (rt === "A") return "gutterL";
+    return "gutterR";
+  }
+  function bands() {
+    const out = {};
+    $$(".lh", grid).forEach((x) => { const r = rect(x); out[x.dataset.layer] = { t: r.t, b: r.b }; });
+    return out;
+  }
+  function wrap(t, max) {
+    const w = t.split(" "), lines = []; let cur = "";
+    w.forEach((x) => { if ((cur + " " + x).trim().length > max && cur) { lines.push(cur); cur = x; } else cur = (cur + " " + x).trim(); });
+    if (cur) lines.push(cur); return lines;
+  }
+  function draw() {
+    const W = grid.offsetWidth + 120, H = grid.offsetHeight + 200;
+    [wires, topsvg].forEach((v) => { v.setAttribute("width", W); v.setAttribute("height", H); v.setAttribute("viewBox", `0 0 ${W} ${H}`); });
+    wires.innerHTML = "";
+    const defs = "<defs>" + Object.keys(COL).map((k) => `<marker id="t-${k}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" markerUnits="strokeWidth" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${COL[k]}"/></marker>`).join("") + "</defs>";
+    const list = CONN.map((c, i) => ({ i, f: c[0], t: c[1], lab: c[2], k: c[3] || "" }));
+    if (sel && sel.type === "edge") { const e = edgeById[sel.id]; (e.also || []).forEach((t, j) => list.push({ i: "e" + j, f: e.at, t, lab: "", k: "edge" })); }
+    const R = {}; Object.keys(cells).forEach((id) => (R[id] = rect(cells[id])));
+    const BD = bands();
+    // 1. decide sides, collect ports
+    const ports = {};
+    const addPort = (cell, side, key, other) => { const k = cell + "|" + side; (ports[k] = ports[k] || []).push({ key, other }); };
+    list.forEach((c) => {
+      if (!R[c.f] || !R[c.t]) return;
+      c.kind = c.k === "edge" ? "edge" : kindOf(c);
+      const a = R[c.f], b = R[c.t];
+      const down = lIdx[parse(c.t).l] > lIdx[parse(c.f).l];
+      if (c.kind === "flow" || c.kind === "loop") { c.sa = "R"; c.sb = "L"; }
+      else if (c.kind === "straight") { c.sa = down ? "B" : "T"; c.sb = down ? "T" : "B"; }
+      else if (c.kind === "gutterL" || c.kind === "switch") { c.sa = "L"; c.sb = "L"; }
+      else { c.sa = "R"; c.sb = "R"; }
+      addPort(c.f, c.sa, c.i + "a", c.sa === "L" || c.sa === "R" ? b.cy : b.cx);
+      addPort(c.t, c.sb, c.i + "b", c.sb === "L" || c.sb === "R" ? a.cy : a.cx);
+    });
+    const portPos = {};
+    Object.entries(ports).forEach(([k, arr]) => {
+      const [cell, side] = k.split("|"), r = R[cell];
+      arr.sort((x, y) => x.other - y.other);
+      arr.forEach((p, j) => {
+        const f = (j + 1) / (arr.length + 1);
+        if (side === "L") portPos[p.key] = { x: r.l, y: r.t + Math.max(14, Math.min(r.h - 14, r.h * f)) };
+        else if (side === "R") portPos[p.key] = { x: r.r, y: r.t + Math.max(14, Math.min(r.h - 14, r.h * f)) };
+        else if (side === "T") portPos[p.key] = { x: r.l + r.w * (0.3 + 0.4 * f), y: r.t };
+        else portPos[p.key] = { x: r.l + r.w * (0.3 + 0.4 * f), y: r.b };
+      });
+    });
+    // 2. paths
+    let halos = "", paths = "", labs = "";
+    const placed = [];
+    const collide = (bx) => placed.some((p) => !(bx.x + bx.w < p.x || p.x + p.w < bx.x || bx.y + bx.h < p.y || p.y + p.h < bx.y));
+    let nloop = 0;
+    const slots = {}, pend = [];
+    const loopIdx = {}, cs = {}, ct = {};
+    list.filter((c) => c.kind === "loop").forEach((c) => { const a = parse(c.f).s, b = parse(c.t).s; loopIdx[c.i] = { ks: (cs[a] = (cs[a] || 0) + 1) - 1, kt: (ct[b] = (ct[b] || 0) + 1) - 1 }; });
+    const gutterOff = {};
+    list.forEach((c) => {
+      if (!c.kind) return;
+      const a = R[c.f], b = R[c.t], P = portPos[c.i + "a"], Q = portPos[c.i + "b"];
+      const pr = parse(c.f).r || parse(c.t).r || "";
+      const down = lIdx[parse(c.t).l] > lIdx[parse(c.f).l];
+      const skip = Math.abs(lIdx[parse(c.t).l] - lIdx[parse(c.f).l]) > 1;
+      let d, lx, ly, anchor = "middle", gx;
+      if (c.kind === "flow") {
+        const dx = Math.max(24, (Q.x - P.x) / 2);
+        d = `M${P.x},${P.y} C${P.x + dx},${P.y} ${Q.x - 4 - dx},${Q.y} ${Q.x - 4},${Q.y}`;
+        lx = (P.x + Q.x) / 2; ly = (P.y + Q.y) / 2;
+      } else if (c.kind === "loop") {
+        const ks = loopIdx[c.i].ks, kt = loopIdx[c.i].kt;
+        const yb = grid.offsetHeight + 34 + nloop++ * 18, x1 = P.x + 60 + ks * 10, x2 = Q.x - 80 + kt * 10;
+        d = `M${P.x},${P.y} L${x1},${P.y} L${x1},${yb} L${x2},${yb} L${x2},${Q.y} L${Q.x - 4},${Q.y}`;
+        lx = (x1 + x2) / 2; ly = yb;
+      } else if (c.kind === "switch") {
+        gx = a.l - 40; d = `M${P.x},${P.y} L${gx},${P.y} L${gx},${Q.y} L${Q.x - 4},${Q.y}`; lx = a.l - 55; ly = (P.y + Q.y) / 2; anchor = "middle";
+      } else if (c.kind === "edge") {
+        if (parse(c.f).s === parse(c.t).s) { gx = Math.max(a.r, b.r) + 70; d = `M${P.x},${P.y} L${gx},${P.y} L${gx},${Q.y} L${Q.x + 4},${Q.y}`; }
+        else { const fwd = b.cx > a.cx; d = `M${fwd ? a.r : a.l},${a.cy} C${a.cx + (fwd ? 1 : -1) * 300},${a.cy} ${b.cx + (fwd ? -1 : 1) * 300},${b.cy} ${fwd ? b.l - 4 : b.r + 4},${b.cy}`; }
+      } else if (c.kind === "straight") {
+        const x = (P.x + Q.x) / 2;
+        d = `M${x},${P.y} L${x},${Q.y + (down ? -4 : 4)}`;
+        lx = x; c.gaps = [down ? parse(c.f).l : parse(c.t).l]; c.side = "C";
+      } else {
+        const left = c.kind === "gutterL";
+        const off = (down ? 12 : 26) + (skip ? 26 : 0);
+        gx = left ? Math.min(a.l, b.l) - off : Math.max(a.r, b.r) + off;
+        d = `M${P.x},${P.y} L${gx},${P.y} L${gx},${Q.y} L${Q.x + (left ? -4 : 4)},${Q.y}`;
+        // label sits in the gap next to the target box, beside the gutter
+        const i1 = Math.min(lIdx[parse(c.f).l], lIdx[parse(c.t).l]), i2 = Math.max(lIdx[parse(c.f).l], lIdx[parse(c.t).l]);
+        c.gaps = []; for (let k = i1; k < i2; k++) c.gaps.push(LYR[k].id);
+        c.side = left ? "L" : "R";
+        lx = left ? gx + 6 : gx - 6; anchor = left ? "start" : "end";
+      }
+      const cls = c.kind === "flow" ? `flow ${pr || "S"}` : c.k || pr || "S";
+      const mk = c.k === "loop" ? "loop" : c.k === "switch" ? "switch" : c.k === "edge" ? "edge" : pr || "S";
+      const rc = pr ? ` w-${pr}` : "";
+      const da = `data-i="${c.i}" data-f="${c.f}" data-t="${c.t}"`;
+      halos += `<path class="halo${rc}" ${da} d="${d}"/>`;
+      paths += `<path class="wire ${cls}${rc}" ${da} d="${d}" marker-end="url(#t-${mk})"/>`;
+      if (!c.lab) return;
+      pend.push({ c, lx, ly, anchor, rc, da, col: COL[mk] });
+    });
+    // labels: single-gap arrows first, then long arrows take the emptiest gap they cross
+    pend.sort((x, y) => (x.c.gaps ? x.c.gaps.length : 0) - (y.c.gaps ? y.c.gaps.length : 0));
+    pend.forEach(({ c, lx, ly, anchor, rc, da, col }) => {
+      const num = SEQ[c.i];
+      const lines = wrap(c.lab, c.kind === "flow" ? 15 : c.kind === "switch" ? 12 : c.side === "C" ? 24 : 16);
+      const tw = Math.max(...lines.map((l) => l.length)) * 5.6 + 14 + (num ? 20 : 0), th = lines.length * 12 + 9;
+      let bx;
+      if (c.gaps) {
+        const st = parse(c.f).s;
+        let gap = c.gaps[0], best = Infinity;
+        c.gaps.forEach((g) => { const u = slots[g + "|" + st + "|" + c.side] || 0; if (u < best) { best = u; gap = g; } });
+        const g1 = BD[gap], g2 = BD[LYR[lIdx[gap] + 1].id];
+        const key = gap + "|" + st + "|" + c.side, used = slots[key] || 0;
+        const y = c.side === "R" ? g2.t - 4 - used - th : g1.b + 4 + used;
+        slots[key] = used + th + 3;
+        bx = { x: anchor === "start" ? lx : anchor === "end" ? lx - tw : lx - tw / 2, y, w: tw, h: th };
+      } else {
+        bx = { x: anchor === "start" ? lx : anchor === "end" ? lx - tw : lx - tw / 2, y: ly - th / 2, w: tw, h: th };
+        let tries = 0;
+        while (collide(bx) && tries < 8) { bx.y += th + 3; tries++; }
+      }
+      placed.push(bx);
+      labs += `<g class="wlab${rc}" ${da} transform="translate(${bx.x},${bx.y})"><rect class="bg" width="${tw}" height="${th}" rx="${Math.min(10, th / 2)}" stroke="${col}"/>` +
+        (num ? `<circle cx="11" cy="${th / 2}" r="7.5" fill="${col}"/><text class="num" x="11" y="${th / 2 + 3.5}" text-anchor="middle">${num}</text>` : "") +
+        lines.map((l, j) => `<text x="${(num ? 20 : 0) + (tw - (num ? 20 : 0)) / 2}" y="${14 + j * 12}" text-anchor="middle">${esc(l)}</text>`).join("") + `</g>`;
+    });
+    topsvg.innerHTML = defs + halos + paths + labs;
+    wireEls = $$("[data-i]", topsvg);
+    highlight();
+  }
+
+  /* ---------- Zoom, pan, frozen headers ---------- */
+  function size() { spacer.style.width = board.offsetWidth * s + "px"; spacer.style.height = board.offsetHeight * s + "px"; }
+  function setScale(ns, cx, cy) {
+    ns = Math.max(0.16, Math.min(1.6, ns));
+    if (cx === undefined) { cx = vp.clientWidth / 2; cy = vp.clientHeight / 2; }
+    const X = (vp.scrollLeft + cx) / s, Y = (vp.scrollTop + cy) / s;
+    s = ns; board.style.transform = `scale(${s})`;
+    board.classList.toggle("lod-far", s < 0.5); board.classList.toggle("lod-mid", s >= 0.5 && s < 0.62);
+    size(); vp.scrollLeft = X * s - cx; vp.scrollTop = Y * s - cy;
+    $("#zLab").textContent = Math.round(s * 100) + "%"; overlays();
+  }
+  const fit = () => { setScale(Math.min(vp.clientWidth / board.offsetWidth, vp.clientHeight / board.offsetHeight), 0, 0); vp.scrollTo(0, 0); };
+  $("#zIn").onclick = () => setScale(s * 1.2);
+  $("#zOut").onclick = () => setScale(s / 1.2);
+  $("#zFit").onclick = fit;
+  $("#z100").onclick = () => setScale(1);
+  vp.addEventListener("wheel", (e) => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); const r = vp.getBoundingClientRect(); setScale(s * Math.exp(-e.deltaY * 0.0018), e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+  let drag = null;
+  vp.addEventListener("pointerdown", (e) => { if (e.button !== 0 || e.target.closest(".cell,.chip,button,input")) return; drag = { x: e.clientX, y: e.clientY, l: vp.scrollLeft, t: vp.scrollTop, m: false }; vp.setPointerCapture(e.pointerId); vp.classList.add("drag"); });
+  vp.addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.m = true; vp.scrollLeft = drag.l - dx; vp.scrollTop = drag.t - dy; });
+  vp.addEventListener("pointerup", () => { if (!drag) return; const m = drag.m; drag = null; vp.classList.remove("drag"); if (!m && sel && !tour) setSel(null); });
+  vp.addEventListener("pointercancel", () => { drag = null; vp.classList.remove("drag"); });
+  vp.addEventListener("scroll", () => overlays(), { passive: true });
+  const ovL = $("#ovlL"), ovS = $("#ovlS");
+  function buildOverlays() {
+    ovL.innerHTML = $$(".lh", grid).map((x) => `<div class="ol" data-layer="${x.dataset.layer}"><span>${esc(layerOf[x.dataset.layer].name)}</span></div>`).join("");
+    ovS.innerHTML = $$(".sh", grid).map((x) => `<div class="os" data-step="${x.dataset.step}"><i>${nn(x.dataset.step)}</i>${esc(STEPS[x.dataset.step].t)}</div>`).join("");
+  }
+  function overlays() {
+    const gx = grid.offsetLeft + board.offsetLeft, gy = grid.offsetTop + board.offsetTop;
+    const lh0 = $(".lh", grid), sh0 = $(".sh", grid);
+    const showL = vp.scrollLeft > (gx + lh0.offsetWidth) * s && s >= 0.28;
+    ovL.classList.toggle("off", !showL);
+    if (showL) $$(".ol", ovL).forEach((o) => { const x = $(`.lh[data-layer="${o.dataset.layer}"]`, grid); const y = (gy + x.offsetTop) * s - vp.scrollTop; o.style.top = y + "px"; o.style.height = x.offsetHeight * s + "px"; });
+    const showS = vp.scrollTop > (gy + sh0.offsetTop + sh0.offsetHeight + 30) * s && s >= 0.28;
+    ovS.classList.toggle("off", !showS);
+    if (showS) $$(".os", ovS).forEach((o) => { const x = $(`.sh[data-step="${o.dataset.step}"]`, grid); const l = (gx + x.offsetLeft) * s - vp.scrollLeft; o.style.left = l + "px"; o.style.width = (x.offsetWidth) * s + "px"; });
+  }
+
+  /* ---------- Selection ---------- */
+  let sel = null, tour = null, ti = 0;
+  const panel = $("#panel");
+  const cellName = (id) => { const p = parse(id); return `${nn(p.s)} ${STEPS[p.s].t} · ${layerOf[p.l].name}${p.r ? " · Route " + p.r : ""}`; };
+  function highlight() {
+    $$(".sel,.rel,.relc", grid).forEach((e) => e.classList.remove("sel", "rel", "relc"));
+    wireEls.forEach((w) => w.classList.remove("hl"));
+    board.classList.toggle("focus", !!sel); board.classList.remove("hovering");
+    if (!sel) return;
+    if (sel.type === "cell") {
+      cells[sel.id].classList.add("sel");
+      wireEls.forEach((w) => { if (w.dataset.f === sel.id || w.dataset.t === sel.id) { w.classList.add("hl"); const o = w.dataset.f === sel.id ? w.dataset.t : w.dataset.f; cells[o] && cells[o].classList.add("relc"); } });
+    } else {
+      const e = edgeById[sel.id];
+      cells[e.at].classList.add("sel");
+      (e.also || []).forEach((c) => cells[c].classList.add("rel"));
+      const chip = $(`.chip[data-edge="${e.id}"]`, grid); chip && chip.classList.add("sel");
+      wireEls.forEach((w) => { if (w.classList.contains("edge")) w.classList.add("hl"); });
+    }
+  }
+  const lk = (id, note, icon) => {
+    const isE = /^E\d/.test(id);
+    return `<button class="lk" data-go="${id}"><span class="ms">${icon || (isE ? "warning" : "arrow_forward")}</span><span>${isE ? `${id} ${esc(edgeById[id].t)}` : esc(cellName(id))}${note ? `<em>${esc(note)}</em>` : ""}</span></button>`;
+  };
+  function renderPanel() {
+    if (!sel) { panel.classList.remove("on"); return; }
+    let h;
+    if (sel.type === "cell") {
+      const p = parse(sel.id), P = phaseOf[p.s];
+      h = `<header><div><div class="k">Phase ${P.n} ${esc(P.name)} · Step ${nn(p.s)} · ${esc(layerOf[p.l].name)}</div><h2>${esc(STEPS[p.s].t)}</h2></div><button id="pX" aria-label="Close"><span class="ms">close</span></button></header><div class="pb">`;
+      h += `<div><span class="stpill ${p.r || "S"}">${esc(routeName(p.r))}</span></div><div class="box ${p.r}">${fmt(textOf(sel.id))}</div>`;
+      if (p.r) { const o = p.r === "A" ? "B" : "A"; h += `<h3>Same layer on Route ${o}</h3><div class="box ${o}">${fmt(textOf(`${p.s}.${p.l}.${o}`))}</div>`; }
+      const ins = CONN.filter((c) => c[1] === sel.id), outs = CONN.filter((c) => c[0] === sel.id);
+      if (ins.length || outs.length) {
+        h += `<h3>Arrows</h3><div style="display:flex;flex-direction:column;gap:6px">`;
+        ins.forEach((c) => (h += lk(c[0], "comes from here: " + c[2], "arrow_back")));
+        outs.forEach((c) => (h += lk(c[1], "leads to: " + c[2], "arrow_forward")));
+        h += `</div>`;
+      } else h += `<p class="note" style="margin:0">Physical evidence is what she sees at this step; it has no arrows in a standard blueprint.</p>`;
+      const es = EDGES.filter((e) => e.at === sel.id || (e.also || []).includes(sel.id));
+      if (es.length) h += `<h3>Edge cases here</h3><div style="display:flex;flex-direction:column;gap:6px">${es.map((e) => lk(e.id, (e.r ? "Route " + e.r + " only · " : "") + (e.st === "O" ? "Open" : "Proposed rule"))).join("")}</div>`;
+      const i = sIdx[p.s], nb = (j) => { const st = ORDER[j]; const v = STEPS[st].c[p.l]; return typeof v === "string" ? `${st}.${p.l}` : `${st}.${p.l}.${p.r || "A"}`; };
+      h += `<div style="display:flex;gap:8px">${i > 0 ? `<button class="lk" data-go="${nb(i - 1)}"><span class="ms">chevron_left</span><span>Previous step</span></button>` : ""}${i < ORDER.length - 1 ? `<button class="lk" data-go="${nb(i + 1)}"><span class="ms">chevron_right</span><span>Next step</span></button>` : ""}</div>`;
+    } else {
+      const e = edgeById[sel.id], p = parse(e.at), P = phaseOf[p.s];
+      h = `<header><div><div class="k">${e.id} · Phase ${P.n} · Step ${nn(p.s)} ${esc(STEPS[p.s].t)}</div><h2>${esc(e.t)}</h2></div><button id="pX" aria-label="Close"><span class="ms">close</span></button></header><div class="pb">`;
+      h += `<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="stpill ${e.r || "S"}">${e.r ? "Route " + e.r + " only" : "Both routes"}</span><span class="stpill ${e.st}">${e.st === "O" ? "Open: team decides" : "Rule proposed"}</span></div>`;
+      h += `<h3>What triggers it</h3><div class="box">${fmt(e.trig)}</div><h3>Rule</h3><div class="box">${fmt(e.rule)}</div>`;
+      h += `<h3>Route A · AI assistant</h3><div class="box A">${fmt(e.r === "B" ? "Does not apply." : e.a || "Same rule.")}</div>`;
+      h += `<h3>Route B · Production manager</h3><div class="box B">${fmt(e.r === "A" ? "Does not apply." : e.b || "Same rule.")}</div>`;
+      h += `<h3>Who bears the loss</h3><div class="box">${fmt(e.loss || "No one, if the rule holds.")}</div>`;
+      h += `<h3>Where it shows up</h3><div style="display:flex;flex-direction:column;gap:6px">${[e.at].concat(e.also || []).map((c) => lk(c)).join("")}</div>`;
+    }
+    panel.innerHTML = h + `</div>`; panel.classList.add("on");
+    $("#pX").onclick = () => setSel(null);
+    $$("[data-go]", panel).forEach((b) => (b.onclick = () => go(b.dataset.go)));
+  }
+  function setSel(n) {
+    const redraw = (sel && sel.type === "edge") || (n && n.type === "edge");
+    sel = n;
+    $("#selPill").classList.toggle("on", !!sel);
+    if (sel) $("#selTxt").textContent = sel.type === "edge" ? `${sel.id} ${edgeById[sel.id].t}` : cellName(sel.id);
+    redraw ? draw() : highlight();
+    renderPanel();
+  }
+  function go(id, center = true) {
+    if (/^E\d/.test(id)) { if (!showEdges) toggleEdges(true); setSel({ type: "edge", id }); center && centerOn(cells[edgeById[id].at]); }
+    else { setSel({ type: "cell", id }); center && centerOn(cells[id]); }
+  }
+  function centerOn(el) {
+    if (!el) return;
+    if (s < 0.6) setScale(0.8);
+    const r = rect(el), gx = grid.offsetLeft + board.offsetLeft, gy = grid.offsetTop + board.offsetTop;
+    const pw = panel.classList.contains("on") && vp.clientWidth > 900 ? 410 : 0;
+    vp.scrollTo({ left: Math.max(0, (gx + r.cx) * s - (vp.clientWidth - pw) / 2), top: Math.max(0, (gy + r.cy) * s - vp.clientHeight / 2), behavior: "smooth" });
+  }
+  $("#selClr").onclick = () => setSel(null);
+  grid.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (chip) { e.stopPropagation(); go(chip.dataset.edge, false); return; }
+    const c = e.target.closest(".cell"); if (c) go(c.dataset.id, false);
+  });
+  let hov = null;
+  grid.addEventListener("mouseover", (e) => {
+    const c = e.target.closest(".cell"); const id = c ? c.dataset.id : null;
+    if (id === hov || sel) return; hov = id;
+    wireEls.forEach((w) => w.classList.toggle("hl", !!id && (w.dataset.f === id || w.dataset.t === id)));
+    board.classList.toggle("hovering", !!id);
+  });
+  grid.addEventListener("mouseleave", () => { if (sel) return; hov = null; wireEls.forEach((w) => w.classList.remove("hl")); board.classList.remove("hovering"); });
+  grid.addEventListener("keydown", (e) => { const c = e.target.closest(".cell"); if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); go(c.dataset.id, false); } });
+
+  /* ---------- Toggles, search ---------- */
+  let showEdges = true;
+  const setRoute = (r) => { $$(".seg [data-route]").forEach((x) => x.setAttribute("aria-pressed", x.dataset.route === r)); board.classList.toggle("route-A", r === "A"); board.classList.toggle("route-B", r === "B"); };
+  $$(".seg [data-route]").forEach((b) => (b.onclick = () => setRoute(b.dataset.route)));
+  const relayout = () => requestAnimationFrame(() => { draw(); size(); overlays(); });
+  function toggleEdges(v) { showEdges = v === undefined ? !showEdges : v; $("#tgEdges").setAttribute("aria-pressed", showEdges); board.classList.toggle("hide-edges", !showEdges); if (!showEdges && sel && sel.type === "edge") setSel(null); relayout(); }
+  $("#tgEdges").onclick = () => toggleEdges();
+  $("#tgWires").onclick = () => { const b = $("#tgWires"), v = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", v); board.classList.toggle("hide-wires", !v); };
+  $("#tgLabs").onclick = () => { const b = $("#tgLabs"), v = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", v); board.classList.toggle("show-labs", v); };
+  let hits = [], hi = -1;
+  function search(q) {
+    q = q.trim().toLowerCase(); $$(".hit", grid).forEach((x) => x.classList.remove("hit")); hits = []; hi = -1;
+    board.classList.toggle("searching", !!q);
+    if (!q) { $("#qc").textContent = ""; return; }
+    Object.keys(cells).forEach((id) => {
+      const extra = EDGES.filter((e) => e.at === id).map((e) => e.id + " " + e.t + " " + e.rule).join(" ");
+      if ((textOf(id) + " " + STEPS[parse(id).s].t + " " + extra).toLowerCase().includes(q)) { cells[id].classList.add("hit"); hits.push(cells[id]); }
+    });
+    $("#qc").textContent = hits.length ? hits.length + (hits.length > 1 ? " hits" : " hit") : "none";
+  }
+  $("#q").addEventListener("input", (e) => search(e.target.value));
+  $("#q").addEventListener("keydown", (e) => { if (e.key === "Enter" && hits.length) { hi = (hi + 1) % hits.length; centerOn(hits[hi]); $("#qc").textContent = `${hi + 1} / ${hits.length}`; } if (e.key === "Escape") { e.target.value = ""; search(""); } });
+
+  /* ---------- Route walks ---------- */
+  const menu = $("#tourMenu");
+  menu.innerHTML = TOURS.map((t) => `<button role="menuitem" data-tour="${t.id}"><span class="ms">${t.id === "A" ? "smart_toy" : t.id === "B" ? "person" : "warning"}</span><span>${esc(t.name)}<small>${t.stops.length} stops</small></span></button>`).join("");
+  $("#tourBtn").onclick = (e) => { e.stopPropagation(); menu.classList.toggle("on"); };
+  document.addEventListener("click", (e) => { if (!e.target.closest("#tourMenu,#tourBtn")) menu.classList.remove("on"); });
+  $$("[data-tour]", menu).forEach((b) => (b.onclick = () => { menu.classList.remove("on"); tour = TOURS.find((t) => t.id === b.dataset.tour); ti = 0; setRoute(tour.id === "F" ? "both" : tour.id); $("#dock").classList.add("on"); stop(); }));
+  function stop() { const [id, note] = tour.stops[ti]; $("#dkN").textContent = `${tour.name} · ${ti + 1} of ${tour.stops.length}`; $("#dkP").textContent = note; $("#dkPrev").disabled = ti === 0; $("#dkNext").textContent = ti === tour.stops.length - 1 ? "Finish" : "Next"; go(id); }
+  const endTour = () => { tour = null; $("#dock").classList.remove("on"); setRoute("both"); };
+  $("#dkNext").onclick = () => { if (ti < tour.stops.length - 1) { ti++; stop(); } else endTour(); };
+  $("#dkPrev").onclick = () => { if (ti > 0) { ti--; stop(); } };
+  $("#dkEnd").onclick = endTour;
+  document.addEventListener("keydown", (e) => {
+    if (!$("#v-blueprint").classList.contains("on") || e.target.matches("input,select")) return;
+    if (e.key === "Escape") { if (tour) endTour(); setSel(null); }
+    if (e.key === "+" || e.key === "=") setScale(s * 1.2);
+    if (e.key === "-") setScale(s / 1.2);
+    if (e.key === "0") fit();
+    if (tour && e.key === "ArrowRight") $("#dkNext").click();
+    if (tour && e.key === "ArrowLeft") $("#dkPrev").click();
+  });
+
+  /* ---------- Route A vs Route B page ---------- */
+  function routesPage() {
+    let h = `<div style="display:flex;flex-direction:column;gap:10px"><span class="stpill O" style="align-self:flex-start">Proposal for team discussion</span><h1>Route A and Route B</h1>
+      <p class="lede">Both routes use the same makers, vouches, protected payment and rules. What changes is who helps the designer run her order: an AI production assistant with ready-made templates, or a named human production manager.</p></div>
+      <div class="cards">
+        <div class="card A"><span class="stpill A" style="align-self:flex-start">Route A · Free member</span><h2>AI production assistant and templates</h2><div class="big">₹0 a month</div><ul>
+          <li>Garment templates with an example in every field</li><li>AI checks the brief, ranks makers, translates, compares quotes</li><li>She books pickups, reviews samples from photos, inspects on delivery</li><li>Fee <span class="phd">[FEE %]</span> per order, first order free</li><li>Can buy a PM for one order at <span class="phd">[MANAGED FEE]</span></li></ul></div>
+        <div class="card B"><span class="stpill B" style="align-self:flex-start">Route B · Premium member</span><h2>Named human production manager</h2><div class="big">₹<span class="phd">[299 to 499]</span> a month</div><ul>
+          <li>PM writes the spec with her and shortlists up to <span class="phd">[6]</span> makers, including off-platform ones</li><li>PM negotiates, collects and counts fabric, inspects the sample</li><li>Workshop QC before dispatch; claims decided in <span class="phd">[1 working day]</span></li><li>Fee <span class="phd">[PRO FEE %]</span> per order; season planning and reserved capacity</li></ul></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px"><h2>Service by service</h2><table class="t"><thead><tr><th style="width:24%">Service</th><th style="width:24%">Route A · Free</th><th style="width:24%">Route B · Premium</th><th>Why</th></tr></thead><tbody>`;
+    let g = "";
+    TIERS.forEach((r) => { if (r.g !== g) { g = r.g; h += `<tr class="g"><td colspan="4">${esc(g)}</td></tr>`; } h += `<tr class="${r.same ? "same" : ""}"><td><b>${fmt(r.s)}</b>${r.open ? ' <span class="stpill O">Open</span>' : ""}</td><td class="A">${fmt(r.f)}</td><td class="B">${fmt(r.p)}</td><td>${fmt(r.why)}</td></tr>`; });
+    h += `</tbody></table><p class="note">Numbers in square brackets are not fixed. Ranges come from the Business Model Canvas and Business Plan v0.1 and the prototype's Pricing page.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><h2>Does Route B pay for itself?</h2><p class="lede" style="font-size:15px">On the prototype's example order: 100 block-printed kurtas, maker's quote ₹17,800.</p>
+      <div class="calc">
+        <div class="card A"><b>Route A</b><div class="row"><span>First order fee</span><b>₹0</b></div><div class="row"><span>Each later order, per fee point</span><b>₹178</b></div><div class="row"><span>PM for one order (5 to 10%)</span><b>₹890 to 1,780</b></div><div class="row"><span>AI assistant cost per order</span><b>[AI COST]</b></div></div>
+        <div class="card B"><b>Route B</b><div class="row"><span>Subscription a year</span><b>₹3,588 to 5,988</b></div><div class="row"><span>4 orders a year (maker quotes)</span><b>₹71,200</b></div><div class="row"><span>Each fee point of discount</span><b>₹712 a year</b></div><div class="row"><span>PM cost per order</span><b>[PM COST] ÷ [orders a PM runs]</b></div></div>
+        <div class="card"><b>What it tells us</b><p style="margin:0">A ₹299 to 499 plan cannot buy many PM hours. Route B works only if one PM runs enough orders a month, or if Premium is priced per studio. Keep the Premium fee discount small, and let the AI do every task that does not need a person.</p></div>
+      </div></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><h2>Decisions for the team</h2><div class="card"><ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">${OPEN.map((o) => `<li>${fmt(o)}</li>`).join("")}</ol></div></div>`;
+    $("#routesPage").innerHTML = h;
+  }
+
+  /* ---------- Edge case page ---------- */
+  const ef = { st: "all", rt: "all", q: "" };
+  function edgesPage() {
+    const O = EDGES.filter((e) => e.st === "O").length;
+    $("#edgesPage").innerHTML = `<div style="display:flex;flex-direction:column;gap:10px"><h1>Edge cases</h1><p class="lede">${EDGES.length} edge cases. ${EDGES.length - O} have a proposed rule; ${O} are open because they change who loses money or what Threadline promises. ${EDGES.filter((e) => e.r === "A").length} happen only on Route A, ${EDGES.filter((e) => e.r === "B").length} only on Route B, and ${EDGES.filter((e) => !e.r && (e.a || e.b)).length} more are handled differently on each route. Click a row to see it on the blueprint.</p></div>
+      <div class="filters">
+        <div class="seg" role="group" aria-label="Status"><button data-st="all" aria-pressed="true">All</button><button data-st="P" aria-pressed="false">Proposed</button><button data-st="O" aria-pressed="false">Open</button></div>
+        <div class="seg" role="group" aria-label="Route"><button data-rt="all" aria-pressed="true">Any route</button><button data-rt="A" aria-pressed="false">Route A only</button><button data-rt="B" aria-pressed="false">Route B only</button><button data-rt="d" aria-pressed="false">Handled differently</button></div>
+        <label class="search"><span class="ms" style="font-size:18px;color:var(--soft)">search</span><input id="efQ" type="search" placeholder="Search edge cases" aria-label="Search edge cases"></label>
+      </div>
+      <table class="t"><thead><tr><th>ID</th><th style="width:18%">Edge case</th><th style="width:22%">Rule</th><th>Route A · AI assistant</th><th>Route B · PM</th><th>Who bears the loss</th><th>Status</th></tr></thead><tbody id="efBody"></tbody></table>`;
+    $$("[data-st]").forEach((b) => (b.onclick = () => { ef.st = b.dataset.st; $$("[data-st]").forEach((x) => x.setAttribute("aria-pressed", x === b)); rows(); }));
+    $$("[data-rt]").forEach((b) => (b.onclick = () => { ef.rt = b.dataset.rt; $$("[data-rt]").forEach((x) => x.setAttribute("aria-pressed", x === b)); rows(); }));
+    $("#efQ").oninput = (e) => { ef.q = e.target.value.toLowerCase(); rows(); };
+    rows();
+  }
+  function rows() {
+    const list = EDGES.filter((e) => (ef.st === "all" || e.st === ef.st) && (ef.rt === "all" || (ef.rt === "d" ? !e.r && (e.a || e.b) : e.r === ef.rt)) && (!ef.q || (e.id + e.t + e.rule + e.trig).toLowerCase().includes(ef.q)));
+    let g = "", h = "";
+    list.forEach((e) => {
+      const p = parse(e.at), k = `Phase ${phaseOf[p.s].n} ${phaseOf[p.s].name} · Step ${nn(p.s)} ${STEPS[p.s].t}`;
+      if (k !== g) { g = k; h += `<tr class="g"><td colspan="7">${esc(k)}</td></tr>`; }
+      h += `<tr class="click" data-e="${e.id}"><td style="font-family:var(--mono);font-size:12px">${e.id}${e.r ? `<br><span class="stpill ${e.r}" style="margin-top:4px">${e.r}</span>` : ""}</td><td><b>${esc(e.t)}</b><span class="src">${esc(e.trig)}</span></td><td>${fmt(e.rule)}</td><td class="A">${fmt(e.r === "B" ? "Does not apply." : e.a || "Same rule.")}</td><td class="B">${fmt(e.r === "A" ? "Does not apply." : e.b || "Same rule.")}</td><td>${fmt(e.loss || "No one, if the rule holds.")}</td><td><span class="stpill ${e.st}">${e.st === "O" ? "Open" : "Proposed"}</span></td></tr>`;
+    });
+    $("#efBody").innerHTML = h || `<tr><td colspan="7">No edge cases match.</td></tr>`;
+    $$("tr[data-e]").forEach((r) => (r.onclick = () => { location.hash = "blueprint"; setTimeout(() => { setRoute("both"); go(r.dataset.e); }, 80); }));
+  }
+
+  /* ---------- How to read ---------- */
+  function readPage() {
+    $("#readPage").innerHTML = `<div style="display:flex;flex-direction:column;gap:10px"><h1>How to read this blueprint</h1>
+      <p class="lede">A standard service blueprint: time runs left to right in ${ORDER.length} steps; depth runs top to bottom in five layers separated by the lines of interaction, visibility and internal interaction. Threadline is run as an aggregator: it finds, checks, books, protects payment and stands behind the finished order.</p></div>
+      <div class="cards">
+        <div class="card"><b>Five layers</b><ul><li>Physical evidence: what she sees or receives.</li><li>Customer actions: what the designer does.</li><li>Frontstage: what Threadline does in front of her, through the app, the AI assistant, the PM or messages.</li><li>Backstage: what happens out of her sight, including the maker's work.</li><li>Support processes: systems and partners.</li></ul></div>
+        <div class="card"><b>Two routes</b><p style="margin:0">Where the routes differ, each layer splits in two: Route A (teal, free member with the AI assistant) on top, Route B (gold, premium member with a production manager) below. Shared steps show one box. Use Route A only or Route B only to fade the other.</p></div>
+        <div class="card"><b>Arrows</b><ul><li>The thick line through the customer actions is the journey. It forks where the routes split and joins again at payment and at closing.</li><li>Inside each step, arrows are numbered in the order they happen. Route A arrows run down the left edge of the step, Route B down the right edge, shared ones straight through the middle.</li><li>Downward: an action triggers or relies on the layer below. Upward: the system, the maker or the PM reaches back to her.</li><li>Dotted lines under the sheet are loops back to earlier steps. The dashed gold line in step 05 is a free member buying a PM for one order.</li><li>Hover a box to light up its arrows; click it to list them.</li></ul></div>
+        <div class="card"><b>Edge cases</b><p style="margin:0">Each <span class="chip P" style="cursor:default">E00</span> sits in the box where the failure happens. Orange ones are open decisions. Selecting one shows the rule, how each route handles it, who bears the loss, and every other box it touches.</p></div>
+      </div>
+      <div class="card"><b>Checks run on this version</b><ul><li>Every arrow's two ends exist, and every box except physical evidence has at least one arrow.</li><li>Every step can be reached from step 01 on both routes, and in every step and route the customer action, backstage and support each take part.</li><li>Arrows cross between routes only at the upgrade, downgrade and buy-a-PM points. Flows never skip a step except the marked loops.</li><li>Each step was read through as a numbered story and corrected; for example the money releases happen only after the maker confirms (release 1), the sample is approved (release 2) and the lot is accepted (release 3).</li><li>On the drawing: no arrow passes through a box it does not belong to, no two arrows run on top of each other, and no label covers a box or another label.</li><li>Result: ${CONN.length} arrows, ${EDGES.length} edge cases, 0 errors.</li></ul></div>
+      <div class="card"><b>Sources</b><ul><li>Threadline Business Model Canvas and Business Plan v0.1: services, revenue table, trust rules, operating team.</li><li>Threadline Web Prototype: Pricing page, order status map, edge case sheet, managed order page.</li><li>Everything here is Proposed. Square brackets mark numbers the team has not fixed.</li></ul></div>`;
+  }
+
+  function showView(v) {
+    if (!["blueprint", "routes", "edges", "read"].includes(v)) v = "blueprint";
+    $$(".tab").forEach((t) => t.setAttribute("aria-selected", t.dataset.view === v));
+    $$(".view").forEach((x) => x.classList.toggle("on", x.id === "v-" + v));
+    if (v === "blueprint") relayout();
+  }
+  $$(".tab").forEach((t) => (t.onclick = () => (location.hash = t.dataset.view)));
+  window.addEventListener("hashchange", () => showView(location.hash.slice(1)));
+  window.addEventListener("resize", overlays);
+
+  build(); buildOverlays(); routesPage(); edgesPage(); readPage();
+  showView(location.hash.slice(1));
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(() => { draw(); size(); setScale(0.82, 0, 0); vp.scrollTo(0, 0); overlays(); }));
+  window.__bp = { setScale, go, draw };
+})();
+
+</script>
+</body>
+</html>
