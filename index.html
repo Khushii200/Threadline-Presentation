@@ -364,6 +364,13 @@ svg.fin .yl{font:600 18px DM Sans,sans-serif;fill:#3A4664;text-anchor:middle}
 .risks div{background:#FBEFEA;border-left:6px solid var(--sindoor);border-radius:14px;padding:18px 20px}
 .risks b{display:block;font:400 27px/1.15 var(--hf);color:var(--ink)}.risks span{display:block;margin-top:8px;font-size:18px;line-height:1.4;color:var(--body)}
 .pc.fit h2{margin-bottom:0}
+.sdg{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.sdg>div{display:flex;gap:22px;align-items:flex-start;background:#F7EFE4;border-radius:18px;padding:24px 26px;border-top:8px solid var(--s)}
+.sdg>div>b{flex:none;width:92px;height:92px;border-radius:14px;background:var(--s);color:#fff;font:400 58px/92px var(--hf);text-align:center}
+.sdg small{display:block;font:700 16px var(--bf);letter-spacing:.06em;text-transform:uppercase;color:var(--s)}
+.sdg strong{display:block;margin-top:8px;font:400 40px/1.1 var(--hf);color:var(--ink)}
+.sdg span{display:block;margin-top:10px;font-size:23px;line-height:1.4;color:var(--body);max-width:30ch}
+.sdg em{display:inline-block;margin-top:14px;font-style:normal;font-weight:700;font-size:16px;color:var(--s);background:#fff;border-radius:999px;padding:5px 12px}
 .refline{margin-top:auto;font-size:15px;line-height:1.5;color:var(--muted)}
 .evo2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) 1.6fr;gap:16px;align-items:start;margin:auto 0;position:relative}
 .evo2::before{content:"";position:absolute;left:5%;right:20%;top:72px;height:5px;background:var(--sindoor);border-radius:3px}
@@ -576,6 +583,8 @@ body.mob{background:radial-gradient(120% 90% at 40% 20%,#6B4A2E 0%,#3B2A1C 75%) 
 .mob .gate{padding:2px 0}.mob .gate::before{position:static;font-size:34px;transform:rotate(90deg);margin-right:10px}.mob .gate span{margin:0;font-size:13.5px}
 .mob .cash b{font-size:28px}.mob .cash span{font-size:13.5px}
 .mob .watch{padding:16px;margin-bottom:12px}.mob .watch b{font-size:22px}.mob .watch span{font-size:14px}
+.mob .sdg{grid-template-columns:1fr;gap:12px}.mob .sdg>div{padding:16px;gap:12px;flex-direction:column}.mob .sdg>div>b{width:54px;height:54px;font-size:32px;line-height:54px;border-radius:10px}
+.mob .sdg small{font-size:11px}.mob .sdg strong{font-size:24px}.mob .sdg span{font-size:15px}.mob .sdg em{font-size:11.5px;white-space:normal}
 .mob .risks{grid-template-columns:1fr;gap:10px}.mob .risks div{padding:14px}.mob .risks b{font-size:19px}.mob .risks span{font-size:14px}
 /* the phone story, shown inside its card */
 .mphone{margin-top:20px;background:#111;border-radius:30px;padding:8px;box-shadow:0 16px 30px -14px rgba(0,0,0,.6),inset 0 0 0 2px #333;max-width:330px;align-self:center;width:100%}
@@ -925,6 +934,15 @@ FILL["What could break it"]={wide:true,h:780,html:`
   <div class="watch"><small>The one number we watch</small><b>Briefs with 3+ quotes inside 24 hours</b><span>If designers post and hear nothing, they leave. At 24 h the search widens; at 72 h a person calls.</span></div>
   <div class="risks">
    ${[['Going around us','Numbers hidden until booking; tracking, escrow and reorders only work in the app'],['Makers leaving','IndiaMART lost 4–7% of basic suppliers a month after a price rise. Our listing stays free'],['Why would a maker share?','Our central open question: we test a portable record of vouched work plus new customers'],['₹299–499 can\'t fund a human','PMs need enough orders each, or Premium is priced per studio; AI does the rest'],['More disputes','0.3% of order value reserved; sample approval before bulk production'],['Tax paperwork','GST TCS and TDS on payouts, budgeted from Year 1']].map(([h,t])=>`<div><b>${h}</b><span>${t}</span></div>`).join('')}
+  </div>`};
+FILL["What we can defend, and what we haven't tested"]={wide:true,h:540,html:`
+  <div class="lab"><i style="--c:#0C1D3D">Close</i>Sustainable Development Goals</div>
+  <h2 class="big one">What we can defend, and what we haven't tested</h2>
+  <div class="sdg">
+   <div style="--s:#C5192D"><b>4</b><div><small>Quality Education</small><strong>Learning the trade</strong>
+    <span>Open guides and a failure log teach students how sourcing really works.</span><em>Target 4.4</em></div></div>
+   <div style="--s:#FD6925"><b>9</b><div><small>Industry, Innovation and Infrastructure</small><strong>Small makers, seen</strong>
+    <span>Verified pages and safe payments bring karigars into the value chain.</span><em>Target 9.3</em></div></div>
   </div>`};
 const PH=CH.map(c=>PHONE[c[1]]);
 
