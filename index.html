@@ -364,6 +364,9 @@ svg.fin .yl{font:600 18px DM Sans,sans-serif;fill:#3A4664;text-anchor:middle}
 .risks div{background:#FBEFEA;border-left:6px solid var(--sindoor);border-radius:14px;padding:18px 20px}
 .risks b{display:block;font:400 27px/1.15 var(--hf);color:var(--ink)}.risks span{display:block;margin-top:8px;font-size:18px;line-height:1.4;color:var(--body)}
 .pc.fit h2{margin-bottom:0}
+.pc .demo{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;margin-top:26px;background:var(--navy);color:#fff;text-decoration:none;font:700 22px var(--bf);padding:16px 28px;border-radius:999px;box-shadow:0 10px 20px -10px rgba(12,29,61,.6);transition:transform .15s,background .15s}
+.pc .demo:hover{background:#0C1D3D;transform:translateY(-2px)}.pc .demo span{color:var(--mari)}
+.mob .pc .demo{font-size:16px;padding:12px 20px;margin-top:18px}
 .ta-src{display:grid;grid-template-columns:1fr 1fr;gap:66px}
 .ta-src>div{display:flex;align-items:center;gap:26px;border-radius:16px;padding:24px 34px}
 .ta-src .s1{background:#E9EFFB}.ta-src .s2{background:#DFF1EE}
@@ -1047,7 +1050,7 @@ CH.forEach(([s,t,todo],i)=>{
   }
   const inner=f?f.html:i===0
     ? `<h1>Threadline<span>The whisper, written down.</span></h1><img class="tmasc" src="peacock.png" alt="Threadline peacock mascot"><div class="team"><b>FLAME IMP 2026 · Group 36</b></div>`
-    : `<div class="lab"><i style="--c:${c}">${esc(SEC[s][0])}</i>${String(i).padStart(2,'0')}</div><h2${t==="Threadline: Know, Find, Make"?' class="withm"':''}>${esc(t)}</h2>${todo?`<div class="todo"><b>To fill</b>${esc(todo)}</div>`:''}${t==="Threadline: Know, Find, Make"?'<img class="masc" src="peacock.png" alt="Threadline peacock mascot">':''}`;
+    : `<div class="lab"><i style="--c:${c}">${esc(SEC[s][0])}</i>${String(i).padStart(2,'0')}</div><h2${t==="Threadline: Know, Find, Make"?' class="withm"':''}>${esc(t)}</h2>${todo?`<div class="todo"><b>To fill</b>${esc(todo)}</div>`:''}${t==="Threadline: Know, Find, Make"?'<img class="masc" src="peacock.png" alt="Threadline peacock mascot">':''}${t==="Live demo"?'<a class="demo" href="https://4yashkhanna.github.io/threadline-prototype/" target="_blank" rel="noopener">Open the prototype <span>↗</span></a>':''}`;
   const fit=!f&&i!==0&&!todo;
   html+=`<article class="pc${i===0?' title':''}${fit?' fit':''}" data-i="${i}" data-ch="${i}" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${fit?'auto':r.h+'px'};transform:rotate(${r.rot}deg)">${inner}</article>`;
 });
