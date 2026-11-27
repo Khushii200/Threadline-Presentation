@@ -18,6 +18,8 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
+.app{height:100vh;height:100dvh}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45;overflow:hidden}
 .ms{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:20px;line-height:1;display:inline-block;white-space:nowrap;font-feature-settings:'liga';-webkit-font-smoothing:antialiased;vertical-align:middle;overflow:hidden;max-width:1.2em}
 button,select{font:inherit;color:inherit}
@@ -25,6 +27,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 h1,h2,h3{text-wrap:balance}
 .app{display:flex;flex-direction:column;height:100%}
 .top{background:var(--navy);color:var(--cream);display:flex;align-items:center;gap:8px 20px;padding:10px 20px;flex-wrap:wrap;position:relative;z-index:40}
+.back{display:inline-flex;align-items:center;gap:4px;min-height:36px;padding:0 12px 0 8px;border-radius:999px;background:rgba(254,246,238,.14);color:var(--cream);text-decoration:none;font-weight:600;font-size:13px;flex:none}.back:hover{background:rgba(254,246,238,.24)}.embedded .back{display:none}
 .brand{display:flex;align-items:baseline;gap:12px;min-width:0}
 .brand b{font-family:var(--serif);font-weight:400;font-size:24px;line-height:40px}
 .brand span{font-size:13px;color:var(--peri)}
@@ -66,7 +69,7 @@ h1,h2,h3{text-wrap:balance}
 .view.on{display:flex;flex-direction:column}
 .scrollview{overflow:auto;flex:1}
 .vpwrap{position:relative;flex:1;min-height:0}
-.vp{position:absolute;inset:0;overflow:auto;cursor:grab;background:radial-gradient(circle,rgba(26,60,123,.09) 1px,transparent 1.4px) 0 0/22px 22px,var(--cream)}
+.vp{position:absolute;inset:0;overflow:auto;cursor:grab;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-x pan-y;background:radial-gradient(circle,rgba(26,60,123,.09) 1px,transparent 1.4px) 0 0/22px 22px,var(--cream)}
 .vp.drag{cursor:grabbing;user-select:none}
 .spacerbox{position:relative}
 .board{position:absolute;left:0;top:0;transform-origin:0 0;padding:24px 60px 140px 24px}
@@ -215,13 +218,15 @@ table.t tr.click:hover td{background:var(--paper)}
 .calc .row b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
 .note{font-size:12px;color:var(--muted)}
 .kbd{font-family:var(--mono);font-size:12px;background:#fff;border:1px solid var(--line2);border-bottom-width:2px;border-radius:5px;padding:0 5px}
-@media (max-width:760px){.brand span,.meta,.routes .lg{display:none}.top{flex-wrap:nowrap;overflow-x:auto}.tabs{flex-wrap:nowrap}.bar{flex-wrap:nowrap;overflow-x:auto}.bar>*{flex:none}.tourmenu{position:fixed;right:12px;top:120px}.panel{top:auto;height:62%}.dock{flex-direction:column;align-items:stretch}}
+@media (max-width:760px){.brand,.brand span,.meta,.routes .lg{display:none}.top{flex-wrap:nowrap;overflow-x:auto}.tabs{flex-wrap:nowrap}.bar{flex-wrap:nowrap;overflow-x:auto}.bar>*{flex:none}.tourmenu{position:fixed;right:12px;top:120px}.panel{top:auto;height:62%}.routes{flex-wrap:nowrap;overflow-x:auto;padding:8px 12px;gap:12px}.routes>*{flex:none}.routes .rk{white-space:nowrap;font-size:12px}.top,.bar{padding-left:12px;padding-right:12px}.search input{width:110px}.dock{flex-direction:column;align-items:stretch}}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;scroll-behavior:auto !important}}
 </style>
 </head>
 <body>
+<script>try{if(window.self!==window.top)document.documentElement.classList.add('embedded')}catch(e){document.documentElement.classList.add('embedded')}</script>
 <div class="app" id="app">
   <header class="top">
+    <a class="back" id="backDeck" href="index.html#c23" aria-label="Back to the deck"><span class="ms">arrow_back</span>Deck</a>
     <div class="brand"><b>Threadline</b><span>Service blueprint · aggregator · two routes</span></div>
     <nav class="tabs" role="tablist" aria-label="Views">
       <button class="tab" role="tab" data-view="blueprint" aria-selected="true"><span class="ms">view_timeline</span>Blueprint</button>
@@ -913,10 +918,15 @@ const OPEN = [
   $("#z100").onclick = () => setScale(1);
   vp.addEventListener("wheel", (e) => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); const r = vp.getBoundingClientRect(); setScale(s * Math.exp(-e.deltaY * 0.0018), e.clientX - r.left, e.clientY - r.top); }, { passive: false });
   let drag = null;
-  vp.addEventListener("pointerdown", (e) => { if (e.button !== 0 || e.target.closest(".cell,.chip,button,input")) return; drag = { x: e.clientX, y: e.clientY, l: vp.scrollLeft, t: vp.scrollTop, m: false }; vp.setPointerCapture(e.pointerId); vp.classList.add("drag"); });
+  vp.addEventListener("pointerdown", (e) => { if (e.pointerType === "touch" || e.button !== 0 || e.target.closest(".cell,.chip,button,input")) return; drag = { x: e.clientX, y: e.clientY, l: vp.scrollLeft, t: vp.scrollTop, m: false }; vp.setPointerCapture(e.pointerId); vp.classList.add("drag"); });
   vp.addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.m = true; vp.scrollLeft = drag.l - dx; vp.scrollTop = drag.t - dy; });
   vp.addEventListener("pointerup", () => { if (!drag) return; const m = drag.m; drag = null; vp.classList.remove("drag"); if (!m && sel && !tour) setSel(null); });
   vp.addEventListener("pointercancel", () => { drag = null; vp.classList.remove("drag"); });
+  let pinch = null;
+  const tdist = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+  vp.addEventListener("touchstart", (e) => { if (e.touches.length === 2) { const r = vp.getBoundingClientRect(); pinch = { d: tdist(e.touches), s, cx: (e.touches[0].clientX + e.touches[1].clientX) / 2 - r.left, cy: (e.touches[0].clientY + e.touches[1].clientY) / 2 - r.top }; } }, { passive: true });
+  vp.addEventListener("touchmove", (e) => { if (!pinch || e.touches.length !== 2) return; e.preventDefault(); setScale(pinch.s * tdist(e.touches) / pinch.d, pinch.cx, pinch.cy); }, { passive: false });
+  vp.addEventListener("touchend", (e) => { if (e.touches.length < 2) pinch = null; }, { passive: true });
   vp.addEventListener("scroll", () => overlays(), { passive: true });
   const ovL = $("#ovlL"), ovS = $("#ovlS");
   function buildOverlays() {
@@ -1148,7 +1158,7 @@ const OPEN = [
 
   build(); buildOverlays(); routesPage(); edgesPage(); readPage();
   showView(location.hash.slice(1));
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(() => { draw(); size(); setScale(0.82, 0, 0); vp.scrollTo(0, 0); overlays(); }));
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(() => { draw(); size(); setScale(innerWidth < 760 ? 0.6 : 0.82, 0, 0); vp.scrollTo(0, 0); overlays(); }));
   window.__bp = { setScale, go, draw };
 })();
 
