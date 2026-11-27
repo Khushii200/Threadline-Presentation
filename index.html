@@ -364,6 +364,25 @@ svg.fin .yl{font:600 18px DM Sans,sans-serif;fill:#3A4664;text-anchor:middle}
 .risks div{background:#FBEFEA;border-left:6px solid var(--sindoor);border-radius:14px;padding:18px 20px}
 .risks b{display:block;font:400 27px/1.15 var(--hf);color:var(--ink)}.risks span{display:block;margin-top:8px;font-size:18px;line-height:1.4;color:var(--body)}
 .pc.fit h2{margin-bottom:0}
+.ta-src{display:grid;grid-template-columns:1fr 1fr;gap:66px}
+.ta-src>div{display:flex;align-items:center;gap:26px;border-radius:16px;padding:24px 34px}
+.ta-src .s1{background:#E9EFFB}.ta-src .s2{background:#DFF1EE}
+.ta-src i{flex:none;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:var(--navy)}.ta-src .s2 i{background:#1F8A5B}
+.ta-src svg,.ta-th svg{width:36px;height:36px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ta-src b{display:block;font:400 26px/1.2 var(--hf);color:var(--ink)}.ta-src span{display:block;margin-top:6px;font-size:19px;line-height:1.4;color:var(--body)}
+.ta-br{display:block;width:100%;height:40px;margin:2px 0 6px}.ta-br path{fill:none;stroke:var(--sindoor);stroke-width:3.5;vector-effect:non-scaling-stroke}
+.ta-pr{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:16px;align-items:stretch}
+.ta-pr>div{background:#F7EFE4;border-radius:14px;padding:18px 24px}
+.ta-pr b{display:block;font:400 22px/1.2 var(--hf);color:var(--ink)}.ta-pr span{display:block;margin-top:6px;font-size:17px;line-height:1.4;color:var(--body)}
+.ta-pr em{align-self:center;font:400 30px/1 var(--bf);font-style:normal;color:var(--sindoor)}
+.ta-dn{display:flex;justify-content:center;border-bottom:2px solid #EADFD0;margin:4px 0 22px;padding-bottom:0}
+.ta-dn svg{width:24px;height:44px;fill:none;stroke:var(--sindoor);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:-10px}
+.pc h3.ta-h{font-size:19px;margin:0 0 14px}
+.ta-th{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.ta-th>div{display:flex;flex-direction:column;align-items:center;text-align:center;border-radius:14px;padding:16px 12px 18px}
+.ta-th i{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:var(--c);margin-bottom:12px}
+.ta-th svg{width:30px;height:30px}
+.ta-th b{font:400 19px/1.25 var(--hf);color:var(--ink)}
 .nx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch}
 .nx>div{display:flex;flex-direction:column;background:#F7EFE4;border-radius:18px;padding:26px 28px;border-top:8px solid #0C1D3D}
 .nx>div:last-child{border-top-color:var(--mari)}
@@ -593,6 +612,11 @@ body.mob{background:radial-gradient(120% 90% at 40% 20%,#6B4A2E 0%,#3B2A1C 75%) 
 .mob .gate{padding:2px 0}.mob .gate::before{position:static;font-size:34px;transform:rotate(90deg);margin-right:10px}.mob .gate span{margin:0;font-size:13.5px}
 .mob .cash b{font-size:28px}.mob .cash span{font-size:13.5px}
 .mob .watch{padding:16px;margin-bottom:12px}.mob .watch b{font-size:22px}.mob .watch span{font-size:14px}
+.mob .ta-src{grid-template-columns:1fr;gap:10px}.mob .ta-src>div{padding:14px;gap:14px}.mob .ta-src i{width:46px;height:46px}.mob .ta-src svg{width:24px;height:24px}
+.mob .ta-src b{font-size:18px}.mob .ta-src span{font-size:13.5px}.mob .ta-br{display:none}
+.mob .ta-pr{grid-template-columns:1fr;gap:6px;margin-top:14px}.mob .ta-pr em{justify-self:center;transform:rotate(90deg);font-size:22px}.mob .ta-pr>div{padding:12px 14px}.mob .ta-pr b{font-size:17px}.mob .ta-pr span{font-size:13.5px}
+.mob .ta-dn{margin:8px 0 16px}.mob .pc h3.ta-h{font-size:12.5px}
+.mob .ta-th{grid-template-columns:1fr 1fr;gap:10px}.mob .ta-th i{width:48px;height:48px}.mob .ta-th svg{width:24px;height:24px}.mob .ta-th b{font-size:15px}
 .mob .nx{grid-template-columns:1fr;gap:12px}.mob .nx>div{padding:16px}
 .mob .nx b{width:44px;height:44px;font-size:22px;line-height:44px}.mob .nx small{font-size:12px}.mob .nx strong{font-size:19px;margin-top:10px}.mob .nx em{font-size:12px}
 .mob .sdg{grid-template-columns:1fr;gap:12px}.mob .sdg>div{padding:16px;gap:12px;flex-direction:column}.mob .sdg>div>b{width:54px;height:54px;font-size:32px;line-height:54px;border-radius:10px}
@@ -665,10 +689,7 @@ const CH=[
  [1,"Proof of work beats price",""],
  [1,"Strong demand, conditional on verification",""],
  [1,"What Threadline must get right",""],
- [1,"What we heard in interviews",""],
- [1,"Students depend on referrals and spend time chasing providers",""],
- [1,"Providers also rely on referrals and struggle with unclear orders",""],
- [1,"The same gaps show up from both sides",""],
+ [1,"From interviews to themes",""],
  [2,"What we set out to do","The four objectives"],
  [2,"Seven lenses on one problem",""],
  [3,"Her first order falls apart","As-is storyboard: agent mark-up, quality issues, back to zero"],
@@ -765,33 +786,20 @@ const FILL={
    <div><b>Free core access</b><span>Build trust before asking anyone to pay</span></div>
   </div>`},
 };
-const IV="What we heard in interviews";
-const tiles=(rows,c)=>`<div class="tk${rows.length===4?' four':''}">${rows.map(([b,t])=>`<div style="border-top-color:${c}"><b>${b}</b><span>${t}</span></div>`).join('')}</div>`;
-Object.assign(FILL,{
- [IV]:{wide:true,h:740,html:`
-  <h2 class="big one">Both sides of the sourcing relationship</h2>
-  <div class="sides">
-   <div class="side dem"><h3>Demand side</h3><div class="who"><i>S</i><span>Fashion design student</span></div><div class="who"><i>S</i><span>Fashion design student</span></div></div>
-   <div class="side sup"><h3>Supply side</h3><div class="who"><i>T</i><span>A tailor</span></div><div class="who"><i>V</i><span>A fabric vendor who does colour matching</span></div></div>
+const IV="From interviews to themes";
+/* thematic analysis: survey + interviews -> four coding steps -> six themes */
+FILL[IV]={wide:true,h:840,html:`
+  <div class="lab"><i style="--c:#895100">Research</i>From interviews to themes</div>
+  <h2 class="big one">Thematic analysis: from data to six themes</h2>
+  <div class="ta-src">
+   <div class="s1"><i><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.3A6 6 0 0 1 22 20"/></svg></i><div><b>Survey (56 respondents)</b><span>Open-ended responses on sourcing difficulties and expectations from Threadline</span></div></div>
+   <div class="s2"><i><svg viewBox="0 0 24 24"><path d="M12 4c4.97 0 9 3.36 9 7.5S16.97 19 12 19c-1.1 0-2.15-.16-3.12-.46L4 20l1.4-3.6C4.5 15.1 3 13.4 3 11.5 3 7.36 7.03 4 12 4z"/></svg></i><div><b>Interviews (4 participants)</b><span>2 fashion design students, 1 tailor, 1 fabric vendor</span></div></div>
   </div>
-  <div class="lim cool"><b>Why</b>To add depth to the survey, and to test whether providers see the same problems as students</div>`},
- "Students depend on referrals and spend time chasing providers":{stack:IV,html:`
-  <h2 class="big one">Students depend on referrals and spend time chasing providers</h2>
-  ${tiles([['Found by referral','Providers are found mainly through referrals and social media'],['Unpredictable cost','Costs are hard to predict, and small-batch production is hard to arrange'],['Chasing timelines','Timelines are uncertain, so students follow up again and again'],['Rework','Quality concerns lead to alterations and rework']],'#1A3C7B')}`},
- "Providers also rely on referrals and struggle with unclear orders":{stack:IV,html:`
-  <h2 class="big one">Providers also rely on referrals and struggle with unclear orders</h2>
-  ${tiles([['Referrals and repeats','Business comes from customer referrals and repeat customers'],['Unclear orders','Requirements are often unclear, and orders change partway through'],['Limited capacity','Workload, deadlines and stock limit what they can take on'],['Advance first','Prices vary, advance payment is the norm, and small quantities are hard to fit in'],['Hard to find','The vendor has little visibility online']],'#0F5D6C')}`},
- "The same gaps show up from both sides":{stack:IV,html:`
-  <h2 class="big one">The same gaps show up from both sides</h2>
-  <div class="mir">
-   <div class="mh"><span>Students say</span><span></span><span>Providers say</span></div>
-   <div><span>Our specifications are unclear</span><i></i><span>Requirements are unclear</span></div>
-   <div><span>Costing is unpredictable</span><i></i><span>Pricing varies</span></div>
-   <div><span>We need small batches</span><i></i><span>Small quantities are hard to take on</span></div>
-   <div><span>We rely on referrals</span><i></i><span>We rely on referrals</span></div>
-  </div>
-  <p class="cap">Meanwhile, online directories are used by only 12.5% of survey respondents.</p>`},
-});
+  <svg class="ta-br" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M240 0V22H760V0M500 22V40"/></svg>
+  <div class="ta-pr"><div><b>Data preparation</b><span>Organised and cleaned qualitative responses</span></div><em aria-hidden="true">→</em><div><b>Initial coding</b><span>Labelled meaningful statements</span></div><em aria-hidden="true">→</em><div><b>Candidate themes</b><span>Grouped related codes and identified patterns</span></div><em aria-hidden="true">→</em><div><b>Review and refine</b><span>Merged, clarified and defined final themes</span></div></div>
+  <div class="ta-dn" aria-hidden="true"><svg viewBox="0 0 24 44"><path d="M12 0V34M5 27l7 8 7-8"/></svg></div>
+  <h3 class="ta-h">Six integrated themes</h3>
+  <div class="ta-th"><div style="--c:#1A3C7B;background:#F8EEE9"><i><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></i><b>Supplier Discovery and Information Accessibility</b></div><div style="--c:#895100;background:#F8EEE9"><i><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></i><b>Trust, Credibility and Quality Assurance</b></div><div style="--c:#6B4E8A;background:#F8EEE9"><i><svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></i><b>Pricing Transparency and Affordability</b></div><div style="--c:#2E7D5B;background:#F8EEE9"><i><svg viewBox="0 0 24 24"><path d="M12 4c4.97 0 9 3.36 9 7.5S16.97 19 12 19c-1.1 0-2.15-.16-3.12-.46L4 20l1.4-3.6C4.5 15.1 3 13.4 3 11.5 3 7.36 7.03 4 12 4z"/></svg></i><b>Communication and Coordination Challenges</b></div><div style="--c:#C8432A;background:#F8EEE9"><i><svg viewBox="0 0 24 24"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></i><b>Production Feasibility and Logistical Constraints</b></div><div style="--c:#0F5D6C;background:#EAF2F4"><i><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg></i><b>Expectations from a Centralised Sourcing Platform</b></div></div>`};
 FILL["What exists today"]={wide:true,h:520,html:`
   <div class="lab"><i style="--c:#895100">Research</i>Existing options</div>
   <h2 class="big one">What exists today</h2>
