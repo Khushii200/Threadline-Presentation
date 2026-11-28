@@ -312,7 +312,7 @@ img.full{display:block;width:100%;height:auto;margin:auto 0;border-radius:10px;b
 .plans b{font:400 30px var(--hf);color:var(--ink)}.plans em{font-style:normal;font-weight:700;font-size:19px;color:#2E7D5B;margin-top:4px}
 .plans span{margin-top:8px;font-size:16px;line-height:1.35;color:var(--body)}
 .plans .hi{background:#2E7D5B}.plans .hi small,.plans .hi b,.plans .hi span{color:#fff}.plans .hi em{color:#BFE6CC}
-.plans .never{background:var(--sindoor-l)}.plans .never small{color:#AE311A}.plans .never span{margin-top:6px;font-size:18px;font-weight:700;color:#8E2A17}
+.plans .never{background:#E3F2E8}.plans .never small{color:#1F5A3B}.plans .never span{margin-top:6px;font-size:18px;font-weight:700;color:#1F5A3B}
 .wf-wrap{display:grid;grid-template-columns:300px 1fr;gap:30px;align-items:center;margin:6px 0 26px}
 .wf-ord{background:var(--navy);border-radius:18px;padding:26px;color:#fff}.wf-ord small{color:var(--mari)}
 .wf-ord b{display:block;font:400 64px/1 var(--hf)}.wf-ord span{display:block;margin-top:10px;font-size:18px;color:#DCE5F5}
@@ -753,7 +753,7 @@ const FAB=[
  [["Chanderi","lehar"],["Kota doria","check"]],
  [["Kantha · Bengal","kantha"],["Ilkal · Karnataka","ikat"]],
 ];
-const SEC=[["Opening","",75,"#1A3C7B"],["Research","",180,"#895100"],["Objectives and approach","",90,"#0F5D6C"],["Problem","",150,"#C8432A"],["Development","",90,"#6B4E8A"],["Solution","",330,"#1A3C7B"],["Viability","",135,"#2E7D5B"],["Close","",90,"#0C1D3D"]];
+const SEC=[["Opening","",75,"#1A3C7B"],["Research","",180,"#895100"],["Objectives and approach","",90,"#0F5D6C"],["Challenge","",150,"#C8432A"],["Development","",90,"#6B4E8A"],["Solution","",330,"#1A3C7B"],["Viability","",135,"#2E7D5B"],["Close","",90,"#0C1D3D"]];
 const CH=[
  [0,"Threadline","Title, Group 36, faculty advisor, SME"],
  [0,"Naina has a label, a design and 100 kurtas to make",""],
@@ -762,19 +762,19 @@ const CH=[
  [1,"What the survey told us",""],
  [1,"Sourcing is a routine need, not an occasional one",""],
  [1,"Discovery runs on people and scattered channels",""],
- [1,"The barrier is information, not just cost",""],
+ [1,"Information matters as much as cost",""],
  [1,"Proof of work beats price",""],
  [1,"Strong demand, conditional on verification",""],
  [1,"What Threadline must get right",""],
  [1,"From interviews to themes",""],
  [2,"What we set out to do","The four objectives"],
- [2,"Seven lenses on one problem",""],
- [3,"Her first order falls apart","As-is storyboard: agent mark-up, quality issues, back to zero"],
+ [2,"Seven lenses on one challenge",""],
+ [3,"Her first order, as it happens today","As-is storyboard: agent mark-up, quality concerns, a fresh start"],
  [3,"How might we",""],
  [4,"How the idea changed",""],
  [4,"From system map to prototype",""],
  [4,"Business model canvas",""],
- [4,"Where the worst moment moves",""],
+ [4,"Where the turning point moves",""],
  [5,"Let's run that order again",""],
  [5,"Threadline: Know, Find, Make",""],
  [5,"Two ways to run an order",""],
@@ -784,13 +784,13 @@ const CH=[
  [5,"Brief once, get makers your network vouches for",""],
  [5,"Her money moves only when the work does",""],
  [5,"The maker's side",""],
- [5,"When things go wrong",""],
+ [5,"When plans change",""],
  [5,"Live demo",""],
  [6,"How Threadline makes money",""],
  [6,"One order, followed",""],
  [6,"Five years, base case",""],
  [6,"Start dense, then spread",""],
- [6,"What could break it",""],
+ [6,"What we are planning for",""],
  [7,"What we can defend, and what we haven't tested","SDGs you can defend; what changed, what is untested, what you did not measure"],
  [7,"What's next","Karigar research, pilot, success measures"],
  [7,"Naina's order, with Threadline",""],
@@ -813,7 +813,7 @@ const PHONE={
  "Brief once, get makers your network vouches for":{shots:[["brief-step1","Brief builder, step 1 of 7"],["shortlist","Shortlist: ranked by who you know"],["quotes-compare","Quotes side by side, best fit explained"]]},
  "Her money moves only when the work does":{shots:[["pay-summary","Book: the maker gets the full quote"],["pay-releases","When the maker gets paid"],["order-protected","Order Thread: released and still held"]]},
  "The maker's side":{h:PT,m:[["them","नया ऑर्डर: 100 कुर्ते, हैंड ब्लॉक प्रिंट · बजट ₹200/पीस · 27 दिसंबर तक","Threadline"],["sys","New request: 100 kurtas, block print · budget ₹200/pc · by 27 Dec"],["btns","Quote|Accept at ₹200|Ask|Decline"],["voice","0:24"],["them","आपका भाव: ₹178 प्रति पीस, 18 दिन। कुल ₹19,792.50 आपको पूरा मिलेगा। भेज दें?","Threadline"],["btns","Send quote|Change"],["card","ऑर्डर पक्का · ₹5,937.75 अग्रिम भेजा","Order confirmed · 30% material advance to your bank","#0F5D6C"]]},
- "When things go wrong":{shots:[["inspect-check","Delivery inspection"],["inspect-report","Accept the good pieces, report the rest"]]},
+ "When plans change":{shots:[["inspect-check","Delivery inspection"],["inspect-report","Accept the good pieces, report the rest"]]},
  "Naina's order, with Threadline":{h:TL,m:[["card","Order complete","100 kurtas, delivered"],["me","Vouching for Imran Prints"],["sys","Your vouch now helps the next designer"],["card","Reorder in two taps","Lower fee on reorders","#0F5D6C"]]},
 };
 
@@ -833,7 +833,7 @@ const FILL={
     <div class="st"><b>41%</b><span>Fashion Design, the largest of five disciplines</span></div>
   </div>
   <div class="lim ok"><b>Ethics</b>All responses were anonymous and informed consent was taken</div>
-  <div class="lim"><b>Limitation</b>No industry professionals or businesses in the sample</div>`},
+  <div class="lim"><b>Scope</b>The sample covers students and emerging designers, with industry professionals and businesses still to come</div>`},
  "Sourcing is a routine need, not an occasional one":{stack:SVY,html:`
   <h2 class="big one">Sourcing is a routine need, not an occasional one</h2>
   <div class="g2"><div class="col">${ks('80.4%','need to find or contact providers often or very often')}${ks('3.8','categories needed per person, on average')}</div>
@@ -842,11 +842,11 @@ const FILL={
   <h2 class="big one">Discovery runs on people and scattered channels</h2>
   <div class="g2"><div class="col">${ks('≈6','sources used per person')}${ks('3.1','satisfaction with those sources','/5')}</div>
   <div><h3>Where they find providers</h3>${bars([['Seniors and alumni',69.6],['Friends',64.3],['Instagram',62.5],['Artisans directly',62.5],['Online directories',12.5,1]])}</div></div>`},
- "The barrier is information, not just cost":{stack:SVY,html:`
-  <h2 class="big one">The barrier is information, not just cost</h2>
-  <div class="g2"><div class="col">${ks('80.4%','rate finding sourcing information difficult (mean 4.27 out of 5)')}</div>
-  <div><h3>Most frequent problems</h3>${bars([['Wrong contact details',78.6],['Finding specific skills',76.8],['Getting a response',74.5],['Location or budget fit',55.4,1]])}<p class="cap">Location or budget fit is the least frequent problem.</p></div></div>
-  <div class="lim warm"><b>And</b>Students without connections face higher prices, demands for advance payment and gatekeeping</div>`},
+ "Information matters as much as cost":{stack:SVY,html:`
+  <h2 class="big one">Information matters as much as cost</h2>
+  <div class="g2"><div class="col">${ks('80.4%','rate finding sourcing information challenging (mean 4.27 out of 5)')}</div>
+  <div><h3>Most frequent challenges</h3>${bars([['Finding accurate contacts',78.6],['Finding specific skills',76.8],['Getting a response',74.5],['Location or budget fit',55.4,1]])}<p class="cap">Location or budget fit is the least frequent challenge.</p></div></div>
+  <div class="lim warm"><b>And</b>Students still building connections face higher prices, advance-payment requests and gatekeeping</div>`},
  "Proof of work beats price":{stack:SVY,html:`
   <h2 class="big one">Proof of work beats price</h2>
   <div class="g2"><div class="col">${ks('73.2%','check recommendations, past experience and portfolios, each')}${ks('28.6%','use social media presence, which is rarely trusted on its own')}</div>
@@ -855,7 +855,7 @@ const FILL={
   <h2 class="big one">Strong demand, conditional on verification</h2>
   <div class="g3"><div class="col">${ks('94.6%','find a one-place directory useful; 71.4% give it the top score')}</div>
   <div><h3>Would trust the directory</h3><div class="trust"><div><span>Unverified</span><i style="width:5.4%"></i><b>5.4%</b></div><div class="v"><span>Verified</span><i style="width:73.2%"></i><b>73.2%</b></div></div></div>
-  <div><h3>Main barriers are about the data</h3>${bars([['Doubt over listings',42.9],['Too few providers',37.5],['Outdated information',35.7]])}</div></div>
+  <div><h3>Main concerns are about the data</h3>${bars([['Trust in listings',42.9],['Range of providers',37.5],['Keeping information current',35.7]])}</div></div>
   <div class="lim cool"><b>Paying</b>53.6% would pay for extra features, plus 16.1% maybe. Only 10.7% prefer WhatsApp.</div>`},
  "What Threadline must get right":{stack:SVY,html:`
   <h2 class="big one">What Threadline must get right</h2>
@@ -873,7 +873,7 @@ FILL[IV]={wide:true,h:840,html:`
   <div class="lab"><i style="--c:#895100">Research</i>From interviews to themes</div>
   <h2 class="big one">Thematic analysis: from data to six themes</h2>
   <div class="ta-src">
-   <div class="s1"><i><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.3A6 6 0 0 1 22 20"/></svg></i><div><b>Survey (56 respondents)</b><span>Open-ended responses on sourcing difficulties and expectations from Threadline</span></div></div>
+   <div class="s1"><i><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.3A6 6 0 0 1 22 20"/></svg></i><div><b>Survey (56 respondents)</b><span>Open-ended responses on sourcing challenges and expectations from Threadline</span></div></div>
    <div class="s2"><i><svg viewBox="0 0 24 24"><path d="M12 4c4.97 0 9 3.36 9 7.5S16.97 19 12 19c-1.1 0-2.15-.16-3.12-.46L4 20l1.4-3.6C4.5 15.1 3 13.4 3 11.5 3 7.36 7.03 4 12 4z"/></svg></i><div><b>Interviews (4 participants)</b><span>2 fashion design students, 1 tailor, 1 fabric vendor</span></div></div>
   </div>
   <svg class="ta-br" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M240 0V22H760V0M500 22V40"/></svg>
@@ -894,46 +894,46 @@ FILL["What we set out to do"]={wide:true,h:800,html:`
   <div class="grp"><span style="grid-column:1/5">Understand how sourcing works today</span><span style="grid-column:5/7">Shape the platform</span></div>
   <div class="ob">${[
    ['src',"Today's sources",['Suppliers','Vendors','Artisans','Service providers']],
-   ['warn','Challenges, sourcing to production',['Access','Unreliable contacts','Fragmented networks','Pricing','Coordination']],
+   ['warn','Challenges, sourcing to production',['Access','Contact reliability','Network reach','Pricing','Coordination']],
    ['net','Role of personal networks',['Informal connections','Dependency across the journey']],
    ['trust','What earns trust',['Portfolios','Reviews','Verified listings','Recommendations','Past work']],
    ['hub','Demand for one platform',['Discovery','Relevance','Convenience','Access','Comparison','Information quality']],
    ['feat','Must-have features',['Budget filters','Categories','Location mapping','Portfolios','Verification']],
   ].map(([ic,b,ch],k)=>`<div class="${k>3?'shape':''}"><i><svg viewBox="0 0 24 24">${ICON[ic]}</svg><em>${k+1}</em></i><b>${b}</b><p>${ch.map(c=>`<span>${c}</span>`).join('')}</p></div>`).join('')}</div>
   <p class="cap">For students, recent graduates and emerging designers</p>`};
-FILL["Seven lenses on one problem"]={wide:true,h:1000,html:`
+FILL["Seven lenses on one challenge"]={wide:true,h:1000,html:`
   <div class="lab"><i style="--c:#0F5D6C">Objectives and approach</i>Interdisciplinary approach</div>
-  <h2 class="big one">Seven lenses on one problem</h2>
+  <h2 class="big one">Seven lenses on one challenge</h2>
   <p class="cap lead">Each lens brings its own foundation theory, which keeps Threadline practical and sustainable.</p>
   <div class="lens" style="height:740px"><svg viewBox="0 0 1232 740" preserveAspectRatio="none"><path d="M616 370 C508 370 508 85 400 85"/><path d="M616 370 C508 370 508 275 400 275"/><path d="M616 370 C508 370 508 465 400 465"/><path d="M616 370 C508 370 508 655 400 655"/><path d="M616 370 C724 370 724 150 832 150"/><path d="M616 370 C724 370 724 370 832 370"/><path d="M616 370 C724 370 724 590 832 590"/></svg>
    <div class="hubc"><b>Threadline</b><span>Sourcing for emerging designers</span></div>
-   <div class="ln L" style="top:85px;--c:#1A3C7B"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M9 21v-3.5a6 6 0 0 1-3-5M15 21v-3.5a6 6 0 0 0 3-5"/><path d="M10 8.5a2 2 0 1 1 3 1.7V11"/></svg></i><div><b>Psychology</b><span>Trust, credibility and how people decide on unfamiliar providers; also analyses survey and interview data</span></div></div><div class="ln L" style="top:275px;--c:#0F5D6C"><i><svg viewBox="0 0 24 24"><path d="M12 3 4 21M12 3l8 18M7 14h10"/><circle cx="12" cy="3" r="1.5"/></svg></i><div><b>Experience Design and Design Management</b><span>Turns scattered sourcing information into an accessible service</span></div></div><div class="ln L" style="top:465px;--c:#895100"><i><svg viewBox="0 0 24 24"><path d="M12 3v18M5 21h14M5 7h14"/><path d="M5 7 2 13a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></svg></i><div><b>Economics</b><span>Information gaps and search costs; bringing providers and users together</span></div></div><div class="ln L" style="top:655px;--c:#6B4E8A"><i><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><div><b>Data Science</b><span>Quantifies preferences from survey, interview and referral data</span></div></div><div class="ln R" style="top:150px;--c:#2E7D5B"><i><svg viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6L6 10z"/><path d="M17 9a4 4 0 0 1 0 6M19.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></i><div><b>Marketing</b><span>Positioning, value proposition and the segments to win first</span></div></div><div class="ln R" style="top:370px;--c:#C8432A"><i><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/><path d="m9 9 2 2 4-4"/></svg></i><div><b>Digital Marketing</b><span>Online visibility and campaigns that reach students and providers</span></div></div><div class="ln R" style="top:590px;--c:#0C1D3D"><i><svg viewBox="0 0 24 24"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M9 15 7 13c1-4 4-9 12-10-1 8-6 11-10 12z"/><circle cx="14.5" cy="9.5" r="1.5"/></svg></i><div><b>Entrepreneurship</b><span>Feasibility: revenue models, provider participation, operations</span></div></div>
+   <div class="ln L" style="top:85px;--c:#1A3C7B"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M9 21v-3.5a6 6 0 0 1-3-5M15 21v-3.5a6 6 0 0 0 3-5"/><path d="M10 8.5a2 2 0 1 1 3 1.7V11"/></svg></i><div><b>Psychology</b><span>Trust, credibility and how people decide on unfamiliar providers; also analyses survey and interview data</span></div></div><div class="ln L" style="top:275px;--c:#0F5D6C"><i><svg viewBox="0 0 24 24"><path d="M12 3 4 21M12 3l8 18M7 14h10"/><circle cx="12" cy="3" r="1.5"/></svg></i><div><b>Experience Design and Design Management</b><span>Turns scattered sourcing information into an accessible service</span></div></div><div class="ln L" style="top:465px;--c:#895100"><i><svg viewBox="0 0 24 24"><path d="M12 3v18M5 21h14M5 7h14"/><path d="M5 7 2 13a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></svg></i><div><b>Economics</b><span>Information access and search costs; bringing providers and users together</span></div></div><div class="ln L" style="top:655px;--c:#6B4E8A"><i><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><div><b>Data Science</b><span>Quantifies preferences from survey, interview and referral data</span></div></div><div class="ln R" style="top:150px;--c:#2E7D5B"><i><svg viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6L6 10z"/><path d="M17 9a4 4 0 0 1 0 6M19.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></i><div><b>Marketing</b><span>Positioning, value proposition and the segments to win first</span></div></div><div class="ln R" style="top:370px;--c:#C8432A"><i><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/><path d="m9 9 2 2 4-4"/></svg></i><div><b>Digital Marketing</b><span>Online visibility and campaigns that reach students and providers</span></div></div><div class="ln R" style="top:590px;--c:#0C1D3D"><i><svg viewBox="0 0 24 24"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M9 15 7 13c1-4 4-9 12-10-1 8-6 11-10 12z"/><circle cx="14.5" cy="9.5" r="1.5"/></svg></i><div><b>Entrepreneurship</b><span>Feasibility: revenue models, provider participation, operations</span></div></div>
   </div>`};
 const LI={"comm": "<circle cx=\"8\" cy=\"8\" r=\"3\"/><circle cx=\"16\" cy=\"8\" r=\"3\"/><path d=\"M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.3A6 6 0 0 1 22 20\"/>", "frag": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"5\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"5\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><path d=\"M16 16h3v3\"/>", "two": "<circle cx=\"5\" cy=\"12\" r=\"3\"/><circle cx=\"19\" cy=\"12\" r=\"3\"/><rect x=\"9.5\" y=\"9.5\" width=\"5\" height=\"5\" rx=\"1\"/><path d=\"M8 12h1.5M14.5 12H16\"/>", "slow": "<circle cx=\"12\" cy=\"13\" r=\"8\"/><path d=\"M12 9v4l3 2M9 2h6\"/>", "img": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"2\"/><path d=\"m21 16-5-5-8 9\"/>", "trust": "<path d=\"M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z\"/><path d=\"m8.5 12 2.5 2.5 4.5-5\"/>", "dir": "<path d=\"M4 4h12a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z\"/><path d=\"M8 8h6M8 12h6M18 8h2v12\"/>", "store": "<path d=\"M3 9 5 4h14l2 5M4 9v11h16V9\"/><path d=\"M3 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3M10 20v-5h4v5\"/>", "pay": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M3 10h18M7 15h4\"/>", "check": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m8 12 3 3 5-6\"/>", "scale": "<path d=\"M12 3v18M5 21h14M5 7h14\"/><path d=\"M5 7 2 13a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z\"/>", "pm": "<circle cx=\"12\" cy=\"7\" r=\"4\"/><path d=\"M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8\"/>"};
 const LIT="What the literature says";
 const lt=(ic,c,h,f)=>`<div class="lt2" style="--c:${c}"><i><svg viewBox="0 0 24 24">${LI[ic]}</svg></i><b>${h}</b><span>${f}</span></div>`;
 const mdl=(ic,m,g,bad)=>`<div class="m2"><i><svg viewBox="0 0 24 24">${LI[ic]}</svg></i><b>${m}</b><p class="g">${g}</p><p class="b">${bad}</p></div>`;
-const QS=[['How do they actually source?','1, 2'],['How much do networks matter?','3'],['How is credibility judged?','4'],['What information do they need?','4, 6'],['Would they use one platform?','5'],['No study combines the pieces','6']];
+const QS=[['How do they actually source?','1, 2'],['How much do networks matter?','3'],['How is credibility judged?','4'],['What information do they need?','4, 6'],['Would they use one platform?','5'],['Room to combine the pieces','6']];
 FILL[LIT]={wide:true,h:900,html:`
   <div class="lab"><i style="--c:#895100">Research</i>Literature review</div>
   <h2 class="big one">What the literature says</h2>
   <div class="ideas">
-   ${lt('comm','#1A3C7B','Communities share, but fade','A community alone is not enough')}
-   ${lt('frag','#895100','Information scatters','Consolidate verified listings')}
+   ${lt('comm','#1A3C7B','Communities share, and need upkeep','Community works best with structure')}
+   ${lt('frag','#895100','Information is spread out','Consolidate verified listings')}
    ${lt('two','#6B4E8A','Both sides must win','Solve the cold start')}
    ${lt('slow','#2E7D5B','Small businesses adopt slowly','Affordable, easy, always fresh')}
-   ${lt('img','#C8432A','A photo is not a fabric','Photos plus a physical sample')}
+   ${lt('img','#C8432A','A fabric is more than its photo','Photos plus a physical sample')}
    ${lt('trust','#0F5D6C','Trust drives adoption','Verification, escrow, the vouch')}
   </div>
-  <div class="gaprow"><h3>Gaps the research leaves open</h3>
+  <div class="gaprow"><h3>Opportunities the research leaves open</h3>
    <div>${QS.map(([q,o])=>`<span><i>?</i><b>${q}</b><em>Objective ${o}</em></span>`).join('')}</div></div>
   <p class="refline">Wasko & Faraj 2005 · Faraj et al. 2011 · Bakos 1997 · George & Hogendorn 2012 · Rochet & Tirole 2003 · Armstrong 2006 · Hein et al. 2020 · Casciani et al. 2022 · Heim 2022 · Dagan et al. 2021 · McKnight et al. 2002 · Davis 1989 · Wixom & Todd 2005 · Gefen et al. 2003 · Pavlou & Gefen 2004 · Pavlou & Dimoka 2006</p>`};
-FILL["Her first order falls apart"]={wide:true,h:940,html:`
-  <div class="lab"><i style="--c:#C8432A">Problem</i>As-is storyboard</div>
-  <h2 class="big one">Her first order falls apart</h2>
+FILL["Her first order, as it happens today"]={wide:true,h:940,html:`
+  <div class="lab"><i style="--c:#C8432A">Challenge</i>As-is storyboard</div>
+  <h2 class="big one">Her first order, as it happens today</h2>
   <img class="sb" src="asis-storyboard.jpg" alt="As-is storyboard in 12 frames: Naina's first collection of 100 kurtas, from asking around to back to zero, on two routes: going herself or paying an agent">`};
 FILL["How might we"]={wide:true,h:820,html:`
-  <div class="lab"><i style="--c:#C8432A">Problem</i>Problem statement</div>
+  <div class="lab"><i style="--c:#C8432A">Challenge</i>Challenge statement</div>
   <div class="hmw">
    <div class="hst"><em>How might we</em><p>turn the introductions India's craft sector already runs on into a <mark>trusted, lasting record</mark>, so emerging designers can find and choose makers with confidence?</p></div>
   </div>`};
@@ -960,22 +960,22 @@ FILL["How the idea changed"]={wide:true,h:1080,html:`
     <div class="big1"><i><svg viewBox="0 0 24 24">${LI.comm}</svg></i><b>A community</b><span>built on asking seniors, alumni and classmates</span></div>
     <div class="duo"><div><b>69.6%</b><span>most used</span></div><div><b>93%</b><span>most trusted</span></div></div></div>
    <div class="ac c2"><header><small>02 – 04</small>We learned</header>
-    ${mp('slow','Communities fade','They last only while members keep contributing','Wasko & Faraj 2005')}
-    ${mp('frag','Information scatters','Unverified and quickly outdated','78.6% can\'t find contacts')}
-    ${mp('store','Providers are hidden too','Tailors and vendors live on referrals','Both sides')}</div>
+    ${mp('slow','Communities need upkeep','They thrive while members keep contributing','Wasko & Faraj 2005')}
+    ${mp('frag','Information is spread out','Needs verifying and refreshing','78.6% want accurate contacts')}
+    ${mp('store','Providers want visibility too','Tailors and vendors live on referrals','Both sides')}</div>
    <div class="ac c3"><header><small>05 – 07</small>We decided</header>
     <div class="mods"><span class="x">Community</span><span class="x">Directory</span><span class="x">Marketplace</span><span class="ok">Aggregator</span></div>
     ${mp('two','Two sides, one platform','Who joins, who pays, where value comes from','Rochet & Tirole 2003')}
     ${mp('trust','Trust at the centre','Verified listings, not just more listings','5.4% → 73.2%')}</div>
    <div class="ac c4"><header><small>08</small>We checked</header>
     <div class="huge"><b>94.6%</b><span>find one place useful</span></div>
-    <div class="duo"><div><b>71.4%</b><span>top score</span></div><div><b>42.9%</b><span>doubt listings: a data problem</span></div></div></div>
+    <div class="duo"><div><b>71.4%</b><span>top score</span></div><div><b>42.9%</b><span>question listings: a data challenge</span></div></div></div>
   </div>
-  <div class="arc-out"><small>09 · Outcome</small><p><s>Enabling conversations</s> → <strong>organising verified supplier information</strong></p><span>It wins only if it beats informal methods</span></div>`};
+  <div class="arc-out"><small>09 · Outcome</small><p><s>Enabling conversations</s> → <strong>organising verified supplier information</strong></p><span>It wins by beating informal methods</span></div>`};
 
-FILL["Where the worst moment moves"]={wide:true,h:940,html:`
+FILL["Where the turning point moves"]={wide:true,h:940,html:`
   <div class="lab"><i style="--c:#6B4E8A">Development</i>To-be storyboard</div>
-  <h2 class="big one">Where the worst moment moves</h2>
+  <h2 class="big one">Where the turning point moves</h2>
   <img class="sb" src="tobe-storyboard.jpg" alt="To-be storyboard in 12 frames: the same 100 kurtas with Threadline, from vouched makers and protected payment to the next designer finding the record">`};
 FILL["How Threadline makes money"]={wide:true,h:800,html:`
   <div class="lab"><i style="--c:#2E7D5B">Viability</i>Revenue model</div>
@@ -988,7 +988,7 @@ FILL["How Threadline makes money"]={wide:true,h:800,html:`
   </div>
   <div class="plans">
    ${[['Free','₹0','5%','Browse, map, 3 open requests'],['Student','College pays','4%','5 requests, all guides'],['Pro','₹3,999 / yr','3%','Unlimited requests, priority match'],['Studio','₹11,999 / yr','2.5%','3 seats, GST invoices']].map(([n,p,f,d],i)=>`<div class="${i==2?'hi':''}"><small>${n}</small><b>${p}</b><em>${f} fee</em><span>${d}</span></div>`).join('')}
-   <div class="never"><small>Never for sale</small><span>✕ The verified badge</span><span>✕ Ratings</span><span>✕ Who gets a request</span></div>
+   <div class="never"><small>Earned, not bought</small><span>✓ The verified badge</span><span>✓ Ratings</span><span>✓ Who gets a request</span></div>
   </div>`};
 FILL["One order, followed"]={wide:true,h:780,html:`
   <div class="lab"><i style="--c:#2E7D5B">Viability</i>Unit economics</div>
@@ -1016,7 +1016,7 @@ FILL["Five years, base case"]={wide:true,h:860,html:`
     <div class="cases"><small>Year 5 EBITDA if it goes</small><p><span>Badly</span><b>₹3.3 cr</b></p><p><span>Base</span><b>₹9.8 cr</b></p><p><span>Well</span><b>₹18 cr</b></p></div>
    </div>
   </div>
-  <p class="refline">Projections from our own model, not actuals: no pilot data exists yet. ₹298 cr of orders by Year 5 is 0.04% of an ₹8 lakh crore market.</p>`};
+  <p class="refline">Projections from our own model; pilot data comes next. ₹298 cr of orders by Year 5 is 0.04% of an ₹8 lakh crore market.</p>`};
 FILL["Start dense, then spread"]={wide:true,h:760,html:`
   <div class="lab"><i style="--c:#2E7D5B">Viability</i>Launch and capital</div>
   <h2 class="big one">Start dense, then spread</h2>
@@ -1027,21 +1027,21 @@ FILL["Start dense, then spread"]={wide:true,h:760,html:`
    <div class="chq"><small>Pre-seed · now</small><b>₹60 L</b><span>Builds the app, onboards the Bagru cluster, runs the Pune pilot</span><em>Grants, university incubator, angels</em></div>
    <div class="gate"><span>only if the pilot shows designers come back and makers reply</span></div>
    <div class="chq"><small>Seed · Year 2</small><b>₹2.5 cr</b><span>Mumbai and six cities, with a year of buffer</span></div>
-   <div class="cash"><div><b>₹1.96 cr</b><span>deepest loss, end of Year 3</span></div><div><b>₹16 L</b><span>cash never drops below this</span></div></div>
+   <div class="cash"><div><b>₹1.96 cr</b><span>peak investment, end of Year 3</span></div><div><b>₹16 L</b><span>cash stays above this</span></div></div>
   </div>`};
-FILL["What could break it"]={wide:true,h:780,html:`
-  <div class="lab"><i style="--c:#2E7D5B">Viability</i>Risks</div>
-  <h2 class="big one">What could break it</h2>
-  <div class="watch"><small>The one number we watch</small><b>Briefs with 3+ quotes inside 24 hours</b><span>If designers post and hear nothing, they leave. At 24 h the search widens; at 72 h a person calls.</span></div>
+FILL["What we are planning for"]={wide:true,h:780,html:`
+  <div class="lab"><i style="--c:#2E7D5B">Viability</i>Safeguards</div>
+  <h2 class="big one">What we are planning for</h2>
+  <div class="watch"><small>The one number we watch</small><b>Briefs with 3+ quotes inside 24 hours</b><span>Designers stay when they hear back quickly. At 24 h the search widens; at 72 h a person calls.</span></div>
   <div class="risks">
-   ${[['Going around us','Numbers hidden until booking; tracking, escrow and reorders only work in the app'],['Makers leaving','IndiaMART lost 4–7% of basic suppliers a month after a price rise. Our listing stays free'],['Why would a maker share?','Our central open question: we test a portable record of vouched work plus new customers'],['₹299–499 can\'t fund a human','PMs need enough orders each, or Premium is priced per studio; AI does the rest'],['More disputes','0.3% of order value reserved; sample approval before bulk production'],['Tax paperwork','GST TCS and TDS on payouts, budgeted from Year 1']].map(([h,t])=>`<div><b>${h}</b><span>${t}</span></div>`).join('')}
+   ${[['Keeping orders on Threadline','Numbers hidden until booking; tracking, escrow and reorders only work in the app'],['Keeping makers','IndiaMART lost 4–7% of basic suppliers a month after a price rise. Our listing stays free'],['Why would a maker share?','Our central open question: we test a portable record of vouched work plus new customers'],['Making ₹299–499 cover a human','PMs need enough orders each, or Premium is priced per studio; AI does the rest'],['Handling disputes','0.3% of order value reserved; sample approval before bulk production'],['Tax paperwork','GST TCS and TDS on payouts, budgeted from Year 1']].map(([h,t])=>`<div><b>${h}</b><span>${t}</span></div>`).join('')}
   </div>`};
 FILL["What we can defend, and what we haven't tested"]={wide:true,h:480,html:`
   <div class="lab"><i style="--c:#0C1D3D">Close</i>Sustainable Development Goals</div>
   <h2 class="big one">Where Threadline meets the SDGs</h2>
   <div class="sdg">
    <div style="--s:#C5192D"><b>4</b><div><small>Quality Education</small><strong>Learning the trade</strong>
-    <span>Open guides and a failure log teach students how sourcing really works.</span><em>Target 4.4</em></div></div>
+    <span>Open guides and a learning log teach students how sourcing really works.</span><em>Target 4.4</em></div></div>
    <div style="--s:#FD6925"><b>9</b><div><small>Industry, Innovation and Infrastructure</small><strong>Small makers, seen</strong>
     <span>Verified pages and safe payments bring karigars into the value chain.</span><em>Target 9.3</em></div></div>
   </div>`};
@@ -1050,7 +1050,7 @@ FILL["What's next"]={wide:true,h:480,html:`
   <h2 class="big one">What's next</h2>
   <div class="nx">
    <div><div class="hd2"><b>1</b><small>Listen</small></div><strong>Validate with karigars, designers and colleges</strong></div>
-   <div><div class="hd2"><b>2</b><small>Test</small></div><strong>Ask makers the hard question: why would they share?</strong></div>
+   <div><div class="hd2"><b>2</b><small>Test</small></div><strong>Ask makers the big question: why would they share?</strong></div>
    <div><div class="hd2"><b>3</b><small>Pilot</small></div><strong>A few real orders in Pune</strong><em>Judged on 3+ quotes in 24 hours</em></div>
   </div>`};
 /* ---------- Solution section (rebuilt) ---------- */
@@ -1061,7 +1061,7 @@ FILL["Threadline: Know, Find, Make"]={wide:true,h:640,html:`
   <h2 class="big one withm">Threadline: Know, Find, Make</h2>
   <img class="masc sx-masc" src="peacock.png" alt="Threadline peacock mascot">
   <div class="sx-kfm">
-   <div style="--c:#0F5D6C"><em>Know</em><b>Learn the market</b><ul><li>Threads answered by seniors and makers</li><li>Market lane guides, trade glossary, fabric library</li><li>A failure log of what went wrong, and why</li><li>Free on every plan</li></ul></div>
+   <div style="--c:#0F5D6C"><em>Know</em><b>Learn the market</b><ul><li>Threads answered by seniors and makers</li><li>Market lane guides, trade glossary, fabric library</li><li>A learning log of what we tried, and what we learned</li><li>Free on every plan</li></ul></div>
    <div style="--c:#895100"><em>Find</em><b>Makers you can trust</b><ul><li>Maker pages with named vouches from your circles</li><li>Filter by craft, city and minimum order</li><li>Save makers to My Book</li></ul></div>
    <div style="--c:#1A3C7B"><em>Make</em><b>A managed order</b><ul><li>Brief to delivery in one Order Thread</li><li>Run it yourself, or let Threadline manage it</li><li>Money released only as the work moves</li></ul></div>
   </div>`};
@@ -1091,7 +1091,7 @@ const JOURNEYS=[
  ["#2E7D5B","Imran gets work","Karigar · WhatsApp",[
   ["New request","The brief arrives in Hindi"],["Quote or ask","By voice note or text"],["Confirm the order","Within 24 hours; 30% advance"],["Count the fabric","Photo before cutting"],["Post the sample","Then stage updates and delays"],["Dispatch","Count must match the order"],["Get paid","The rest as each stage clears"],["Get vouched","It lands on his page"]]],
  ["#895100","Naina learns before she buys","Designer · Know and Find",[
-  ["Join circles","Her batch, her city, her craft"],["Read guides","Market lanes, glossary, failure log"],["Ask the circle","Answers from seniors and makers"],["Discover makers","Filter by craft, city, minimum"],["Save to My Book","Ready for her next brief"]]]];
+  ["Join circles","Her batch, her city, her craft"],["Read guides","Market lanes, glossary, learning log"],["Ask the circle","Answers from seniors and makers"],["Discover makers","Filter by craft, city, minimum"],["Save to My Book","Ready for her next brief"]]]];
 FILL["The main journeys"]={wide:true,h:860,html:`
   ${slab('Main journeys')}
   <h2 class="big one">The main journeys through Threadline</h2>
@@ -1148,16 +1148,16 @@ FILL["The maker's side"]={wide:true,h:700,html:`
    <div><b>Work gets tracked</b><ul><li>Fabric count and sample photos sent from the chat</li><li>Stage updates and delays as a photo or voice note</li><li>Every 14 days: "Free for new orders this month?"</li></ul></div>
    <div><b>They get paid and seen</b><ul><li>A message at each of the three payments</li><li>Money straight to their own bank account</li><li>A page link with their vouches, to share and win work</li></ul></div>
   </div>
-  <div class="sx-both"><b>Behind the chat</b><span>Each order keeps one record, the Order Thread</span><span>The designer sees it all, translated, with the original kept</span><span>The field team calls if a maker goes quiet</span></div>`};
-FILL["When things go wrong"]={wide:true,h:640,html:`
-  ${slab('When things go wrong')}
-  <h2 class="big one">When things go wrong</h2>
+  <div class="sx-both"><b>Behind the chat</b><span>Each order keeps one record, the Order Thread</span><span>The designer sees it all, translated, with the original kept</span><span>The field team checks in if a maker is slow to reply</span></div>`};
+FILL["When plans change"]={wide:true,h:640,html:`
+  ${slab('When plans change')}
+  <h2 class="big one">When plans change</h2>
   <div class="sx-wrong">
-   <div><b>Too few quotes</b><span>Fewer than 3 in 24 hours, and we offer to widen the search.</span></div>
-   <div><b>Maker doesn't confirm</b><span>No confirmation in 24 hours: full refund, and her next best quotes.</span></div>
-   <div><b>Fabric arrives short</b><span>Counted with a photo on arrival, so shortfalls show before cutting.</span></div>
+   <div><b>Fewer quotes than expected</b><span>Fewer than 3 in 24 hours, and we offer to widen the search.</span></div>
+   <div><b>Maker is unavailable</b><span>No confirmation in 24 hours: full refund, and her next best quotes.</span></div>
+   <div><b>Fabric quantity differs</b><span>Counted with a photo on arrival, so shortfalls show before cutting.</span></div>
    <div><b>Maker posts a delay</b><span>The date can only move later. She accepts it, or cancels the part not started.</span></div>
-   <div><b>Some pieces are faulty</b><span>Accept the good pieces now; only the disputed amount is held, with photos.</span></div>
+   <div><b>Some pieces need fixing</b><span>Accept the good pieces now; only the disputed amount is held, with photos.</span></div>
    <div><b>The maker has 48 hours</b><span>To reply with a fix. If not, Threadline steps in and decides in her favour by default.</span></div>
   </div>
   <p class="cap"><b>Still open, for the team to decide:</b> who pays for fabric spoiled in printing, and what Threadline promises if a design is copied.</p>`};
